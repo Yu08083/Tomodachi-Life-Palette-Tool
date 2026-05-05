@@ -26,7 +26,7 @@
 ## 使い方
 
 `index.html` をブラウザで開くだけ。
-
+https://yu08083.github.io/Tomodachi-Life-Palette-Tool/
 ## ライセンス
 
 [MIT License](./LICENSE)

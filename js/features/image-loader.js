@@ -1,0 +1,245 @@
+
+
+function attachUploadHandlers() {
+
+  dropZone.addEventListener('click', () => fileInput.click());
+
+  fileInput.addEventListener('change', e => loadImageFile(e.target.files[0]));
+
+  dropZone.addEventListener('dragover', e => {
+    e.preventDefault();
+    dropZone.classList.add('dragover');
+  });
+  dropZone.addEventListener('dragleave', () => {
+    dropZone.classList.remove('dragover');
+  });
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) loadImageFile(file);
+  });
+
+  if (demoBtn) {
+    demoBtn.addEventListener('click', loadDemoImage);
+  }
+
+  resetBtn.addEventListener('click', () => {
+    uploadSec.classList.remove('hidden');
+    mainContent.classList.add('hidden');
+    closeCropTool();
+    imgData = null;
+    convertedData = null;
+    rawSourceCanvas = null;
+    viewMode = 'original';
+    fileInput.value = '';
+    noSelectMsg.classList.remove('hidden');
+    colorInfo.classList.add('hidden');
+    hoverPaletteIdx = -1;
+    lastSelPx = -1;
+    lastSelPy = -1;
+    rebuildRecipe();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  const recropBtn = document.getElementById('recrop-btn');
+  if (recropBtn) {
+    recropBtn.addEventListener('click', () => {
+      if (!rawSourceCanvas) return;
+      mainContent.classList.add('hidden');
+      openCropTool(rawSourceCanvas);
+    });
+  }
+}
+
+function loadImageFile(file) {
+  if (!file) return;
+
+  const url = URL.createObjectURL(file);
+  const img = new Image();
+
+  img.onload = () => {
+    if (img.width >= 1920 || img.height >= 1080) {
+      alert(
+        '画像が大きすぎます！\n' +
+        '軽量化のため、1920×1080未満の画像をご使用ください。\n' +
+        '※推奨: 128×128ピクセル以下のドット絵'
+      );
+      URL.revokeObjectURL(url);
+      return;
+    }
+
+    const tmp = document.createElement('canvas');
+    tmp.width  = img.width;
+    tmp.height = img.height;
+    const ctx = tmp.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+
+    URL.revokeObjectURL(url);
+
+    rawSourceCanvas = tmp;
+
+    if (img.width === img.height) {
+      finalizeImageLoad(tmp, false);
+    } else {
+
+      openCropTool(tmp);
+    }
+  };
+
+  img.onerror = () => {
+    alert('画像の読み込みに失敗しました。');
+    URL.revokeObjectURL(url);
+  };
+
+  img.src = url;
+}
+
+function finalizeImageLoad(canvas, isCropped) {
+  const w = canvas.width;
+  const h = canvas.height;
+  const ctx = canvas.getContext('2d');
+
+  imgData = {
+    width: w,
+    height: h,
+    data: ctx.getImageData(0, 0, w, h).data,
+    originalCanvas: canvas,
+    cropped: isCropped
+  };
+
+  convertedData = null;
+  viewMode = 'original';
+  document.getElementById('view-original-btn').classList.add('active');
+  document.getElementById('view-converted-btn').classList.remove('active');
+  document.getElementById('convert-controls').classList.add('hidden');
+  const dlBtnInit = document.getElementById('download-btn');
+  if (dlBtnInit) dlBtnInit.classList.add('hidden');
+  const dlPbnInit = document.getElementById('download-pbn-btn');
+  if (dlPbnInit) dlPbnInit.classList.add('hidden');
+
+  if (w <= 16 && h <= 16)        zoom = 16;
+  else if (w <= 32 && h <= 32)   zoom = 8;
+  else if (w <= 64 && h <= 64)   zoom = 4;
+  else if (w <= 128 && h <= 128) zoom = 2;
+  else                           zoom = 1;
+
+  updateImgInfo();
+  setupCanvases();
+  buildPaletteGrid();
+  rebuildRecipe();
+
+  lastSelPx = -1;
+  lastSelPy = -1;
+  hoverPaletteIdx = -1;
+  noSelectMsg.classList.remove('hidden');
+  colorInfo.classList.add('hidden');
+
+  uploadSec.classList.add('hidden');
+  closeCropTool();
+  mainContent.classList.remove('hidden');
+
+  const recropBtn = document.getElementById('recrop-btn');
+  if (recropBtn && rawSourceCanvas) {
+    const showRecrop = (rawSourceCanvas.width !== rawSourceCanvas.height);
+    recropBtn.classList.toggle('hidden', !showRecrop);
+  }
+
+  setTimeout(() => {
+    mainContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 50);
+}
+
+function generateDemoCanvas() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 16;
+  canvas.height = 16;
+  const ctx = canvas.getContext('2d');
+  ctx.imageSmoothingEnabled = false;
+  ctx.clearRect(0, 0, 16, 16);
+
+  const COLORS = {
+    'Y': '#FFD43A', 'O': '#E08800',
+    'B': '#3A2A1F', 'R': '#FF6B7A', 'M': '#D63333'
+  };
+
+  const PATTERN = [
+    '....OOOOOOOO....',
+    '..OOYYYYYYYYOO..',
+    '.OYYYYYYYYYYYYO.',
+    '.OYYYYYYYYYYYYO.',
+    'OYYYBBYYYYBBYYYO',
+    'OYYYBBYYYYBBYYYO',
+    'OYYYYYYYYYYYYYYO',
+    'OYRRYYYYYYYYRRYO',
+    'OYRRYYYYYYYYRRYO',
+    'OYYYYYMYYMYYYYYO',
+    'OYYYYYMMMMYYYYYO',
+    'OYYYYYYMMYYYYYYO',
+    '.OYYYYYYYYYYYYO.',
+    '.OYYYYYYYYYYYYO.',
+    '..OOYYYYYYYYOO..',
+    '....OOOOOOOO....',
+  ];
+
+  for (let y = 0; y < 16; y++) {
+    for (let x = 0; x < 16; x++) {
+      const ch = PATTERN[y][x];
+      if (ch === '.') continue;
+      ctx.fillStyle = COLORS[ch] || '#FF00FF';
+      ctx.fillRect(x, y, 1, 1);
+    }
+  }
+  return canvas;
+}
+
+function loadDemoImage() {
+  const canvas = generateDemoCanvas();
+  canvas.toBlob(blob => {
+    if (!blob) {
+      alert('デモ画像の生成に失敗しました');
+      return;
+    }
+    loadImageFile(blob);
+  }, 'image/png');
+}
+
+function parseHexInput(s) {
+  if (!s) return null;
+  let h = s.trim().replace(/^#/, '').toLowerCase();
+  if (!/^[0-9a-f]+$/.test(h)) return null;
+
+  if (h.length === 3) {
+    h = h.split('').map(c => c + c).join('');
+  }
+  if (h.length !== 6) return null;
+
+  const v = parseInt(h, 16);
+  return {
+    r: (v >> 16) & 255,
+    g: (v >> 8) & 255,
+    b: v & 255
+  };
+}
+
+function attachHexInput() {
+  const input = document.getElementById('hex-input');
+  const btn   = document.getElementById('hex-input-btn');
+  if (!input || !btn) return;
+
+  const submit = () => {
+    const rgb = parseHexInput(input.value);
+    if (!rgb) {
+      input.classList.add('error');
+      setTimeout(() => input.classList.remove('error'), 800);
+      return;
+    }
+    input.classList.remove('error');
+    selectColor(rgb.r, rgb.g, rgb.b, -1, -1);
+  };
+
+  btn.addEventListener('click', submit);
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') submit();
+  });
+}

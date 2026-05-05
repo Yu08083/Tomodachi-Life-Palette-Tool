@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#FF6B1A">
+  <title>すぽいと帳 ｜ トモダチコレクション わくわく生活用</title>
+  <meta name="description" content="トモダチコレクション わくわく生活のペイント機能で使える色合わせツール。画像から色を拾い、ゲーム内パレットや手順を表示します。">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="./assets/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon-180.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/base/base.css">
+  <link rel="stylesheet" href="./css/base/header.css">
+  <link rel="stylesheet" href="./css/layout/panels.css">
+  <link rel="stylesheet" href="./css/layout/modal.css">
+  <link rel="stylesheet" href="./css/features/upload.css">
+  <link rel="stylesheet" href="./css/features/crop.css">
+  <link rel="stylesheet" href="./css/features/canvas.css">
+  <link rel="stylesheet" href="./css/features/view-mode.css">
+  <link rel="stylesheet" href="./css/features/color-info.css">
+  <link rel="stylesheet" href="./css/features/palette.css">
+  <link rel="stylesheet" href="./css/features/fullcolor.css">
+  <link rel="stylesheet" href="./css/features/recipe.css">
+  <link rel="stylesheet" href="./css/features/favorites.css">
+  <link rel="stylesheet" href="./css/features/notice.css">
+  <link rel="stylesheet" href="./css/layout/mobile.css">
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="header-title">
+        <h1>すぽいと帳</h1>
+        <span class="subtitle">トモダチコレクション わくわく生活用</span>
+      </div>
+      <span class="header-meta">made by yu</span>
+    </div>
+  </header>
+
+  <main>
+    <section id="upload-section">
+      <div id="drop-zone">
+        <div class="drop-icon">
+          <img class="drop-icon-img" src="./assets/favicon.png" alt="">
+          <span class="drop-sparkle s1"></span>
+          <span class="drop-sparkle s2"></span>
+          <span class="drop-sparkle s3"></span>
+          <span class="drop-sparkle s4"></span>
+        </div>
+        <p class="drop-title">画像をドロップ または クリック</p>
+        <div class="drop-format-tags">
+          <span class="format-tag">PNG</span>
+          <span class="format-tag">JPG</span>
+          <span class="format-tag">GIF</span>
+          <span class="format-tag">WEBP</span>
+        </div>
+        <div class="drop-divider"></div>
+        <p class="drop-note">
+          <span class="drop-sub warn">1920×1080以上の画像は読み込めません</span><br>
+          ※軽量化のため、128×128以下のドット絵を推奨。<br>
+          正方形でない画像は次の画面で1:1に切り出せます。
+        </p>
+        <input type="file" id="file-input" accept="image/*" hidden>
+      </div>
+      <div class="top-buttons">
+        <button class="btn accent" id="demo-btn">デモ画像で試す</button>
+        <button class="btn ghost" onclick="openModal('modal-guide')">使い方を見る</button>
+      </div>
+    </section>
+
+    <section id="crop-section" class="hidden">
+      <div class="crop-panel">
+        <div class="crop-header">
+          <span class="label">CROP</span>
+          <h2>画像を正方形に切り出す</h2>
+          <p>角の□ハンドルでサイズ変更、内側ドラッグで位置調整。<br>
+             ゲーム内ペイント領域は正方形なので、使いたい範囲を1:1で選んでください。</p>
+        </div>
+        <div class="crop-info-bar" id="crop-info">---</div>
+        <div class="crop-transform-bar">
+          <button class="btn small ghost" id="crop-flip-h-btn">左右反転</button>
+          <button class="btn small ghost" id="crop-flip-v-btn">上下反転</button>
+          <button class="btn small ghost" id="crop-rotate-btn">90°回転</button>
+        </div>
+        <div id="crop-canvas-wrap">
+          <canvas id="crop-canvas"></canvas>
+        </div>
+        <div class="crop-buttons">
+          <button class="btn primary" id="crop-apply-btn">この範囲で確定</button>
+          <button class="btn"         id="crop-cancel-btn">切り出さずに使う</button>
+          <button class="btn ghost tertiary" id="crop-reset-btn">中央リセット</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="main-content" class="hidden">
+      <div class="content-grid">
+
+        <div class="panel" id="image-panel">
+          <div class="panel-header">
+            <div class="panel-header-left">
+              <span class="panel-title">画像ビューア</span>
+              <span class="panel-subtitle">image viewer</span>
+            </div>
+            <div class="header-controls">
+              <div class="mode-toggle">
+                <button id="mode-select-btn" class="mode-btn active" onclick="setInteractionMode('select')">選択</button>
+                <button id="mode-move-btn"   class="mode-btn"        onclick="setInteractionMode('move')">移動</button>
+              </div>
+              <button id="ruler-btn" class="tool-btn" onclick="toggleRuler()">ルーラー</button>
+              <button class="tool-btn" onclick="openModal('modal-guide')">使い方</button>
+              <div class="zoom-controls">
+                <button id="zoom-out" class="zoom-btn" aria-label="ズームアウト">−</button>
+                <span id="zoom-label">1×</span>
+                <button id="zoom-in"  class="zoom-btn" aria-label="ズームイン">＋</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="view-tabs">
+            <button id="view-original-btn"  class="view-tab active">原画</button>
+            <button id="view-converted-btn" class="view-tab">ゲームパレット変換</button>
+          </div>
+
+          <div id="convert-controls" class="hidden">
+            <div class="cv-row">
+              <span class="cv-label">グリッドサイズ</span>
+              <div class="grid-size-buttons">
+                <button class="grid-size-btn"        data-size="16">16</button>
+                <button class="grid-size-btn"        data-size="24">24</button>
+                <button class="grid-size-btn active" data-size="32">32</button>
+                <button class="grid-size-btn"        data-size="48">48</button>
+                <button class="grid-size-btn"        data-size="64">64</button>
+                <button class="grid-size-btn"        data-size="128">128</button>
+                <button class="grid-size-btn"        data-size="192">192</button>
+                <button class="grid-size-btn"        data-size="256">256</button>
+              </div>
+            </div>
+            <div class="cv-row">
+              <span class="cv-label">オプション</span>
+              <label class="cv-toggle">
+                <input type="checkbox" id="dither-toggle">
+                <span>ディザ（誤差拡散）</span>
+              </label>
+              <span class="cv-hint">写真やグラデーションは ON 推奨</span>
+            </div>
+          </div>
+
+          <div class="img-info-bar">
+            <span class="info-key">SIZE</span><span id="img-info">---</span>
+          </div>
+
+          <div class="canvas-wrapper" id="canvas-wrapper">
+            <canvas id="pixel-canvas"></canvas>
+            <canvas id="overlay-canvas"></canvas>
+          </div>
+
+          <div class="canvas-hint">
+            ピクセルをクリック / タップして色を取得
+          </div>
+
+          <div class="image-actions">
+            <button id="download-btn" class="btn primary hidden">ドット絵を保存</button>
+            <button id="download-pbn-btn" class="btn accent hidden">番号塗り絵を保存</button>
+            <button id="recrop-btn" class="btn ghost hidden">クロップやり直し</button>
+            <button id="reset-btn"  class="btn ghost">別の画像を読み込む</button>
+          </div>
+        </div>
+
+        <div class="panel" id="info-panel">
+          <div class="panel-header">
+            <div class="panel-header-left">
+              <span class="panel-title">カラー情報</span>
+              <span class="panel-subtitle">color information</span>
+            </div>
+          </div>
+
+          <div class="hex-input-bar">
+            <label for="hex-input">HEX</label>
+            <input type="text" id="hex-input" placeholder="#FF6B1A" autocomplete="off" spellcheck="false">
+            <button id="hex-input-btn" class="btn small primary">確認</button>
+          </div>
+
+          <div id="no-select-msg">
+            <div class="ns-icon"></div>
+            <p>左の画像のピクセルをクリック<br>または HEXコードを上に入力してください</p>
+          </div>
+
+          <div id="color-info" class="hidden">
+
+            <div class="info-block">
+              <div class="info-label">
+                選択した色
+                <button class="btn tiny" id="fav-add-btn" style="margin-left:auto;">お気に入りに追加</button>
+              </div>
+              <div class="selected-color-row">
+                <div id="selected-swatch" class="swatch-big"></div>
+                <div class="color-codes">
+                  <div class="code-row"><span class="code-key">POS</span><span id="pixel-pos" class="code-val">-</span></div>
+                  <div class="code-row"><span class="code-key">HEX</span><span id="hex-val"   class="code-val">#------</span></div>
+                  <div class="code-row"><span class="code-key">RGB</span><span id="rgb-val"   class="code-val">---,---,---</span></div>
+                  <div class="code-row"><span class="code-key">HSV</span><span id="hsv-val"   class="code-val">---°,---,---</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-row">
+              <button class="tab-btn active" id="tab-palette"   onclick="switchTab('palette')">カラーパレット</button>
+              <button class="tab-btn"        id="tab-fullcolor" onclick="switchTab('fullcolor')">フルカラー</button>
+            </div>
+
+            <div id="mode-palette" class="mode-content">
+              <div class="info-block">
+                <div class="info-label">最も近いパレットの色</div>
+                <div class="closest-row">
+                  <div id="closest-swatch" class="swatch-big"></div>
+                  <div class="closest-info">
+                    <div class="code-row"><span class="code-key">HEX</span><span id="closest-hex"  class="code-val">#------</span></div>
+                    <div class="code-row"><span class="code-key">POS</span><span id="closest-pos"  class="code-val">---行 ---列</span></div>
+                    <div class="code-row"><span class="code-key">DIST</span><span id="closest-dist" class="code-val">---</span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="info-block">
+                <div class="info-label">パレット 84色</div>
+                <div id="palette-grid" class="palette-grid"></div>
+                <p class="palette-note">枠付きが最も近い色。色にhover/タップで該当セルが画像内でハイライト表示されます。</p>
+              </div>
+            </div>
+
+            <div id="mode-fullcolor" class="mode-content hidden">
+              <div class="info-block">
+                <div class="info-label">フルカラー ガイド</div>
+                <div class="fullcolor-guide">
+
+                  <div class="guide-section">
+                    <div class="guide-label"><span class="guide-num">01</span> カラー正方形（彩度×明度）</div>
+                    <div class="sv-square-wrap">
+                      <canvas id="sv-canvas"></canvas>
+                      <div class="sv-indicator" id="sv-indicator"></div>
+                    </div>
+                    <div class="sv-labels">
+                      <div><span>← 白/灰（左）</span><span>鮮やか（右） →</span></div>
+                      <div><span>↑ 明るい（上）</span><span>↓ 暗い（下）</span></div>
+                    </div>
+                    <p class="guide-val">
+                      彩度（X）：一番左から右へ <strong>約 <span id="sat-presses-r">--</span> 回</strong><br>
+                      　（一番右から左へ <strong>約 <span id="sat-presses-l">--</span> 回</strong>）<br>
+                      明度（Y）：一番上から下へ <strong>約 <span id="val-presses-d">--</span> 回</strong><br>
+                      　（一番下から上へ <strong>約 <span id="val-presses-u">--</span> 回</strong>）
+                      <span class="guide-note">操作回数は100回基準の予測値です。</span>
+                    </p>
+                  </div>
+
+                  <div class="guide-section">
+                    <div class="guide-label"><span class="guide-num">02</span> 色相スライダー（ZL ⇔ ZR）</div>
+                    <div class="hue-slider-wrap">
+                      <div class="hue-slider-bar" id="hue-bar"></div>
+                      <div class="hue-indicator" id="hue-indicator"></div>
+                    </div>
+                    <div class="hue-labels">
+                      <span>ZL（赤 0°）</span><span>ZR（赤 360°）</span>
+                    </div>
+                    <p class="guide-val">
+                      色相: <strong id="hue-num">---</strong>°<br>
+                      → 一番左からZRを <strong>約 <span id="hue-presses-r">--</span> 回</strong> 押す<br>
+                      　（一番右からZLなら <strong>約 <span id="hue-presses-l">--</span> 回</strong>）
+                    </p>
+                  </div>
+
+                  <div class="guide-section">
+                    <div class="guide-label">
+                      <span class="guide-num">03</span> ゲーム内でこの色を選ぶ手順
+                      <button class="btn tiny" id="copy-steps-btn">手順をコピー</button>
+                    </div>
+                    <div id="steps-box" class="steps-box"></div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div id="recipe-wrap" class="hidden">
+              <div class="recipe-header">
+                <div class="info-label">使用色レシピ</div>
+                <span class="recipe-summary" id="recipe-summary"></span>
+              </div>
+              <div class="recipe-list" id="recipe-list"></div>
+              <p class="recipe-foot">行をhover/タップで画像内の該当セルがハイライトされます。</p>
+            </div>
+
+          </div>
+
+          <div id="favorites-wrap">
+            <div class="favorites-header">
+              <div class="info-label">お気に入り色</div>
+              <div class="favorites-actions">
+                <span id="favorites-count">0 / 24</span>
+                <button class="btn tiny ghost" id="fav-clear-btn">全削除</button>
+              </div>
+            </div>
+            <div id="favorites-empty">
+              選択中の色を「お気に入りに追加」で記憶できます
+            </div>
+            <div id="favorites-list" class="favorites-list hidden"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="notice-section">
+      <div class="notice-panel">
+        <div class="notice-header">
+          <span class="label">NOTICE</span>
+          <h2>ご利用にあたって</h2>
+        </div>
+        <div class="notice-list">
+
+          <div class="notice-item">
+            <div class="notice-mark"></div>
+            <div class="notice-body">
+              <div class="notice-title">画像はサーバーに送信されません</div>
+              <div class="notice-desc">すべての処理はブラウザ内で完結します。</div>
+            </div>
+          </div>
+
+          <div class="notice-item">
+            <div class="notice-mark"></div>
+            <div class="notice-body">
+              <div class="notice-title">作品の権利は使用者に帰属します</div>
+              <div class="notice-desc">本ツールで制作した作品は自由に配布・公開できます。</div>
+            </div>
+          </div>
+
+          <div class="notice-item">
+            <div class="notice-mark"></div>
+            <div class="notice-body">
+              <div class="notice-title">ツールの使用・紹介・改良は自由です</div>
+              <div class="notice-desc">詳細は<a href="https://github.com/Yu08083/Tomodachi-Life-Palette-Tool" target="_blank" rel="noopener">GitHub</a>のライセンスをご確認ください。</div>
+            </div>
+          </div>
+
+          <div class="notice-item">
+            <div class="notice-mark"></div>
+            <div class="notice-body">
+              <div class="notice-title">お問い合わせ</div>
+              <div class="notice-desc"><a href="https://x.com/yu_" target="_blank" rel="noopener">X（@yu_）</a> または <a href="https://github.com/Yu08083/Tomodachi-Life-Palette-Tool/issues" target="_blank" rel="noopener">GitHub Issues</a> へどうぞ。</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p class="foot-line">すぽいと帳</p>
+    <p class="foot-line">
+      <a href="https://github.com/Yu08083/Tomodachi-Life-Palette-Tool" target="_blank" rel="noopener">GitHub</a>
+      &nbsp;/&nbsp;
+      <a href="https://x.com/yu_" target="_blank" rel="noopener">X</a>
+    </p>
+  </footer>
+
+  <div class="modal hidden" id="modal-guide">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal('modal-guide')" aria-label="閉じる">×</button>
+      <div class="modal-body">
+        <h2>使い方</h2>
+
+        <h3>01 / 画像を読み込む</h3>
+        <p>枠に画像をドロップ、または枠をタップしてファイルを選択。手元に画像が無ければ <strong>デモ画像で試す</strong> から開始できます。</p>
+
+        <h3>02 / 1:1 に切り出す（正方形でない場合）</h3>
+        <ul>
+          <li>角の □ ハンドルでサイズ変更（縦横比は1:1で固定）</li>
+          <li>枠の内側をドラッグで位置調整</li>
+          <li><strong>この範囲で確定</strong>：選択範囲を切り出してメイン画面へ</li>
+          <li><strong>切り出さずに使う</strong>：元画像のままメイン画面へ</li>
+          <li><strong>中央リセット</strong>：選択枠を最大の正方形に戻す</li>
+          <li>切り出し後、メイン画面の <strong>クロップやり直し</strong> でいつでも再選択可能</li>
+        </ul>
+
+        <h3>03 / 原画 / 変換 を切り替える</h3>
+        <ul>
+          <li><strong>原画</strong>：アップロード／クロップ済みの画像をそのまま表示</li>
+          <li><strong>ゲームパレット変換</strong>：画像をゲーム内84色で塗り直したプレビュー（グリッドサイズ16〜64選択可、ディザのON/OFF切替可）</li>
+        </ul>
+
+        <h3>04 / ピクセルの色を取得する</h3>
+        <ol>
+          <li>選択モードのまま画像内のピクセルをタップ／クリック</li>
+          <li>右側に HEX / RGB / HSV と最も近いパレット色が表示</li>
+        </ol>
+
+        <h3>05 / 使用色レシピ・ハイライト</h3>
+        <p>変換ビュー時、下部に使用色レシピが表示。レシピ行 or パレットセルをhover/タップで画像内の該当セルが浮かび上がります。</p>
+
+        <h3>06 / HEX直接入力</h3>
+        <p>右上の <strong>HEX</strong> 欄にコードを貼り付けて「確認」を押せば、画像クリックなしでも HSV 手順を表示。<code>#fab</code> のような短縮形にも対応。</p>
+
+        <h3>07 / パレット色 / フルカラー切替</h3>
+        <ul>
+          <li><strong>カラーパレット</strong>：ゲーム内84色のうち最も近い色を表示</li>
+          <li><strong>フルカラー</strong>：色相スライダーと彩度×明度の操作回数の目安を表示</li>
+        </ul>
+
+        <h3>08 / 表示の補助機能</h3>
+        <ul>
+          <li><strong>移動モード</strong>：拡大表示時にドラッグでスクロール</li>
+          <li><strong>ルーラー</strong>：画像中心線とX/Y座標番号を表示</li>
+          <li><strong>＋ / −</strong>：表示倍率（1× / 2× / 4× / 8× / 12× / 16×）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <img id="branding-logo" src="./assets/favicon.png" alt="" style="display:none" aria-hidden="true">
+
+  <script src="./js/core/palette-data.js"></script>
+  <script src="./js/core/color-utils.js"></script>
+  <script src="./js/core/state.js"></script>
+  <script src="./js/canvas/canvas-render.js"></script>
+  <script src="./js/features/view-mode.js"></script>
+  <script src="./js/features/fullcolor-guide.js"></script>
+  <script src="./js/features/recipe.js"></script>
+  <script src="./js/features/color-info.js"></script>
+  <script src="./js/canvas/canvas-interact.js"></script>
+  <script src="./js/features/crop-tool.js"></script>
+  <script src="./js/features/image-loader.js"></script>
+  <script src="./js/features/favorites.js"></script>
+  <script src="./js/ui.js"></script>
+  <script src="./js/main.js"></script>
+
+</body>
+</html>

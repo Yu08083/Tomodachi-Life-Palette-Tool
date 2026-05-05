@@ -1,0 +1,123 @@
+#favorites-wrap {
+  border-top: 2px dashed var(--line);
+  background: var(--bg-soft);
+  padding: var(--gap-md) var(--gap-lg);
+}
+
+.favorites-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-sm);
+  margin-bottom: var(--gap-sm);
+  flex-wrap: wrap;
+}
+
+.favorites-header .info-label { margin-bottom: 0; }
+
+.favorites-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+#favorites-count {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ink-3);
+  margin-right: 4px;
+}
+
+#favorites-empty {
+  text-align: center;
+  padding: 18px 0;
+  font-family: var(--font-jp);
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--ink-3);
+}
+
+.favorites-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  gap: 8px;
+}
+
+.fav-cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.fav-swatch {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  box-shadow:
+    inset 0 0 0 3px #fff,
+    0 0 0 2px var(--line),
+    0 2px 0 rgba(58, 31, 10, 0.1);
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+.fav-swatch:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 0 0 3px #fff,
+    0 0 0 2px var(--orange),
+    0 4px 0 rgba(58, 31, 10, 0.12);
+}
+
+.fav-remove {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--card);
+  color: var(--ink-3);
+  font-size: 0.9rem;
+  font-weight: 800;
+  border: 2px solid var(--line);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 0.15s, background 0.15s, color 0.15s;
+  z-index: 2;
+}
+.fav-cell:hover .fav-remove {
+  opacity: 1;
+}
+.fav-remove:hover {
+  background: var(--danger);
+  color: #fff;
+  border-color: var(--danger);
+}
+
+.fav-hex {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--ink-3);
+  letter-spacing: 0.02em;
+}
+
+@media (hover: none) {
+  .fav-remove { opacity: 1; }
+}
+
+@media (max-width: 600px) {
+  #favorites-wrap { padding: var(--gap-sm) var(--gap-md); }
+  .favorites-list { gap: 6px; grid-template-columns: repeat(auto-fill, minmax(52px, 1fr)); }
+  .fav-hex { font-size: 0.58rem; }
+}

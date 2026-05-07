@@ -80,8 +80,8 @@
   height: 100%;
   border-radius: 999px;
   background: linear-gradient(90deg,
-    #ff0000 0%, #ffff00 16.66%, #00ff00 33.33%,
-    #00ffff 50%, #0000ff 66.66%, #ff00ff 83.33%, #ff0000 100%);
+    #ff0000 0%, #ff00ff 16.66%, #0000ff 33.33%,
+    #00ffff 50%, #00ff00 66.66%, #ffff00 83.33%, #ff0000 100%);
 }
 .hue-indicator {
   position: absolute;

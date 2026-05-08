@@ -209,6 +209,27 @@
     "native": "Share with other apps",
     "copied": "Copied!",
     "tweetText": "A color picker for the\nTomodachi Life paint mode!\n\n・ Pick colors from any image\n・ Find best match in the 84 in-game colors\n・ Step-by-step operation guide",
-    "tweetTagline": "12 languages"
+    "tweetTagline": "12 languages",
+    "shareWork": "Open on another device",
+    "shareConverted": "Pixel art (converted)",
+    "sharePbn": "Paint-by-numbers",
+    "shareSite": "Share site",
+    "download": "Save image",
+    "noConverted": "Please switch to Game palette view first",
+    "workTweet": "I made pixel art with Spoito-cho!",
+    "imageDownloaded": "Image saved. Please attach it to your post.",
+    "workDesc": "Scan the QR with your phone, or copy the URL — opening it elsewhere restores the current image.",
+    "tooLarge": "Image is too large to fit in URL/QR",
+    "size": "Size",
+    "qrTooLarge": "Image too large for QR code",
+    "noImage": "No image loaded",
+    "tooLargeTitle": "Too large to fit in URL/QR",
+    "tooLargeHint": "Save as a file instead, then load it on the other device.",
+    "exportFile": "Save as file",
+    "importFile": "Import from file",
+    "orFile": "or share as a file",
+    "orImport": "or import from a file",
+    "fileExported": "File saved",
+    "invalidFile": "Not a Spoito-cho file"
   }
 }

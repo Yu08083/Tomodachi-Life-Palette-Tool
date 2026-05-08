@@ -44,6 +44,7 @@ async function init() {
   attachPaletteNumberToggle();
   attachHistoryControls();
   attachShareControls();
+  attachShareWorkControls();
 
   window.addEventListener('i18nchange', refreshDynamicLabels);
 }

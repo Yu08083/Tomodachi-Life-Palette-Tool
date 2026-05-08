@@ -209,6 +209,27 @@
     "native": "다른 앱으로 공유",
     "copied": "복사했습니다",
     "tweetText": "토모다치 컬렉션 페인트 기능용\n색 매칭 도구!\n\n・ 이미지에서 색상 추출\n・ 게임 내 84색 최적 매치 표시\n・ 조작 횟수 가이드 포함",
-    "tweetTagline": "12개 언어 지원"
+    "tweetTagline": "12개 언어 지원",
+    "shareWork": "다른 기기에서 열기",
+    "shareConverted": "변환된 도트 그림",
+    "sharePbn": "번호 색칠하기",
+    "shareSite": "사이트 공유",
+    "download": "이미지 저장",
+    "noConverted": "먼저 게임 팔레트 뷰로 전환해 주세요",
+    "workTweet": "Spoito-cho로 도트 그림을 만들었어요!",
+    "imageDownloaded": "이미지를 저장했습니다. 게시물에 첨부해 주세요",
+    "workDesc": "QR 코드를 스마트폰으로 스캔하거나 URL을 복사하여 다른 기기에서 열면 현재 이미지가 복원됩니다.",
+    "tooLarge": "이미지 크기가 너무 커서 URL/QR에 담을 수 없습니다",
+    "size": "크기",
+    "qrTooLarge": "이미지가 너무 커서 QR 코드에 담을 수 없습니다",
+    "noImage": "이미지가 로드되지 않았습니다",
+    "tooLargeTitle": "URL/QR에 담기에는 이미지가 너무 큽니다",
+    "tooLargeHint": "대신 파일로 저장한 후 다른 기기에서 불러오세요.",
+    "exportFile": "파일로 저장",
+    "importFile": "파일에서 불러오기",
+    "orFile": "또는 파일로 공유",
+    "orImport": "또는 파일에서 불러오기",
+    "fileExported": "파일을 저장했습니다",
+    "invalidFile": "Spoito-cho 파일 형식이 아닙니다"
   }
 }

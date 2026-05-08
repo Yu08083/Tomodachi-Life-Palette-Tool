@@ -209,6 +209,27 @@
     "native": "他のアプリで共有",
     "copied": "コピーしました",
     "tweetText": "トモダチコレクション わくわく生活の\nペイント機能で使える色合わせツール!\n\n・ 画像から色を取得\n・ ゲーム内84色の最適マッチを表示\n・ 操作回数ガイド付き",
-    "tweetTagline": "12言語対応"
+    "tweetTagline": "12言語対応",
+    "shareWork": "作品を別端末で開く",
+    "shareConverted": "変換後のドット絵",
+    "sharePbn": "番号塗り絵",
+    "shareSite": "サイトを共有",
+    "download": "画像を保存",
+    "noConverted": "まずゲームパレット変換ビューに切替えて下さい",
+    "workTweet": "すぽいと帳でドット絵を作りました!",
+    "imageDownloaded": "画像を保存しました。Xに添付してください",
+    "workDesc": "QRコードをスマホで読むか、URLをコピーして別端末で開くと、いま読み込んでいる画像が復元されます。",
+    "tooLarge": "画像サイズが大きすぎて URL/QR に収まりません",
+    "size": "サイズ",
+    "qrTooLarge": "画像が大きすぎてQRに収まりません",
+    "noImage": "画像が読み込まれていません",
+    "tooLargeTitle": "画像が大きすぎて URL/QR には収まりません",
+    "tooLargeHint": "代わりにファイルとして保存して、別端末で読み込んでください。",
+    "exportFile": "ファイルとして保存",
+    "importFile": "ファイルから読み込み",
+    "orFile": "または ファイルで共有",
+    "orImport": "またはファイルから読み込み",
+    "fileExported": "ファイルを保存しました",
+    "invalidFile": "すぽいと帳のファイル形式ではありません"
   }
 }

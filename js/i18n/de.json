@@ -209,6 +209,27 @@
     "native": "Mit anderen Apps teilen",
     "copied": "Kopiert!",
     "tweetText": "Farbauswahl-Tool für\nden Malmodus von Tomodachi Life!\n\n・ Farben aus jedem Bild auswählen\n・ Beste Übereinstimmung aus 84 Farben\n・ Mit Schritt-für-Schritt-Anleitung",
-    "tweetTagline": "12 Sprachen"
+    "tweetTagline": "12 Sprachen",
+    "shareWork": "Auf anderem Gerät öffnen",
+    "shareConverted": "Konvertierte Pixel-Art",
+    "sharePbn": "Malen nach Zahlen",
+    "shareSite": "Seite teilen",
+    "download": "Bild speichern",
+    "noConverted": "Bitte wechseln Sie zuerst zur Spielpalette-Ansicht",
+    "workTweet": "Ich habe mit Spoito-cho Pixel-Art erstellt!",
+    "imageDownloaded": "Bild gespeichert. Bitte fügen Sie es Ihrem Post hinzu.",
+    "workDesc": "Scannen Sie den QR-Code mit Ihrem Smartphone oder kopieren Sie die URL — beim Öffnen wird das aktuelle Bild wiederhergestellt.",
+    "tooLarge": "Bild zu groß für URL/QR",
+    "size": "Größe",
+    "qrTooLarge": "Bild zu groß für QR-Code",
+    "noImage": "Kein Bild geladen",
+    "tooLargeTitle": "Zu groß für URL/QR",
+    "tooLargeHint": "Speichern Sie es stattdessen als Datei und laden Sie es auf dem anderen Gerät.",
+    "exportFile": "Als Datei speichern",
+    "importFile": "Aus Datei importieren",
+    "orFile": "oder als Datei teilen",
+    "orImport": "oder aus Datei importieren",
+    "fileExported": "Datei gespeichert",
+    "invalidFile": "Keine Spoito-cho-Datei"
   }
 }

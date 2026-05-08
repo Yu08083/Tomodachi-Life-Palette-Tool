@@ -209,6 +209,27 @@
     "native": "使用其他应用分享",
     "copied": "已复制",
     "tweetText": "Tomodachi Life 绘画模式专用\n调色工具!\n\n・ 从任何图片取色\n・ 从游戏内 84 色找出最佳匹配\n・ 附带操作步骤指南",
-    "tweetTagline": "支持 12 种语言"
+    "tweetTagline": "支持 12 种语言",
+    "shareWork": "在其他设备打开",
+    "shareConverted": "转换后的点阵图",
+    "sharePbn": "数字涂色",
+    "shareSite": "分享网站",
+    "download": "保存图片",
+    "noConverted": "请先切换到游戏调色盘视图",
+    "workTweet": "我用 Spoito-cho 制作了点阵图!",
+    "imageDownloaded": "已保存图片。请附加到您的帖子",
+    "workDesc": "用手机扫描 QR 码或复制 URL，在其他设备打开即可还原当前图片。",
+    "tooLarge": "图片太大,无法放入 URL/QR",
+    "size": "大小",
+    "qrTooLarge": "图片太大,无法生成QR码",
+    "noImage": "尚未加载图片",
+    "tooLargeTitle": "图片太大,无法放入 URL/QR",
+    "tooLargeHint": "改为保存为文件,然后在另一台设备上加载。",
+    "exportFile": "保存为文件",
+    "importFile": "从文件导入",
+    "orFile": "或以文件分享",
+    "orImport": "或从文件导入",
+    "fileExported": "已保存文件",
+    "invalidFile": "不是 Spoito-cho 的文件格式"
   }
 }

@@ -209,6 +209,27 @@
     "native": "Delen met andere apps",
     "copied": "Gekopieerd!",
     "tweetText": "Kleurkiezer voor de\nverfmodus van Tomodachi Life!\n\n・ Pak kleuren uit elke afbeelding\n・ Beste match in de 84 in-game kleuren\n・ Stapsgewijze handleiding",
-    "tweetTagline": "12 talen"
+    "tweetTagline": "12 talen",
+    "shareWork": "Op ander apparaat openen",
+    "shareConverted": "Geconverteerde pixel art",
+    "sharePbn": "Schilderen op nummer",
+    "shareSite": "Site delen",
+    "download": "Afbeelding opslaan",
+    "noConverted": "Schakel eerst over naar de Game palet weergave",
+    "workTweet": "Ik heb pixel art gemaakt met Spoito-cho!",
+    "imageDownloaded": "Afbeelding opgeslagen. Voeg het toe aan je bericht.",
+    "workDesc": "Scan de QR-code met je telefoon, of kopieer de URL — bij openen elders wordt de huidige afbeelding hersteld.",
+    "tooLarge": "Afbeelding te groot voor URL/QR",
+    "size": "Grootte",
+    "qrTooLarge": "Afbeelding te groot voor QR-code",
+    "noImage": "Geen afbeelding geladen",
+    "tooLargeTitle": "Te groot voor URL/QR",
+    "tooLargeHint": "Sla het op als bestand en laad het op het andere apparaat.",
+    "exportFile": "Opslaan als bestand",
+    "importFile": "Importeren uit bestand",
+    "orFile": "of delen als bestand",
+    "orImport": "of importeer uit bestand",
+    "fileExported": "Bestand opgeslagen",
+    "invalidFile": "Geen Spoito-cho-bestand"
   }
 }

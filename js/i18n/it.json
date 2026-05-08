@@ -209,6 +209,27 @@
     "native": "Condividi con altre app",
     "copied": "Copiato!",
     "tweetText": "Strumento selettore colori per\nla modalità pittura di Tomodachi Life!\n\n・ Estrai colori da qualsiasi immagine\n・ Trova la corrispondenza migliore tra 84 colori\n・ Guida passo passo inclusa",
-    "tweetTagline": "12 lingue"
+    "tweetTagline": "12 lingue",
+    "shareWork": "Apri su un altro dispositivo",
+    "shareConverted": "Pixel art convertita",
+    "sharePbn": "Pittura a numeri",
+    "shareSite": "Condividi sito",
+    "download": "Salva immagine",
+    "noConverted": "Per favore passa prima alla vista Palette di gioco",
+    "workTweet": "Ho creato pixel art con Spoito-cho!",
+    "imageDownloaded": "Immagine salvata. Allegala al tuo post.",
+    "workDesc": "Scansiona il QR con il tuo telefono, o copia l'URL — aprendolo altrove ripristinerai l'immagine corrente.",
+    "tooLarge": "Immagine troppo grande per URL/QR",
+    "size": "Dimensione",
+    "qrTooLarge": "Immagine troppo grande per il QR code",
+    "noImage": "Nessuna immagine caricata",
+    "tooLargeTitle": "Troppo grande per URL/QR",
+    "tooLargeHint": "Salvalo come file e poi caricalo sull'altro dispositivo.",
+    "exportFile": "Salva come file",
+    "importFile": "Importa da file",
+    "orFile": "oppure condividi come file",
+    "orImport": "oppure importa da file",
+    "fileExported": "File salvato",
+    "invalidFile": "Non è un file Spoito-cho"
   }
 }

@@ -221,7 +221,7 @@
               </div>
               <button id="ruler-btn" class="tool-btn" onclick="toggleRuler()" data-i18n="viewer.ruler">ルーラー</button>
               <button class="tool-btn" onclick="openModal('modal-guide')" data-i18n="viewer.help">使い方</button>
-              <button class="tool-btn share-btn-tool" id="share-btn" data-i18n="share.button" data-i18n-attr-aria-label="share.button" aria-label="共有">共有</button>
+              <button class="tool-btn share-btn-tool" id="share-work-btn" data-i18n="share.shareWork" data-i18n-attr-aria-label="share.shareWork" aria-label="作品を共有">作品を共有</button>
               <div class="zoom-controls">
                 <button id="zoom-out" class="zoom-btn" data-i18n-attr-aria-label="aria.zoomOut" aria-label="ズームアウト">−</button>
                 <span id="zoom-label">1×</span>
@@ -579,6 +579,63 @@
     </div>
   </div>
 
+  <div class="modal hidden" id="modal-share-work">
+    <div class="modal-content modal-content-share-work">
+      <button class="close-btn" onclick="closeModal('modal-share-work')" aria-label="閉じる">×</button>
+      <div class="modal-body">
+        <h2 data-i18n="share.shareWork">作品を別端末で開く</h2>
+        <p class="share-work-desc" data-i18n="share.workDesc">QRコードをスマホで読むか、URLをコピーして別端末で開くと、いま読み込んでいる画像が復元されます。</p>
+
+        <div id="share-work-too-large" class="share-work-toolarge hidden">
+          <p class="share-work-toolarge-title" data-i18n="share.tooLargeTitle">画像が大きすぎて URL/QR には収まりません</p>
+          <p class="share-work-toolarge-hint" data-i18n="share.tooLargeHint">代わりにファイルとして保存して、別端末で読み込んでください。</p>
+          <p class="share-work-size-hint">
+            <span data-i18n="share.size">サイズ</span>: <span id="share-work-size-tl">--</span>
+          </p>
+          <div class="share-work-actions">
+            <button type="button" id="share-work-export-tl-btn" class="share-work-export-btn">
+              <svg class="share-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+              </svg>
+              <span data-i18n="share.exportFile">ファイルとして保存</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="share-work-content">
+          <div id="share-work-qr" class="share-work-qr"></div>
+          <div class="share-work-url-row">
+            <input type="text" id="share-work-url" class="share-work-url-input" readonly>
+            <button type="button" id="share-work-copy-btn" class="share-work-copy-btn" data-i18n="share.copy">リンクをコピー</button>
+          </div>
+          <p class="share-work-meta">
+            <span data-i18n="share.size">サイズ</span>: <span id="share-work-size">--</span>
+          </p>
+          <div class="share-work-divider"><span data-i18n="share.orFile">または ファイルで共有</span></div>
+          <div class="share-work-actions">
+            <button type="button" id="share-work-export-btn" class="share-work-export-btn">
+              <svg class="share-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+              </svg>
+              <span data-i18n="share.exportFile">ファイルとして保存</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="share-work-divider"><span data-i18n="share.orImport">またはファイルから読み込み</span></div>
+        <div class="share-work-actions">
+          <button type="button" id="share-work-import-btn" class="share-work-import-btn">
+            <svg class="share-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v13"/>
+            </svg>
+            <span data-i18n="share.importFile">ファイルから読み込み</span>
+          </button>
+          <input type="file" id="share-work-import-input" accept=".json,application/json" style="display:none">
+        </div>
+      </div>
+    </div>
+  </div>
+
   <img id="branding-logo" src="./assets/favicon.png" alt="" style="display:none" aria-hidden="true">
 
   <script src="./js/core/i18n.js"></script>
@@ -593,9 +650,11 @@
   <script src="./js/canvas/canvas-interact.js"></script>
   <script src="./js/features/crop-tool.js"></script>
   <script src="./js/features/image-loader.js"></script>
+  <script src="./js/lib/qrcode.js"></script>
   <script src="./js/features/favorites.js"></script>
   <script src="./js/features/history.js"></script>
   <script src="./js/features/share.js"></script>
+  <script src="./js/features/share-work.js"></script>
   <script src="./js/ui.js"></script>
   <script src="./js/main.js"></script>
   <script src="./js/console-art.js"></script>

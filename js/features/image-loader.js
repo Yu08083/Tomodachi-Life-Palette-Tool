@@ -3,7 +3,7 @@ function attachUploadHandlers() {
 
   dropZone.addEventListener('click', () => fileInput.click());
 
-  fileInput.addEventListener('change', e => loadImageFile(e.target.files[0]));
+  fileInput.addEventListener('change', e => _handleUploadedFile(e.target.files[0]));
 
   dropZone.addEventListener('dragover', e => {
     e.preventDefault();
@@ -16,7 +16,7 @@ function attachUploadHandlers() {
     e.preventDefault();
     dropZone.classList.remove('dragover');
     const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith('image/')) loadImageFile(file);
+    _handleUploadedFile(file);
   });
 
   if (demoBtn) {
@@ -48,6 +48,20 @@ function attachUploadHandlers() {
       mainContent.classList.add('hidden');
       openCropTool(rawSourceCanvas);
     });
+  }
+}
+
+function _handleUploadedFile(file) {
+  if (!file) return;
+  const name = (file.name || '').toLowerCase();
+  if (name.endsWith('.json')) {
+    if (typeof shareWorkImportFile === 'function') {
+      shareWorkImportFile(file);
+    }
+    return;
+  }
+  if (file.type && file.type.startsWith('image/')) {
+    loadImageFile(file);
   }
 }
 

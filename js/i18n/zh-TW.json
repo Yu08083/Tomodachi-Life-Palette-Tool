@@ -200,5 +200,14 @@
     "today": "今天",
     "yesterday": "昨天",
     "storageFail": "無法將圖片儲存至歷史記錄(容量不足)"
+  },
+  "share": {
+    "button": "分享",
+    "menuTitle": "分享 Spoito-cho",
+    "tweet": "發佈到 X",
+    "copy": "複製連結",
+    "native": "使用其他應用程式分享",
+    "copied": "已複製",
+    "tweetText": "Tomodachi Life 繪畫模式調色工具 - 支援 84 色調色盤"
   }
 }

@@ -200,5 +200,14 @@
     "today": "今天",
     "yesterday": "昨天",
     "storageFail": "无法将图片保存至历史记录(容量不足)"
+  },
+  "share": {
+    "button": "分享",
+    "menuTitle": "分享 Spoito-cho",
+    "tweet": "发布到 X",
+    "copy": "复制链接",
+    "native": "使用其他应用分享",
+    "copied": "已复制",
+    "tweetText": "Tomodachi Life 绘画模式调色工具 - 支持 84 色调色盘"
   }
 }

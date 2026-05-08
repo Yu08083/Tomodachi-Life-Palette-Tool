@@ -200,5 +200,14 @@
     "today": "오늘",
     "yesterday": "어제",
     "storageFail": "이미지를 기록에 저장하지 못했습니다(용량 부족)"
+  },
+  "share": {
+    "button": "공유",
+    "menuTitle": "Spoito-cho 공유",
+    "tweet": "X에 게시",
+    "copy": "링크 복사",
+    "native": "다른 앱으로 공유",
+    "copied": "복사했습니다",
+    "tweetText": "토모다치 컬렉션 페인트 색 맞추기 도구 - 84색 팔레트 지원"
   }
 }

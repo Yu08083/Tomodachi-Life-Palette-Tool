@@ -200,5 +200,14 @@
     "today": "Aujourd'hui",
     "yesterday": "Hier",
     "storageFail": "Échec de sauvegarde dans l'historique (stockage plein)"
+  },
+  "share": {
+    "button": "Partager",
+    "menuTitle": "Partager Spoito-cho",
+    "tweet": "Publier sur X",
+    "copy": "Copier le lien",
+    "native": "Partager avec d'autres apps",
+    "copied": "Copié !",
+    "tweetText": "Sélecteur de couleurs pour le mode peinture de Tomodachi Life - 84 couleurs"
   }
 }

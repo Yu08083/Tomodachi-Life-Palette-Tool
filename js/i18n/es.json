@@ -200,5 +200,14 @@
     "today": "Hoy",
     "yesterday": "Ayer",
     "storageFail": "No se pudo guardar en el historial (sin espacio)"
+  },
+  "share": {
+    "button": "Compartir",
+    "menuTitle": "Compartir Spoito-cho",
+    "tweet": "Publicar en X",
+    "copy": "Copiar enlace",
+    "native": "Compartir con otras apps",
+    "copied": "¡Copiado!",
+    "tweetText": "Selector de colores para Tomodachi Life paint - 84 colores"
   }
 }

@@ -108,6 +108,7 @@
   <link rel="stylesheet" href="./css/features/recipe.css">
   <link rel="stylesheet" href="./css/features/favorites.css">
   <link rel="stylesheet" href="./css/features/history.css">
+  <link rel="stylesheet" href="./css/features/share.css">
   <link rel="stylesheet" href="./css/features/notice.css">
   <link rel="stylesheet" href="./css/layout/mobile.css">
 </head>
@@ -219,6 +220,7 @@
               </div>
               <button id="ruler-btn" class="tool-btn" onclick="toggleRuler()" data-i18n="viewer.ruler">ルーラー</button>
               <button class="tool-btn" onclick="openModal('modal-guide')" data-i18n="viewer.help">使い方</button>
+              <button class="tool-btn share-btn-tool" id="share-btn" data-i18n="share.button" data-i18n-attr-aria-label="share.button" aria-label="共有">共有</button>
               <div class="zoom-controls">
                 <button id="zoom-out" class="zoom-btn" data-i18n-attr-aria-label="aria.zoomOut" aria-label="ズームアウト">−</button>
                 <span id="zoom-label">1×</span>
@@ -547,6 +549,35 @@
     </div>
   </div>
 
+  <div class="modal hidden" id="modal-share">
+    <div class="modal-content modal-content-share">
+      <button class="close-btn" onclick="closeModal('modal-share')" aria-label="閉じる">×</button>
+      <div class="modal-body">
+        <h2 data-i18n="share.menuTitle">すぽいと帳を共有</h2>
+        <div class="share-actions">
+          <button type="button" id="share-tweet-btn" class="share-action-btn share-tweet">
+            <svg class="share-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            <span data-i18n="share.tweet">Xに投稿</span>
+          </button>
+          <button type="button" id="share-copy-btn" class="share-action-btn share-copy">
+            <svg class="share-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2m0 0h2a2 2 0 0 1 2 2v3"/>
+            </svg>
+            <span data-i18n="share.copy">リンクをコピー</span>
+          </button>
+          <button type="button" id="share-native-btn" class="share-action-btn share-native hidden">
+            <svg class="share-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4m0 0L8 6m4-4v13"/>
+            </svg>
+            <span data-i18n="share.native">他のアプリで共有</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <img id="branding-logo" src="./assets/favicon.png" alt="" style="display:none" aria-hidden="true">
 
   <script src="./js/core/i18n.js"></script>
@@ -563,6 +594,7 @@
   <script src="./js/features/image-loader.js"></script>
   <script src="./js/features/favorites.js"></script>
   <script src="./js/features/history.js"></script>
+  <script src="./js/features/share.js"></script>
   <script src="./js/ui.js"></script>
   <script src="./js/main.js"></script>
 

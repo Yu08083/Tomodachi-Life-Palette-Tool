@@ -200,5 +200,14 @@
     "today": "Heute",
     "yesterday": "Gestern",
     "storageFail": "Bild konnte nicht im Verlauf gespeichert werden (Speicher voll)"
+  },
+  "share": {
+    "button": "Teilen",
+    "menuTitle": "Spoito-cho teilen",
+    "tweet": "Auf X posten",
+    "copy": "Link kopieren",
+    "native": "Mit anderen Apps teilen",
+    "copied": "Kopiert!",
+    "tweetText": "Farbpicker für Tomodachi Life Malmodus - 84-Farben-Palette"
   }
 }

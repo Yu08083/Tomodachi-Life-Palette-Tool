@@ -200,5 +200,14 @@
     "today": "Oggi",
     "yesterday": "Ieri",
     "storageFail": "Impossibile salvare nella cronologia (spazio esaurito)"
+  },
+  "share": {
+    "button": "Condividi",
+    "menuTitle": "Condividi Spoito-cho",
+    "tweet": "Pubblica su X",
+    "copy": "Copia link",
+    "native": "Condividi con altre app",
+    "copied": "Copiato!",
+    "tweetText": "Selettore colori per Tomodachi Life paint - palette di 84 colori"
   }
 }

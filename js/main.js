@@ -43,6 +43,7 @@ async function init() {
   buildPaletteGrid();
   attachPaletteNumberToggle();
   attachHistoryControls();
+  attachShareControls();
 
   window.addEventListener('i18nchange', refreshDynamicLabels);
 }

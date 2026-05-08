@@ -200,5 +200,14 @@
     "today": "Today",
     "yesterday": "Yesterday",
     "storageFail": "Failed to save image to history (storage full)"
+  },
+  "share": {
+    "button": "Share",
+    "menuTitle": "Share Spoito-cho",
+    "tweet": "Post on X",
+    "copy": "Copy link",
+    "native": "Share with other apps",
+    "copied": "Copied!",
+    "tweetText": "Color picker for Tomodachi Life paint mode - 84-color palette support"
   }
 }

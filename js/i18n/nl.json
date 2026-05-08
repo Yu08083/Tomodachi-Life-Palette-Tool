@@ -200,5 +200,14 @@
     "today": "Vandaag",
     "yesterday": "Gisteren",
     "storageFail": "Kan afbeelding niet opslaan in geschiedenis (opslag vol)"
+  },
+  "share": {
+    "button": "Delen",
+    "menuTitle": "Spoito-cho delen",
+    "tweet": "Plaatsen op X",
+    "copy": "Link kopiëren",
+    "native": "Delen met andere apps",
+    "copied": "Gekopieerd!",
+    "tweetText": "Kleurkiezer voor Tomodachi Life verfmodus - 84-kleuren palet"
   }
 }

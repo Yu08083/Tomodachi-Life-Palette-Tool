@@ -1,0 +1,86 @@
+.modal-content-share {
+  max-width: 480px;
+}
+
+.share-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  margin-top: var(--gap-md);
+}
+
+.share-action-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+  padding: 14px 18px;
+  font-family: var(--font-jp);
+  font-weight: 800;
+  font-size: 0.96rem;
+  background: var(--bg-soft);
+  color: var(--ink);
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: left;
+}
+.share-action-btn:hover {
+  transform: translateY(-1px);
+  border-color: var(--orange);
+  background: var(--card);
+  box-shadow: 0 4px 12px rgba(58, 31, 10, 0.12);
+}
+.share-action-btn:active { transform: translateY(0); }
+
+.share-icon {
+  flex-shrink: 0;
+  color: var(--ink-2);
+}
+.share-tweet { background: #000; color: #fff; }
+.share-tweet .share-icon { color: #fff; }
+.share-tweet:hover { background: #1a1a1a; border-color: #000; color: #fff; }
+.share-tweet:hover .share-icon { color: #fff; }
+
+.share-copy:hover .share-icon,
+.share-native:hover .share-icon { color: var(--orange-d); }
+
+.share-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--font-jp);
+  font-weight: 800;
+  font-size: 0.92rem;
+  padding: 12px 24px;
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s;
+  z-index: 2000;
+}
+.share-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.share-btn-tool {
+  background: var(--orange) !important;
+  color: #fff !important;
+  border-color: var(--orange) !important;
+}
+.share-btn-tool:hover {
+  background: var(--orange-d) !important;
+  color: #fff !important;
+}
+
+@media (max-width: 600px) {
+  .share-action-btn {
+    padding: 12px 14px;
+    font-size: 0.88rem;
+  }
+}

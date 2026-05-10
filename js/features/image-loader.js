@@ -1,4 +1,3 @@
-
 function attachUploadHandlers() {
 
   dropZone.addEventListener('click', () => fileInput.click());
@@ -121,7 +120,7 @@ function finalizeImageLoad(canvas, isCropped) {
   if (typeof _updateDoneButtonState === 'function') _updateDoneButtonState();
   document.getElementById('view-original-btn').classList.add('active');
   document.getElementById('view-converted-btn').classList.remove('active');
-  document.getElementById('convert-controls').classList.add('hidden');
+  document.getElementById('convert-controls').classList.remove('hidden');
   const dlBtnInit = document.getElementById('download-btn');
   if (dlBtnInit) dlBtnInit.classList.add('hidden');
   const dlPbnInit = document.getElementById('download-pbn-btn');

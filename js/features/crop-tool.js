@@ -1,4 +1,3 @@
-
 var cropSrcCanvas = null;
 var cropDispW = 0;
 var cropDispH = 0;
@@ -122,7 +121,9 @@ function drawCropCanvas() {
     ctx.stroke();
   }
 
-  const handleSize = 14;
+  const isTouchDevice = (typeof window !== 'undefined' && window.matchMedia &&
+                          window.matchMedia('(pointer: coarse)').matches);
+  const handleSize = isTouchDevice ? 18 : 14;
   const corners = getHandlePositions(bx, by, bw, bh);
   ctx.fillStyle = '#E85A0C';
   ctx.strokeStyle = '#fff';
@@ -170,7 +171,9 @@ function hitHandle(px, py) {
   const bw = cropBox.w * cropScale;
   const bh = cropBox.h * cropScale;
   const handles = getHandlePositions(bx, by, bw, bh);
-  const tol = 18;
+  const isTouchDevice = (typeof window !== 'undefined' && window.matchMedia &&
+                          window.matchMedia('(pointer: coarse)').matches);
+  const tol = isTouchDevice ? 26 : 18;
   for (const key of CROP_HANDLE_KEYS) {
     const [hx, hy] = handles[key];
     if (Math.abs(px - hx) <= tol && Math.abs(py - hy) <= tol) {

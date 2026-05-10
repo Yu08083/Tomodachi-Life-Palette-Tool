@@ -87,28 +87,28 @@
   justify-content: center;
   transition: all 0.12s;
   padding: 0;
+  position: relative;
+  overflow: hidden;
 }
 .recipe-check:hover {
   border-color: var(--orange);
   background: #FFFEFB;
 }
-.recipe-check-mark {
-  width: 12px;
-  height: 7px;
-  border: 2.5px solid transparent;
-  border-bottom-color: transparent;
-  border-left-color: transparent;
-  transform: rotate(-45deg) translate(1px, -2px);
-  border-radius: 1px;
-  transition: border-color 0.12s;
+.recipe-check::after {
+  content: '\2713';
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1;
+  color: transparent;
+  transition: color 0.12s;
 }
+.recipe-check-mark { display: none; }
 .recipe-row.checked .recipe-check {
   background: var(--orange);
   border-color: var(--orange-d);
 }
-.recipe-row.checked .recipe-check-mark {
-  border-bottom-color: #fff;
-  border-left-color: #fff;
+.recipe-row.checked .recipe-check::after {
+  color: #fff;
 }
 
 .recipe-swatch {

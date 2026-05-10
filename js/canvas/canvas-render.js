@@ -47,59 +47,77 @@ function clearOverlayWithGrid() {
 function drawGridOverlay(ctx) {
   const src = getActiveData();
   if (!src) return;
-  const w = src.width, h = src.height;
-  const W = w * zoom;
-  const H = h * zoom;
+  const W = src.width * zoom;
+  const H = src.height * zoom;
   const sub = (typeof gridSubdivision === 'number' && (gridSubdivision === 8 || gridSubdivision === 16)) ? gridSubdivision : 8;
+
+  let gridW, gridH;
+  if (viewMode === 'original' && imgData && typeof gridSize === 'number') {
+    const aspect = imgData.width / imgData.height;
+    if (aspect >= 1) {
+      gridW = gridSize;
+      gridH = Math.max(1, Math.round(gridSize / aspect));
+    } else {
+      gridH = gridSize;
+      gridW = Math.max(1, Math.round(gridSize * aspect));
+    }
+  } else {
+    gridW = src.width;
+    gridH = src.height;
+  }
+
+  const cellW = W / gridW;
+  const cellH = H / gridH;
 
   ctx.save();
 
-  if (zoom >= 2) {
+  if (cellW >= 4 && cellH >= 4) {
     ctx.strokeStyle = 'rgba(0, 0, 0, 0.18)';
     ctx.lineWidth = 0.5;
     ctx.beginPath();
-    for (let x = 1; x < w; x++) {
-      const px = Math.round(x * zoom) + 0.5;
+    for (let x = 1; x < gridW; x++) {
+      const px = Math.round(x * cellW) + 0.5;
       ctx.moveTo(px, 0);
       ctx.lineTo(px, H);
     }
-    for (let y = 1; y < h; y++) {
-      const py = Math.round(y * zoom) + 0.5;
+    for (let y = 1; y < gridH; y++) {
+      const py = Math.round(y * cellH) + 0.5;
       ctx.moveTo(0, py);
       ctx.lineTo(W, py);
     }
     ctx.stroke();
   }
 
-  const cxIdx = w / 2;
-  const cyIdx = h / 2;
+  const cxIdx = gridW / 2;
+  const cyIdx = gridH / 2;
+  const baseLine = Math.max(cellW, cellH);
   ctx.strokeStyle = 'rgba(232, 90, 12, 0.55)';
-  ctx.lineWidth = Math.max(1, zoom * 0.18);
+  ctx.lineWidth = Math.max(1, baseLine * 0.18);
   ctx.beginPath();
-  for (let x = sub; x < w; x += sub) {
+  for (let x = sub; x < gridW; x += sub) {
     if (x === cxIdx) continue;
-    const px = Math.round(x * zoom) + 0.5;
+    const px = Math.round(x * cellW) + 0.5;
     ctx.moveTo(px, 0);
     ctx.lineTo(px, H);
   }
-  for (let y = sub; y < h; y += sub) {
+  for (let y = sub; y < gridH; y += sub) {
     if (y === cyIdx) continue;
-    const py = Math.round(y * zoom) + 0.5;
+    const py = Math.round(y * cellH) + 0.5;
     ctx.moveTo(0, py);
     ctx.lineTo(W, py);
   }
   ctx.stroke();
 
   ctx.strokeStyle = 'rgba(214, 64, 4, 0.92)';
-  ctx.lineWidth = Math.max(2, zoom * 0.32);
+  ctx.lineWidth = Math.max(2, baseLine * 0.32);
   ctx.beginPath();
-  const cxPx = Math.round(cxIdx * zoom) + 0.5;
-  const cyPx = Math.round(cyIdx * zoom) + 0.5;
-  if (w >= 2) {
+  const cxPx = Math.round(cxIdx * cellW) + 0.5;
+  const cyPx = Math.round(cyIdx * cellH) + 0.5;
+  if (gridW >= 2) {
     ctx.moveTo(cxPx, 0);
     ctx.lineTo(cxPx, H);
   }
-  if (h >= 2) {
+  if (gridH >= 2) {
     ctx.moveTo(0, cyPx);
     ctx.lineTo(W, cyPx);
   }

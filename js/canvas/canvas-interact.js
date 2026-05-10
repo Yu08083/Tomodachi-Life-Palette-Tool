@@ -57,6 +57,8 @@ function canApplyZoom(nextZoom) {
   if (!src) return false;
   if (src.width  * nextZoom > MAX_CANVAS_SIDE) return false;
   if (src.height * nextZoom > MAX_CANVAS_SIDE) return false;
+  if (src.width  * nextZoom < MIN_CANVAS_SIDE) return false;
+  if (src.height * nextZoom < MIN_CANVAS_SIDE) return false;
   return true;
 }
 
@@ -76,7 +78,10 @@ function zoomOutClick() {
   let idx = ZOOM_STEPS.indexOf(zoom);
   if (idx === -1) idx = ZOOM_STEPS.findIndex(z => z >= zoom);
   if (idx <= 0) return;
-  zoom = ZOOM_STEPS[idx - 1];
+
+  const nextZoom = ZOOM_STEPS[idx - 1];
+  if (!canApplyZoom(nextZoom)) return;
+  zoom = nextZoom;
   renderPixelCanvas();
 }
 

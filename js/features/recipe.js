@@ -53,7 +53,7 @@ function rebuildRecipe() {
   const summaryEl = document.getElementById('recipe-summary');
   if (!wrap || !listEl) return;
 
-  if (viewMode !== 'converted' || !convertedData) {
+  if (!convertedData) {
     wrap.classList.add('hidden');
     return;
   }

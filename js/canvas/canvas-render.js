@@ -15,7 +15,7 @@ function renderPixelCanvas() {
   overlayCanvas.height = h * zoom;
 
   const ctx = pixelCanvas.getContext('2d');
-  ctx.imageSmoothingEnabled = false;
+  ctx.imageSmoothingEnabled = (zoom < 1);
   ctx.clearRect(0, 0, pixelCanvas.width, pixelCanvas.height);
 
   ctx.drawImage(src.originalCanvas, 0, 0, w * zoom, h * zoom);
@@ -24,7 +24,7 @@ function renderPixelCanvas() {
 
   if (rulerEnabled) drawRulerCrosshair(ctx, w, h);
 
-  zoomLabel.textContent = zoom + '×';
+  zoomLabel.textContent = (zoom < 1) ? Math.round(zoom * 100) + '%' : zoom + '×';
 
   rebuildRuler();
 

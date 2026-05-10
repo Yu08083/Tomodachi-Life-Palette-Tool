@@ -140,9 +140,12 @@ function applyPaletteUsedFilter() {
   } else if (typeof convertedData !== 'undefined' && convertedData && convertedData.indices) {
     convertedData.indices.forEach(i => { if (i >= 0) used.add(i); });
   }
+  const checks = (typeof doneState !== 'undefined') ? doneState : null;
   grid.querySelectorAll('.palette-cell').forEach(c => {
     const idx = parseInt(c.dataset.idx, 10);
-    c.classList.toggle('unused', !used.has(idx));
+    const isUsed = used.has(idx);
+    const isDone = checks ? checks.isDone(idx) : false;
+    c.classList.toggle('unused', !isUsed || isDone);
   });
 }
 

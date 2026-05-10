@@ -6,6 +6,50 @@ let recipeBlinkRAF = null;
 let recipeBlinkStart = 0;
 let recipeBlinkActive = false;
 
+const doneState = {
+  isDone(idx) {
+    return idx != null && idx >= 0 && !!recipeCheckState[idx];
+  },
+  any() {
+    for (const k in recipeCheckState) if (recipeCheckState[k]) return true;
+    return false;
+  },
+  count() {
+    let n = 0;
+    for (const k in recipeCheckState) if (recipeCheckState[k]) n++;
+    return n;
+  },
+  set(idx, value) {
+    if (idx == null || idx < 0) return;
+    if (value) recipeCheckState[idx] = true;
+    else       delete recipeCheckState[idx];
+    if (recipeKey) _saveCheckState(recipeKey, recipeCheckState);
+    doneState._notify();
+  },
+  toggle(idx) {
+    if (idx == null || idx < 0) return;
+    doneState.set(idx, !recipeCheckState[idx]);
+  },
+  reset() {
+    if (!doneState.any()) return;
+    for (const k in recipeCheckState) delete recipeCheckState[k];
+    if (recipeKey) _saveCheckState(recipeKey, recipeCheckState);
+    doneState._notify();
+  },
+  _notify() {
+    if (typeof updateRecipeRowChecks === 'function') updateRecipeRowChecks();
+    if (typeof updateRecipeSummary === 'function') updateRecipeSummary();
+    if (typeof _updateDoneButtonState === 'function') _updateDoneButtonState();
+    if (typeof applyPaletteUsedFilter === 'function') applyPaletteUsedFilter();
+    if (typeof renderPixelCanvas === 'function') renderPixelCanvas();
+  },
+  _refreshAfterRebuild() {
+    doneState._notify();
+  },
+};
+
+function isDoneColor(idx) { return doneState.isDone(idx); }
+
 function _hashConvertedData(d) {
   if (!d) return '';
   let h = 5381;
@@ -121,26 +165,29 @@ function rebuildRecipe() {
 
     listEl.appendChild(row);
   });
+
+  doneState._refreshAfterRebuild();
+}
+
+function updateRecipeRowChecks() {
+  document.querySelectorAll('.recipe-row[data-idx]').forEach(row => {
+    const idx = parseInt(row.dataset.idx, 10);
+    row.classList.toggle('checked', doneState.isDone(idx));
+  });
+}
+
+function updateRecipeSummary() {
+  const summaryEl = document.getElementById('recipe-summary');
+  if (!summaryEl) return;
+  const recipe = computeRecipe();
+  if (!recipe.length) { summaryEl.innerHTML = ''; return; }
+  const total = recipe[0].total;
+  const checkedCount = recipe.filter(it => doneState.isDone(it.idx)).length;
+  summaryEl.innerHTML = t('recipe.summaryHtml', { colors: recipe.length, cells: total, done: checkedCount });
 }
 
 function toggleRecipeCheck(idx) {
-  if (recipeCheckState[idx]) delete recipeCheckState[idx];
-  else recipeCheckState[idx] = true;
-  _saveCheckState(recipeKey, recipeCheckState);
-
-  const row = document.querySelector(`.recipe-row[data-idx="${idx}"]`);
-  if (row) row.classList.toggle('checked', !!recipeCheckState[idx]);
-
-  const recipe = computeRecipe();
-  const checkedCount = recipe.filter(it => recipeCheckState[it.idx]).length;
-  const summaryEl = document.getElementById('recipe-summary');
-  if (summaryEl && recipe.length) {
-    const total = recipe[0].total;
-    summaryEl.innerHTML = t('recipe.summaryHtml', { colors: recipe.length, cells: total, done: checkedCount });
-  }
-
-  if (typeof _updateDoneButtonState === 'function') _updateDoneButtonState();
-  if (typeof renderPixelCanvas === 'function') renderPixelCanvas();
+  doneState.toggle(idx);
 }
 
 function blinkPaletteCells(palIdx) {

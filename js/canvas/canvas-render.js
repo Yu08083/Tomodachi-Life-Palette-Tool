@@ -319,27 +319,9 @@ function initGrid() {
   if (sub) sub.classList.toggle('hidden', !gridEnabled);
 }
 
-function isDoneColor(idx) {
-  if (idx == null || idx < 0) return false;
-  return typeof recipeCheckState !== 'undefined' && !!recipeCheckState[idx];
-}
-
-function _doneCount() {
-  if (typeof recipeCheckState === 'undefined') return 0;
-  let n = 0;
-  for (const k in recipeCheckState) if (recipeCheckState[k]) n++;
-  return n;
-}
-
-function _hasAnyDone() {
-  if (typeof recipeCheckState === 'undefined') return false;
-  for (const k in recipeCheckState) if (recipeCheckState[k]) return true;
-  return false;
-}
-
 function drawColorMaskOverlay(ctx) {
   const isolateActive = isolateEnabled && isolateTargetIdx >= 0;
-  const doneActive = _hasAnyDone();
+  const doneActive = doneState.any();
   if (!isolateActive && !doneActive) return;
 
   const src = getActiveData();
@@ -362,7 +344,7 @@ function drawColorMaskOverlay(ctx) {
     for (let x = 0; x < w; x++) {
       const idx = map[y * w + x];
       const isolateBlocks = isolateActive && idx !== isolateTargetIdx;
-      const doneBlocks    = doneActive && isDoneColor(idx);
+      const doneBlocks    = doneActive && doneState.isDone(idx);
       if (isolateBlocks || doneBlocks) {
         ctx.fillRect(x * zoom, y * zoom, zoom, zoom);
       }
@@ -443,28 +425,16 @@ function toggleDoneColor() {
     });
     return;
   }
-  if (typeof toggleRecipeCheck === 'function') {
-    toggleRecipeCheck(closestIdx);
-  }
-  _updateDoneButtonState();
-  if (typeof applyPaletteUsedFilter === 'function') applyPaletteUsedFilter();
-  renderPixelCanvas();
+  doneState.toggle(closestIdx);
 }
 
 function resetDoneColors() {
-  if (typeof recipeCheckState === 'undefined' || !_hasAnyDone()) return;
-  for (const k in recipeCheckState) delete recipeCheckState[k];
-  if (typeof _saveCheckState === 'function' && typeof recipeKey !== 'undefined') {
-    _saveCheckState(recipeKey, recipeCheckState);
-  }
-  if (typeof rebuildRecipe === 'function') rebuildRecipe();
-  _updateDoneButtonState();
-  renderPixelCanvas();
+  doneState.reset();
 }
 
 function _updateDoneButtonState() {
   const hasSel = (typeof closestIdx !== 'undefined' && closestIdx >= 0);
-  const isDone = hasSel && isDoneColor(closestIdx);
+  const isDone = hasSel && doneState.isDone(closestIdx);
   const longKey  = isDone ? 'color.markDoneOn'      : 'color.markDoneOff';
   const shortKey = isDone ? 'color.markDoneOnShort' : 'color.markDoneOffShort';
   const longText  = (typeof t === 'function') ? t(longKey)  : '';
@@ -480,13 +450,13 @@ function _updateDoneButtonState() {
   });
 
   const resetBtn = document.getElementById('done-reset-btn');
-  if (resetBtn) resetBtn.classList.toggle('hidden', !_hasAnyDone());
+  if (resetBtn) resetBtn.classList.toggle('hidden', !doneState.any());
 
   const counter = document.getElementById('done-counter');
   if (counter) {
     if (typeof convertedData !== 'undefined' && convertedData && convertedData.usedSet) {
       const total = convertedData.usedSet.size;
-      const done = _doneCount();
+      const done = doneState.count();
       counter.textContent = (typeof t === 'function')
         ? t('color.doneCounter', { n: done, m: total })
         : `${done}/${total}`;

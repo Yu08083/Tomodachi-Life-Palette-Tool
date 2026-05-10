@@ -136,7 +136,8 @@ function finalizeImageLoad(canvas, isCropped) {
   updateImgInfo();
   setupCanvases();
   buildPaletteGrid();
-  rebuildRecipe();
+  if (typeof rebuildConvertedData === 'function') rebuildConvertedData();
+  else rebuildRecipe();
 
   lastSelPx = -1;
   lastSelPy = -1;

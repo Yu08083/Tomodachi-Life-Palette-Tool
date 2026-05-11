@@ -1,0 +1,33 @@
+{
+  "name": "すぽいと帳 - トモダチコレクション パレット変換",
+  "short_name": "すぽいと帳",
+  "description": "トモダチコレクション わくわく生活のペイント機能向け、画像→84色パレット 変換ツール。Mii 似顔絵・帽子・服・床絵・看板・壁紙の色合わせに。",
+  "lang": "ja",
+  "dir": "ltr",
+  "scope": "/Tomodachi-Life-Palette-Tool/",
+  "start_url": "/Tomodachi-Life-Palette-Tool/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#FBEFE0",
+  "theme_color": "#FF6B1A",
+  "categories": ["productivity", "graphics", "utilities"],
+  "icons": [
+    {
+      "src": "./assets/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "./assets/favicon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

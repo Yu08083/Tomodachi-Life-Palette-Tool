@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Spoito-cho | Ferramenta de paleta para Tomodachi Life",
-    "description": "Ferramenta de combinação de cores para o modo pintura do Tomodachi Life. Extraia cores de qualquer imagem e obtenha a paleta do jogo e os passos detalhados."
+    "title": "Spoito-cho — Conversor de paleta 84 cores para Tomodachi Life",
+    "description": "Conversor de imagem → pixel-art gratuito para o modo pintura de Tomodachi Life. Mapeia qualquer foto automaticamente para a paleta de 84 cores do jogo. Para retratos Mii, chapéus, roupas, chãos, placas, papéis de parede. Ajustes HSV, PNG paint-by-number, eixos espelho, pontuação de dificuldade, time-lapse WebM. Só no navegador, mobile, 12 idiomas."
   },
   "header": {
     "title": "Spoito-cho",
@@ -46,7 +46,8 @@
     "move": "Mover",
     "ruler": "Régua",
     "grid": "Grade",
-    "help": "Ajuda"
+    "help": "Ajuda",
+    "mirror": "Espelho"
   },
   "view": {
     "original": "Original",
@@ -77,7 +78,11 @@
     "saturation": "Saturação",
     "adjustLabel": "Ajustar",
     "adjustReset": "Redefinir",
-    "pbnGrid": "Realçar grade no numerado"
+    "pbnGrid": "Realçar grade no numerado",
+    "tlStart": "Gravar time-lapse",
+    "tlStop": "Parar e salvar",
+    "tlUnsupported": "Gravação não suportada neste navegador",
+    "tlEmpty": "A gravação ficou vazia. Tente gravar por mais tempo."
   },
   "color": {
     "labelEn": "color information",
@@ -88,7 +93,7 @@
     "selected": "Cor selecionada",
     "favorite": "Adicionar aos favoritos",
     "hexInputPos": "Entrada HEX",
-    "convertedPrefix": "Convertido ",
+    "convertedPrefix": "Conv ",
     "rowCol": "linha {row}, col {col}",
     "distHint": "  (menor = mais próximo)",
     "isolateOff": "Isolar cor",
@@ -261,5 +266,51 @@
     "orImport": "ou importar de um arquivo",
     "fileExported": "Arquivo salvo",
     "invalidFile": "Não é um arquivo Spoito-cho"
+  },
+  "difficulty": {
+    "easy": "Fácil",
+    "normal": "Normal",
+    "medium": "Médio",
+    "hard": "Difícil",
+    "expert": "Experto",
+    "title": "Sobre a pontuação de dificuldade",
+    "desc": "A pontuação 1–100 estima o quão difícil é pintar com a paleta de 84 cores.",
+    "foot": "Calculada por número de cores × dispersão. Apenas referência.",
+    "aria": "Dificuldade {score} ({label})",
+    "easyHint": "Poucas cores, áreas grandes, fácil",
+    "normalHint": "Padrão, acessível para iniciantes",
+    "mediumHint": "Muitas cores ou detalhes finos",
+    "hardHint": "Muitas cores dispersas, demorado",
+    "expertHint": "Complexidade fotográfica, paciência"
+  },
+  "seo": {
+    "heading": "Conversor de imagem → pixel-art para o modo pintura de Tomodachi Life",
+    "lead": "\"Spoito-cho\" mapeia qualquer imagem para a <strong>paleta de 84 cores do jogo</strong>, ajudando você a pintar retratos Mii, chapéus, roupas, chãos, placas e papéis de parede em Tomodachi Life. Grátis, direto no navegador.",
+    "f1": "Pixela em grades 32×32 e quantiza automaticamente para a paleta de 84 cores",
+    "f2": "\"Receita de cores\": uso por cor, HEX, HSV, linha/coluna",
+    "f3": "Exporta / imprime PNGs Paint-by-Number",
+    "f4": "Sliders de brilho/saturação, dithering, eixos espelho, acompanhamento, dificuldade",
+    "f5": "Grava seu progresso como time-lapse WebM",
+    "f6": "Funciona em mobile e desktop, tudo no navegador (sem upload), 12 idiomas"
+  },
+  "seoFaq": {
+    "heading": "Perguntas frequentes",
+    "q1": "Q. Qual a diferença entre Spoito-cho e outros conversores para Tomodachi Life?",
+    "a1": "A. Ambos convertem imagens em pixel art para Tomodachi Life, mas Spoito-cho inclui instruções HSV automáticas passo a passo, exportação PNG paint-by-number, gravação time-lapse, pontuação de dificuldade, eixos espelho e cores favoritas — recursos que te acompanham em todo o processo.",
+    "q2": "Q. É realmente gratuito?",
+    "a2": "A. Sim, Spoito-cho é totalmente gratuito. Sem conta, sem instalação — basta abrir no navegador.",
+    "q3": "Q. Para onde minhas imagens são enviadas?",
+    "a3": "A. Para lugar nenhum. Todo processamento acontece dentro do seu navegador. Sua privacidade é totalmente preservada.",
+    "q4": "Q. Funciona no celular?",
+    "a4": "A. Sim, no iPhone Safari, Android Chrome e outros navegadores móveis. Cortar e selecionar cores por toque.",
+    "q5": "Q. O que é a paleta de 84 cores?",
+    "a5": "A. É o conjunto fixo de cores disponíveis no modo pintura de Tomodachi Life, organizado em uma grade de 7 linhas × 12 colunas. As cores são selecionadas via HSV no jogo, e Spoito-cho mapeia automaticamente sua imagem para essas 84 cores calculando os passos HSV.",
+    "q6": "Q. O que é PNG paint-by-number?",
+    "a6": "A. Exporta seu pixel art convertido com os números da paleta (1-84) escritos em cada célula. Imprima ou mostre ao lado da tela do Tomodachi Life para pintar célula por célula.",
+    "q7": "Q. Quais formatos de imagem são suportados?",
+    "a7": "A. PNG, JPG (JPEG), GIF e WEBP — todos os principais formatos. Arraste e solte capturas de tela, fotos ou ilustrações.",
+    "q8": "Q. O que é a pontuação de dificuldade?",
+    "a8": "A. Uma pontuação de 1 a 100 estimando o quão difícil seria pintar sua imagem com a paleta 84 cores. Calculada pelo número de cores e sua distribuição espacial, mostrada como crachá colorido em 5 níveis (Iniciante / Fácil / Intermediário / Avançado / Expert).",
+    "note": "Spoito-cho é uma ferramenta não oficial feita por fãs, sem afiliação com a Nintendo Co., Ltd., editora de Tomodachi Life."
   }
 }

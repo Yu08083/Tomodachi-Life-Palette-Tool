@@ -82,6 +82,41 @@
   color: #fff;
 }
 
+.mirror-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.mirror-sub-toggle {
+  display: inline-flex;
+  background: var(--card);
+  padding: 2px;
+  border-radius: 999px;
+  gap: 1px;
+  box-shadow: var(--shadow);
+  border: 1.5px solid var(--line);
+}
+.mirror-sub-toggle.hidden { display: none; }
+.mirror-sub-btn {
+  font-family: var(--font-jp);
+  font-weight: 800;
+  font-size: 1rem;
+  padding: 4px 10px;
+  background: transparent;
+  color: var(--ink-2);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s;
+  min-width: 30px;
+  line-height: 1;
+}
+.mirror-sub-btn:hover { color: var(--orange-d); }
+.mirror-sub-btn.active {
+  background: var(--orange);
+  color: #fff;
+}
+
 .zoom-controls {
   display: inline-flex;
   align-items: center;
@@ -346,4 +381,43 @@
   .tool-btn { padding: 7px 12px; font-size: 0.76rem; }
   .zoom-btn { width: 32px; height: 32px; font-size: 1rem; }
   #zoom-label { font-size: 0.78rem; min-width: 40px; padding: 0 8px; }
+}
+
+.canvas-selection-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  margin: 0 auto 8px;
+  padding: 6px 14px 6px 6px;
+  background: #FFFCF6;
+  border: 2px solid var(--orange);
+  border-radius: 999px;
+  box-shadow: 0 3px 0 var(--orange-d), 0 4px 12px rgba(58, 31, 10, 0.15);
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  animation: cspPop 0.18s ease-out;
+}
+.canvas-selection-pill.hidden { display: none; }
+.csp-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--line);
+  flex-shrink: 0;
+}
+.csp-pos { color: var(--orange-d); }
+.csp-sep { color: var(--ink-3); font-weight: 400; }
+.csp-seq { color: var(--ink-2); font-size: 0.82rem; }
+@keyframes cspPop {
+  from { transform: scale(0.85); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+@media (max-width: 600px) {
+  .canvas-selection-pill { font-size: 0.82rem; padding: 5px 10px 5px 5px; gap: 6px; top: 6px; right: 6px; }
+  .csp-swatch { width: 18px; height: 18px; }
+  .csp-seq { font-size: 0.7rem; }
 }

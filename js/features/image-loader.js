@@ -144,6 +144,8 @@ function finalizeImageLoad(canvas, isCropped) {
   hoverPaletteIdx = -1;
   noSelectMsg.classList.remove('hidden');
   colorInfo.classList.add('hidden');
+  const pill = document.getElementById('canvas-selection-pill');
+  if (pill) pill.classList.add('hidden');
 
   uploadSec.classList.add('hidden');
   closeCropTool();

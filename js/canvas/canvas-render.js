@@ -35,6 +35,12 @@ function renderPixelCanvas() {
   } else {
     clearOverlayWithGrid();
   }
+
+  if (mirrorMode !== 'off') {
+    const ctx2 = overlayCanvas.getContext('2d');
+    drawMirrorAxes(ctx2);
+    if (lastSelPx >= 0) drawMirrorHighlight(lastSelPx, lastSelPy);
+  }
 }
 
 function clearOverlayWithGrid() {
@@ -469,4 +475,93 @@ function _updateDoneButtonState() {
 
 function refreshDoneOnSelection() {
   _updateDoneButtonState();
+}
+
+const MIRROR_STORAGE_KEY = 'spoito_mirror_mode';
+const MIRROR_MODES = ['off', 'v', 'h', 'both'];
+
+function toggleMirror() {
+  mirrorMode = (mirrorMode === 'off') ? 'v' : 'off';
+  _updateMirrorButtonState();
+  try { localStorage.setItem(MIRROR_STORAGE_KEY, mirrorMode); } catch (_) {}
+  renderPixelCanvas();
+}
+
+function setMirrorAxis(axis) {
+  if (!MIRROR_MODES.includes(axis) || axis === 'off') return;
+  mirrorMode = axis;
+  _updateMirrorButtonState();
+  try { localStorage.setItem(MIRROR_STORAGE_KEY, mirrorMode); } catch (_) {}
+  renderPixelCanvas();
+}
+
+function _updateMirrorButtonState() {
+  const btn = document.getElementById('mirror-btn');
+  if (btn) btn.classList.toggle('active', mirrorMode !== 'off');
+  const sub = document.getElementById('mirror-sub-toggle');
+  if (sub) sub.classList.toggle('hidden', mirrorMode === 'off');
+  document.querySelectorAll('.mirror-sub-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.mirror === mirrorMode);
+  });
+}
+
+function initMirror() {
+  let saved = 'off';
+  try { saved = localStorage.getItem(MIRROR_STORAGE_KEY) || 'off'; } catch (_) {}
+  if (!MIRROR_MODES.includes(saved)) saved = 'off';
+  mirrorMode = saved;
+  _updateMirrorButtonState();
+}
+
+function _getMirroredPoints(px, py, w, h) {
+  if (mirrorMode === 'off') return [];
+  const mx = w - 1 - px;
+  const my = h - 1 - py;
+  const out = [];
+  if (mirrorMode === 'v')    out.push([mx, py]);
+  if (mirrorMode === 'h')    out.push([px, my]);
+  if (mirrorMode === 'both') { out.push([mx, py], [px, my], [mx, my]); }
+  return out.filter(([x, y]) => !(x === px && y === py));
+}
+
+function drawMirrorAxes(ctx) {
+  if (mirrorMode === 'off') return;
+  const src = getActiveData();
+  if (!src) return;
+  const W = src.width * zoom, H = src.height * zoom;
+  ctx.save();
+  ctx.strokeStyle = 'rgba(214, 64, 4, 0.55)';
+  ctx.lineWidth = Math.max(1, zoom * 0.18);
+  ctx.setLineDash([Math.max(6, zoom * 0.6), Math.max(4, zoom * 0.4)]);
+  ctx.beginPath();
+  if (mirrorMode === 'v' || mirrorMode === 'both') {
+    const x = Math.round(W / 2) + 0.5;
+    ctx.moveTo(x, 0); ctx.lineTo(x, H);
+  }
+  if (mirrorMode === 'h' || mirrorMode === 'both') {
+    const y = Math.round(H / 2) + 0.5;
+    ctx.moveTo(0, y); ctx.lineTo(W, y);
+  }
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.restore();
+}
+
+function drawMirrorHighlight(px, py) {
+  if (mirrorMode === 'off') return;
+  const src = getActiveData();
+  if (!src) return;
+  const pts = _getMirroredPoints(px, py, src.width, src.height);
+  if (!pts.length) return;
+  const ctx = overlayCanvas.getContext('2d');
+  ctx.save();
+  ctx.strokeStyle = 'rgba(214, 64, 4, 0.85)';
+  ctx.lineWidth = Math.max(2, zoom * 0.18);
+  ctx.fillStyle = 'rgba(255, 201, 60, 0.30)';
+  for (const [mx, my] of pts) {
+    const x = mx * zoom, y = my * zoom;
+    ctx.fillRect(x, y, zoom, zoom);
+    ctx.strokeRect(x + 0.5, y + 0.5, zoom - 1, zoom - 1);
+  }
+  ctx.restore();
 }

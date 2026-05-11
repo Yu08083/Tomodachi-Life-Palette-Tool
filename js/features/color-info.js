@@ -16,6 +16,8 @@ function selectColor(r, g, b, px, py) {
     posEl.textContent = t('color.hexInputPos');
   }
 
+  updateCanvasSelectionPill(px, py, hex);
+
   let bestDist = Infinity, bestIdx = 0;
   PALETTE.forEach((p, i) => {
     const c = hexToRgb(p.h);
@@ -187,4 +189,37 @@ function refreshColorInfoLabels() {
       posEl.textContent = `${t('color.convertedPrefix')}X:${lastSelPx + 1} Y:${lastSelPy + 1}`;
     }
   }
+}
+
+function updateCanvasSelectionPill(px, py, hex) {
+  const pill   = document.getElementById('canvas-selection-pill');
+  if (!pill) return;
+  if (px < 0 || py < 0) { pill.classList.add('hidden'); return; }
+
+  let gridW, gridH;
+  if (viewMode === 'converted' && convertedData) {
+    gridW = convertedData.width; gridH = convertedData.height;
+  } else if (imgData) {
+    if (imgData.width >= imgData.height) {
+      gridW = gridSize; gridH = Math.max(1, Math.round(gridSize * imgData.height / imgData.width));
+    } else {
+      gridH = gridSize; gridW = Math.max(1, Math.round(gridSize * imgData.width / imgData.height));
+    }
+  } else { gridW = gridH = 1; }
+
+  let col, row;
+  if (viewMode === 'converted') { col = px + 1; row = py + 1; }
+  else {
+    col = Math.max(1, Math.min(gridW, Math.floor(px / (imgData.width  / gridW)) + 1));
+    row = Math.max(1, Math.min(gridH, Math.floor(py / (imgData.height / gridH)) + 1));
+  }
+
+  const seq = (row - 1) * gridW + col;
+  const total = gridW * gridH;
+
+  document.getElementById('csp-swatch').style.background = hex;
+  document.getElementById('csp-pos').textContent =
+    t('color.rowCol', { row, col });
+  document.getElementById('csp-seq').textContent = `#${seq}/${total}`;
+  pill.classList.remove('hidden');
 }

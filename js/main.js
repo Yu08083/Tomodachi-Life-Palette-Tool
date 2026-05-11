@@ -61,6 +61,14 @@ async function init() {
 
   initGrid();
   if (typeof initIsolate === 'function') initIsolate();
+  if (typeof initMirror === 'function') initMirror();
+
+  document.querySelectorAll('.grid-sub-btn').forEach(b => {
+    b.addEventListener('click', () => setGridSubdivision(parseInt(b.dataset.sub, 10)));
+  });
+  document.querySelectorAll('.mirror-sub-btn').forEach(b => {
+    b.addEventListener('click', () => setMirrorAxis(b.dataset.mirror));
+  });
 
   window.addEventListener('i18nchange', refreshDynamicLabels);
 }

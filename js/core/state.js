@@ -13,6 +13,7 @@ var gridSubdivision = 8;
 var paletteUsedOnly = false;
 var isolateEnabled = false;
 var isolateTargetIdx = -1;
+var mirrorMode = 'off';
 var lastSelPx = -1;
 var lastSelPy = -1;
 var interactionMode = 'select';

@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Spoito-cho | Palettool voor Tomodachi Life",
-    "description": "Tool voor kleurmatching voor de schildermodus van Tomodachi Life. Haal kleuren uit elke afbeelding en krijg het spelpalet en stapsgewijze instructies."
+    "title": "Spoito-cho — Tomodachi Life 84-kleuren palet converter",
+    "description": "Gratis beeld → pixel-art converter voor de schildermodus van Tomodachi Life. Koppelt elke foto automatisch aan het 84-kleurige in-game palet. Voor Mii-portretten, hoeden, kleding, vloeren, borden, achtergronden. HSV-aanpassingen, Paint-by-Number PNG, spiegelassen, moeilijkheidsscore, WebM time-lapse. Alleen browser, mobiel, 12 talen."
   },
   "header": {
     "title": "Spoito-cho",
@@ -46,7 +46,8 @@
     "move": "Verplaatsen",
     "ruler": "Liniaal",
     "grid": "Raster",
-    "help": "Help"
+    "help": "Help",
+    "mirror": "Spiegel"
   },
   "view": {
     "original": "Origineel",
@@ -77,7 +78,11 @@
     "saturation": "Verzadiging",
     "adjustLabel": "Aanpassen",
     "adjustReset": "Herstel",
-    "pbnGrid": "Raster benadrukken in nummerplaat"
+    "pbnGrid": "Raster benadrukken in nummerplaat",
+    "tlStart": "Time-lapse opnemen",
+    "tlStop": "Stop & opslaan",
+    "tlUnsupported": "Opname wordt niet ondersteund",
+    "tlEmpty": "Opname was leeg. Probeer langer op te nemen."
   },
   "color": {
     "labelEn": "color information",
@@ -88,7 +93,7 @@
     "selected": "Geselecteerde kleur",
     "favorite": "Aan favorieten",
     "hexInputPos": "HEX-invoer",
-    "convertedPrefix": "Geconverteerd ",
+    "convertedPrefix": "Conv ",
     "rowCol": "rij {row}, kol {col}",
     "distHint": "  (lager = dichterbij)",
     "isolateOff": "Kleur isoleren",
@@ -261,5 +266,51 @@
     "orImport": "of importeer uit bestand",
     "fileExported": "Bestand opgeslagen",
     "invalidFile": "Geen Spoito-cho-bestand"
+  },
+  "difficulty": {
+    "easy": "Makkelijk",
+    "normal": "Normaal",
+    "medium": "Middel",
+    "hard": "Moeilijk",
+    "expert": "Expert",
+    "title": "Over de moeilijkheidsscore",
+    "desc": "Score 1–100 schat hoe lastig het is om met de 84-kleuren palet te schilderen.",
+    "foot": "Berekend uit aantal kleuren × spreiding. Slechts een indicatie.",
+    "aria": "Moeilijkheid {score} ({label})",
+    "easyHint": "Weinig kleuren, grote vlakken, eenvoudig",
+    "normalHint": "Standaard, ook voor beginners",
+    "mediumHint": "Veel kleuren of fijne details",
+    "hardHint": "Veel verspreide kleuren, tijdrovend",
+    "expertHint": "Fotografische complexiteit, geduld"
+  },
+  "seo": {
+    "heading": "Beeld → pixel-art converter voor de schildermodus van Tomodachi Life",
+    "lead": "\"Spoito-cho\" koppelt elk beeld automatisch aan het <strong>84-kleurige in-game palet</strong> en helpt je Mii-portretten, hoeden, kleding, vloeren, borden en achtergronden in Tomodachi Life te schilderen. Gratis, in de browser.",
+    "f1": "Pixeleer naar 32×32 rasters en kwantiseer automatisch naar 84 kleuren",
+    "f2": "\"Kleurrecept\" met cellen, HEX, HSV, rij/kolom per kleur",
+    "f3": "Exporteer / print Paint-by-Number PNG",
+    "f4": "Helderheids- en verzadigingsschuifregelaars, dithering, spiegelassen, voortgang, moeilijkheid",
+    "f5": "Neem je voortgang op als WebM time-lapse",
+    "f6": "Werkt op mobiel en desktop, draait in je browser (geen upload), 12 talen"
+  },
+  "seoFaq": {
+    "heading": "Veelgestelde vragen",
+    "q1": "Q. Wat is het verschil tussen Spoito-cho en andere Tomodachi Life pixel-omzetters?",
+    "a1": "A. Beide zetten afbeeldingen om naar pixel art voor Tomodachi Life, maar Spoito-cho biedt automatische HSV-stap-voor-stap-instructies, paint-by-number PNG-export, time-lapse-opname, moeilijkheidsscore, spiegelassen en favoriete kleuren — functies die je door het hele schilderproces ondersteunen.",
+    "q2": "Q. Is het echt gratis?",
+    "a2": "A. Ja, Spoito-cho is volledig gratis. Geen account, geen app-installatie — gewoon openen in je browser.",
+    "q3": "Q. Waar worden mijn geüploade afbeeldingen naartoe gestuurd?",
+    "a3": "A. Nergens. Alle verwerking gebeurt in je browser. Je privacy blijft volledig behouden.",
+    "q4": "Q. Werkt het op mobiel?",
+    "a4": "A. Ja, op iPhone Safari, Android Chrome en andere mobiele browsers. Bijsnijden en kleuren kiezen met aanraking.",
+    "q5": "Q. Wat is het 84-kleurenpalet?",
+    "a5": "A. Het is de vaste kleurset in de schildermodus van Tomodachi Life, georganiseerd in een 7-rij × 12-kolom raster. Kleuren worden in-game via HSV gekozen, en Spoito-cho koppelt je afbeelding automatisch aan deze 84 kleuren en berekent de HSV-stappen.",
+    "q6": "Q. Wat is paint-by-number PNG?",
+    "a6": "A. Het exporteert je geconverteerde pixel art met paletnummers (1-84) in elke cel. Print het uit of toon het naast je Tomodachi Life-scherm en schilder cel voor cel.",
+    "q7": "Q. Welke beeldformaten worden ondersteund?",
+    "a7": "A. PNG, JPG (JPEG), GIF en WEBP — alle belangrijke formaten. Sleep schermafbeeldingen, foto's of illustraties erin.",
+    "q8": "Q. Wat is de moeilijkheidsscore?",
+    "a8": "A. Een score van 1-100 die schat hoe moeilijk het zou zijn om je afbeelding met het 84-kleurenpalet te schilderen. Berekend uit het aantal kleuren en hun ruimtelijke verdeling, getoond als gekleurde badge in 5 niveaus (Beginner / Makkelijk / Gemiddeld / Gevorderd / Expert).",
+    "note": "Spoito-cho is een onofficiële fan-made tool, niet verbonden met Nintendo Co., Ltd., uitgever van Tomodachi Life."
   }
 }

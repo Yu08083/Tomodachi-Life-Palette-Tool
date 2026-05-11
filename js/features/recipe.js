@@ -167,6 +167,7 @@ function rebuildRecipe() {
   });
 
   doneState._refreshAfterRebuild();
+  if (typeof updateDifficultyDisplay === 'function') updateDifficultyDisplay();
 }
 
 function updateRecipeRowChecks() {
@@ -347,4 +348,71 @@ function attachPaletteHover() {
       }
     });
   });
+}
+
+function computeDifficulty() {
+  if (!convertedData) return null;
+  const colors = convertedData.usedSet ? convertedData.usedSet.size : 0;
+  if (!colors) return null;
+
+  const W = convertedData.width, H = convertedData.height;
+  const map = convertedData.paletteMap;
+  const bounds = new Map();
+  const counts = new Map();
+  for (let y = 0; y < H; y++) {
+    for (let x = 0; x < W; x++) {
+      const idx = map[y * W + x];
+      if (idx < 0) continue;
+      counts.set(idx, (counts.get(idx) || 0) + 1);
+      const b = bounds.get(idx);
+      if (!b) bounds.set(idx, { x0: x, y0: y, x1: x, y1: y });
+      else {
+        if (x < b.x0) b.x0 = x; if (x > b.x1) b.x1 = x;
+        if (y < b.y0) b.y0 = y; if (y > b.y1) b.y1 = y;
+      }
+    }
+  }
+
+  let scatterSum = 0, n = 0;
+  bounds.forEach((b, idx) => {
+    const c = counts.get(idx) || 0;
+    if (c < 2) return;
+    const area = (b.x1 - b.x0 + 1) * (b.y1 - b.y0 + 1);
+    const density = c / area;
+    scatterSum += (1 - density);
+    n++;
+  });
+  const scatter = n > 0 ? scatterSum / n : 0;
+
+  const colorFactor = Math.min(50, Math.round(50 * Math.log2(colors + 1) / Math.log2(85)));
+  const scatterFactor = Math.round(50 * scatter);
+  const score = Math.max(1, Math.min(100, colorFactor + scatterFactor));
+
+  let label, tier;
+  if (score < 20)       { label = 'easy';   tier = 1; }
+  else if (score < 40)  { label = 'normal'; tier = 2; }
+  else if (score < 60)  { label = 'medium'; tier = 3; }
+  else if (score < 80)  { label = 'hard';   tier = 4; }
+  else                  { label = 'expert'; tier = 5; }
+
+  return { score, label, tier, colors, scatter };
+}
+
+function updateDifficultyDisplay() {
+  const el = document.getElementById('difficulty-badge');
+  if (!el) return;
+  const d = computeDifficulty();
+  if (!d) { el.classList.add('hidden'); return; }
+  el.classList.remove('hidden');
+  el.className = `difficulty-badge diff-tier-${d.tier}`;
+  el.classList.remove('hidden');
+  const labelTxt = (typeof t === 'function') ? t('difficulty.' + d.label) : d.label;
+  const aria = (typeof t === 'function')
+    ? t('difficulty.aria', { score: d.score, label: labelTxt })
+    : `Difficulty ${d.score} (${labelTxt})`;
+  el.setAttribute('aria-label', aria);
+  el.innerHTML =
+    `<span class="diff-score">${d.score}</span>` +
+    `<span class="diff-label">${labelTxt}</span>` +
+    `<button class="diff-help-btn" type="button" onclick="openModal('modal-difficulty')" aria-label="?"><span aria-hidden="true">?</span></button>`;
 }

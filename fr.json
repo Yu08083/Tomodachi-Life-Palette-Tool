@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "blueColor": { "r": 5, "g": 75, "b": 186, "tolerance": 80 },
+  "categories": [
+    {
+      "id": "tops1",
+      "nameKey": "bg.category.tops1",
+      "presets": [
+        { "id": "plain",       "file": "plain.png",       "nameKey": "bg.preset.plain" },
+        { "id": "tank",        "file": "tank.png",        "nameKey": "bg.preset.tank" },
+        { "id": "shortSleeve", "file": "shortSleeve.png", "nameKey": "bg.preset.shortSleeve" },
+        { "id": "longSleeve",  "file": "longSleeve.png",  "nameKey": "bg.preset.longSleeve" }
+      ]
+    },
+    {
+      "id": "tops2",
+      "nameKey": "bg.category.tops2",
+      "presets": [
+        { "id": "dressSleeveless",  "file": "dressSleeveless.png",  "nameKey": "bg.preset.dressSleeveless" },
+        { "id": "dressShortSleeve", "file": "dressShortSleeve.png", "nameKey": "bg.preset.dressShortSleeve" },
+        { "id": "dressLongSleeve",  "file": "dressLongSleeve.png",  "nameKey": "bg.preset.dressLongSleeve" },
+        { "id": "gown",             "file": "gown.png",             "nameKey": "bg.preset.gown" },
+        { "id": "robe",             "file": "robe.png",             "nameKey": "bg.preset.robe" }
+      ]
+    },
+    {
+      "id": "bottoms",
+      "nameKey": "bg.category.bottoms",
+      "presets": [
+        { "id": "shorts",     "file": "shorts.png",     "nameKey": "bg.preset.shorts" },
+        { "id": "pants",      "file": "pants.png",      "nameKey": "bg.preset.pants" },
+        { "id": "skirtShort", "file": "skirtShort.png", "nameKey": "bg.preset.skirtShort" },
+        { "id": "skirtLong",  "file": "skirtLong.png",  "nameKey": "bg.preset.skirtLong" }
+      ]
+    },
+    {
+      "id": "hats",
+      "nameKey": "bg.category.hats",
+      "presets": [
+        { "id": "cap",       "file": "cap.png",       "nameKey": "bg.preset.cap" },
+        { "id": "topHat",    "file": "topHat.png",    "nameKey": "bg.preset.topHat" },
+        { "id": "headpiece", "file": "headpiece.png", "nameKey": "bg.preset.headpiece" }
+      ]
+    }
+  ]
+}

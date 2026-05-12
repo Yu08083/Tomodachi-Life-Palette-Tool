@@ -60,6 +60,22 @@ async function init() {
     try { attachBgPresetHandlers(); } catch (_) {}
   }
 
+  if (typeof attachCameraHandlers === 'function') {
+    try { attachCameraHandlers(); } catch (_) {}
+  }
+
+  if (typeof attachEnhanceHandlers === 'function') {
+    try { attachEnhanceHandlers(); } catch (_) {}
+  }
+
+  if (typeof attachShareCardHandlers === 'function') {
+    try { attachShareCardHandlers(); } catch (_) {}
+  }
+
+  if (typeof attachPixelEditorHandlers === 'function') {
+    try { attachPixelEditorHandlers(); } catch (_) {}
+  }
+
   buildPaletteGrid();
   attachPaletteNumberToggle();
   attachPaletteUsedOnlyToggle();

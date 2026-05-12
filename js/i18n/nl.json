@@ -47,7 +47,8 @@
     "ruler": "Liniaal",
     "grid": "Raster",
     "help": "Help",
-    "mirror": "Spiegel"
+    "mirror": "Spiegel",
+    "backToStart": "Terug naar start"
   },
   "view": {
     "original": "Origineel",
@@ -234,7 +235,8 @@
     "savedAgo": "{n}d geleden",
     "today": "Vandaag",
     "yesterday": "Gisteren",
-    "storageFail": "Kan afbeelding niet opslaan in geschiedenis (opslag vol)"
+    "storageFail": "Kan afbeelding niet opslaan in geschiedenis (opslag vol)",
+    "shareCard": "Deelkaart maken"
   },
   "share": {
     "button": "Delen",
@@ -362,6 +364,55 @@
     "placeReset": "Centreren",
     "placeCancel": "Annuleren",
     "placeConfirm": "Bevestigen",
-    "dither": "Dithering"
+    "dither": "Dithering",
+    "viewAlone": "Alleen dit deel",
+    "placeEnhance": "Aanpassen ▾"
+  },
+  "camera": {
+    "openMode": "📷 Camera gebruiken",
+    "title": "Met camera vastleggen",
+    "flip": "Camera wisselen",
+    "capture": "📸 Vastleggen",
+    "notAvailable": "Camera kon niet starten"
+  },
+  "enhance": {
+    "toggle": "Beeldcorrectie",
+    "brightness": "Helderheid",
+    "contrast": "Contrast",
+    "saturation": "Verzadiging",
+    "sharpness": "Scherpte",
+    "reset": "Reset"
+  },
+  "shareCard": {
+    "title": "Deelkaart",
+    "hint": "Maak een deelbare afbeelding voor sociale media",
+    "download": "PNG downloaden",
+    "copy": "Kopiëren",
+    "share": "Delen via app",
+    "copied": "Gekopieerd",
+    "copyFail": "Klembord niet ondersteund",
+    "shareTitle": "Gemaakt met Spoito-cho",
+    "shareText": "Pixel art met 84-kleurenpalet via Spoito-cho",
+    "noArt": "Geen geconverteerde afbeelding",
+    "size": "Formaat",
+    "pixels": "Pixels",
+    "colors": "Kleuren",
+    "colorsUnit": "kleuren",
+    "diff": "Moeilijkheid"
+  },
+  "editor": {
+    "toggle": "Bewerken",
+    "pencil": "Potlood (B)",
+    "eraser": "Gum (E)",
+    "eyedropper": "Pipet (I)",
+    "bucket": "Vullen (G)",
+    "swap": "Kleur vervangen (S)",
+    "undo": "Ongedaan maken (Ctrl+Z)",
+    "redo": "Opnieuw (Ctrl+Y)",
+    "color": "Kleur",
+    "colorHint": "← Kies uit het palet",
+    "exit": "Bewerken stoppen",
+    "reset": "Alles resetten",
+    "resetConfirm": "Alle bewerkingen verwerpen en terug naar de oorspronkelijke conversie?"
   }
 }

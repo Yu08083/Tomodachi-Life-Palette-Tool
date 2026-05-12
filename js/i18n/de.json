@@ -47,7 +47,8 @@
     "ruler": "Lineal",
     "grid": "Raster",
     "help": "Hilfe",
-    "mirror": "Spiegel"
+    "mirror": "Spiegel",
+    "backToStart": "Zum Anfang"
   },
   "view": {
     "original": "Original",
@@ -234,7 +235,8 @@
     "savedAgo": "vor {n} T.",
     "today": "Heute",
     "yesterday": "Gestern",
-    "storageFail": "Bild konnte nicht im Verlauf gespeichert werden (Speicher voll)"
+    "storageFail": "Bild konnte nicht im Verlauf gespeichert werden (Speicher voll)",
+    "shareCard": "Share-Karte"
   },
   "share": {
     "button": "Teilen",
@@ -362,6 +364,55 @@
     "placeReset": "Zentrieren",
     "placeCancel": "Abbrechen",
     "placeConfirm": "Bestätigen",
-    "dither": "Dithering"
+    "dither": "Dithering",
+    "viewAlone": "Nur dieser Teil",
+    "placeEnhance": "Anpassen ▾"
+  },
+  "camera": {
+    "openMode": "📷 Kamera nutzen",
+    "title": "Mit Kamera aufnehmen",
+    "flip": "Kamera wechseln",
+    "capture": "📸 Aufnehmen",
+    "notAvailable": "Kamera konnte nicht gestartet werden"
+  },
+  "enhance": {
+    "toggle": "Bildanpassung",
+    "brightness": "Helligkeit",
+    "contrast": "Kontrast",
+    "saturation": "Sättigung",
+    "sharpness": "Schärfe",
+    "reset": "Zurücksetzen"
+  },
+  "shareCard": {
+    "title": "Share-Karte",
+    "hint": "Erstelle ein teilbares Bild für soziale Medien",
+    "download": "PNG herunterladen",
+    "copy": "In Zwischenablage",
+    "share": "Mit Apps teilen",
+    "copied": "Kopiert",
+    "copyFail": "Zwischenablage nicht unterstützt",
+    "shareTitle": "Mit Spoito-cho erstellt",
+    "shareText": "Pixel-Art mit 84-Farben-Palette mit Spoito-cho",
+    "noArt": "Kein konvertiertes Bild",
+    "size": "Größe",
+    "pixels": "Pixel",
+    "colors": "Farben",
+    "colorsUnit": "Farben",
+    "diff": "Schwierigkeit"
+  },
+  "editor": {
+    "toggle": "Bearbeiten",
+    "pencil": "Stift (B)",
+    "eraser": "Radierer (E)",
+    "eyedropper": "Pipette (I)",
+    "bucket": "Füllen (G)",
+    "swap": "Farbe ersetzen (S)",
+    "undo": "Rückgängig (Strg+Z)",
+    "redo": "Wiederherstellen (Strg+Y)",
+    "color": "Farbe",
+    "colorHint": "← Aus der Palette wählen",
+    "exit": "Bearbeitung beenden",
+    "reset": "Alles zurücksetzen",
+    "resetConfirm": "Alle Änderungen verwerfen und zur Originalkonvertierung zurückkehren?"
   }
 }

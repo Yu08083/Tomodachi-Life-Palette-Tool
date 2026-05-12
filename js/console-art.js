@@ -6,15 +6,16 @@
 
   const C = {
     O:    '#FF6B1A',
-    OD:   '#D94F08',
-    INK:  '#3A1F0A',
-    INK2: '#6C4628',
+    OD:   '#FF8533',
+    INK:  '#D9B891',
+    INK2: '#C9A77A',
+    INK3: '#A87E5D',
     Y:    '#FFD43A',
     G:    '#5AC882',
     B:    '#5EB8F0',
-    P:    '#8C5CC8',
+    P:    '#B388E0',
     PINK: '#FA82B4',
-    R:    '#FF5050',
+    R:    '#FF6B6B',
     K:    '#1A1A1A'
   };
 
@@ -25,11 +26,11 @@
     sect:    `color:${C.O};font-size:11px;font-weight:800;font-family:'JetBrains Mono',monospace;letter-spacing:0.15em;`,
     label:   `color:${C.O};font-weight:800;font-size:12px;font-family:'JetBrains Mono',monospace;`,
     val:     `color:${C.INK};font-size:12px;font-family:'JetBrains Mono',monospace;`,
-    cmd:     `background:${C.INK};color:${C.Y};font-weight:800;padding:3px 10px;border-radius:4px;font-size:12px;font-family:'JetBrains Mono',monospace;`,
+    cmd:     `background:${C.K};color:${C.Y};font-weight:800;padding:3px 10px;border-radius:4px;font-size:12px;font-family:'JetBrains Mono',monospace;`,
     cmdDesc: `color:${C.INK2};font-size:12px;font-family:sans-serif;padding-left:8px;`,
     rule:    `color:${C.O};font-family:monospace;font-size:11px;`,
-    hint:    `color:${C.INK2};font-size:11px;font-style:italic;font-family:sans-serif;`,
-    cap:     `color:${C.INK2};font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:0.05em;`,
+    hint:    `color:${C.INK3};font-size:11px;font-style:italic;font-family:sans-serif;`,
+    cap:     `color:${C.INK3};font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:0.05em;`,
     flag:    `font-size:14px;`,
     word:    `color:${C.INK};font-size:13px;font-weight:700;font-family:sans-serif;padding-left:6px;`,
     rowLbl:  `color:${C.INK2};font-size:10px;font-family:'JetBrains Mono',monospace;padding-right:4px;`
@@ -75,58 +76,29 @@
   }
 
   function drawArt(rows, pixW, pixH) {
-    let str = '';
-    const styles = [];
     for (const row of rows) {
+      let str = '';
+      const styles = [];
       for (const idx of row) {
-        str += '%c  ';
+        str += '%c ';
         styles.push(pix(idx, pixW, pixH));
       }
-      str += '\n';
+      console.log(str, ...styles);
     }
-    console.log(str, ...styles);
   }
 
   function drawPaletteGrid(cellW, cellH) {
-    let str = '';
-    const styles = [];
-    str += '%c     ';
-    styles.push(S.rowLbl);
-    for (let col = 0; col < 12; col++) {
-      const labelChar = String((col + 1) % 10);
-      str += '%c  ' + labelChar + '  ';
-      styles.push(`color:${C.INK2};font-size:9px;font-family:'JetBrains Mono',monospace;`);
-    }
-    str += '\n';
-
     for (let row = 0; row < 7; row++) {
-      str += '%c R' + (row + 1) + '  ';
-      styles.push(S.rowLbl);
+      let str = '';
+      const styles = [];
       for (let col = 0; col < 12; col++) {
         const idx = row * 12 + col;
-        str += '%c     ';
+        str += '%c ';
         styles.push(pix(idx, cellW, cellH));
       }
-      str += '\n';
+      console.log(str, ...styles);
     }
-    console.log(str, ...styles);
   }
-
-  const MII = [
-    [-1,-1,-1,-1,-1,82,82,82,82,82,82,-1,-1,-1],
-    [-1,-1,-1,82,82,70,70,70,70,82,82,82,-1,-1],
-    [-1,-1,82,70,32,32,32,32,32,32,70,82,82,-1],
-    [-1,82,70,32,32,32,32,32,32,32,32,32,70,82],
-    [-1,82,32,32, 0, 0,32,32,32, 0, 0,32,32,82],
-    [82,82,32,32, 0,72,32,32,32, 0,72,32,32,82],
-    [82,70,32,33,32,32,32,32,32,32,32,32,33,82],
-    [82,70,32,32,32,32,32,32,32,32,32,32,32,82],
-    [82,70,32,21,32,32, 9,11,11, 9,32,32,21,82],
-    [82,70,32,32,32,32,11,11,11,32,32,32,32,82],
-    [-1,82,70,32,32,32,32,32,32,32,32,32,82,-1],
-    [-1,-1,82,82,70,70,70,32,32,70,70,82,82,-1],
-    [-1,-1,-1,82,82,82,82,82,82,82,82,82,-1,-1]
-  ];
 
   const SCENE = [
     [73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73],
@@ -184,35 +156,50 @@
   console.log('');
 
   console.log('%c━━ THE 84 COLORS ━━━━━━━━━━━━━━━━━━━━━━', S.sect);
-  drawPaletteGrid(5, 5);
+  drawPaletteGrid(6, 6);
   console.log('%c   12 columns × 7 rows · the entire in-game paint palette', S.cap);
   console.log('');
 
-  console.log('%c━━ HAND-PIXELED WITH THE PALETTE ━━━━━━', S.sect);
-  drawArt(MII, 5, 5);
-  console.log('%c   "made by yu, painted with #82 #70 #32 ..."', S.cap);
+  console.log('%c━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', S.rule);
+  {
+    const msg = '   猫と和解せよ';
+    const palCols = [11, 23, 35, 47, 59, 71, 83, 39, 32, 18, 25, 49, 67];
+    let s = '';
+    const st = [];
+    for (let i = 0; i < msg.length; i++) {
+      const ch = msg[i];
+      s += '%c' + ch;
+      if (ch === ' ') {
+        st.push('font-size:26px;');
+      } else {
+        const col = PAL[palCols[i % palCols.length]];
+        st.push(`color:${col};font-size:26px;font-weight:900;font-family:'Hiragino Maru Gothic ProN','Yu Gothic','Meiryo',sans-serif;text-shadow:1px 1px 0 rgba(0,0,0,0.18),0 0 4px rgba(255,255,255,0.4);padding:2px 1px;`);
+      }
+    }
+    console.log(s, ...st);
+  }
+  console.log('%c━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', S.rule);
   console.log('');
 
   const g = greeting();
-  console.log(`%c👋 ${g.en}, curious developer!`, S.greet);
-  console.log(`%c${g.ja}、コードを覗いてくれてありがとう。`, S.sub);
+  console.log(`%c${g.ja}`, S.greet);
   console.log('');
 
   console.log('%c━━ ABOUT ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', S.sect);
-  console.log('%c GitHub  ', S.label, '%c https://github.com/Yu08083/Tomodachi-Life-Palette-Tool', S.val);
-  console.log('%c Author  ', S.label, '%c @yu_   on  X', S.val);
-  console.log('%c License ', S.label, '%c MIT  —  fork & modify freely', S.val);
-  console.log('%c Stack   ', S.label, '%c Vanilla JS · HTML · CSS  (no framework, no tracker)', S.val);
-  console.log('%c Scope   ', S.label, '%c 12 languages · 84-color palette · zero server', S.val);
+  console.log('%c GitHub  %c https://github.com/Yu08083/Tomodachi-Life-Palette-Tool', S.label, S.val);
+  console.log('%c Author  %c @yu_   on  X', S.label, S.val);
+  console.log('%c License %c MIT  —  fork & modify freely', S.label, S.val);
+  console.log('%c Stack   %c Vanilla JS · HTML · CSS  (no framework, no tracker)', S.label, S.val);
+  console.log('%c Scope   %c 12 languages · 84-color palette · zero server', S.label, S.val);
   console.log('');
 
   console.log('%c━━ TRY THESE ━━━━━━━━━━━━━━━━━━━━━━━━━━━', S.sect);
-  console.log('%c spoito.about()   ', S.cmd, '%cAbout this project', S.cmdDesc);
-  console.log('%c spoito.colors()  ', S.cmd, '%cView all 84 palette colors (sortable table)', S.cmdDesc);
-  console.log('%c spoito.scene()   ', S.cmd, '%cDawn landscape — every one of the 84 colors used at least once', S.cmdDesc);
-  console.log('%c spoito.brush()   ', S.cmd, '%cThe tool icon, in pixels', S.cmdDesc);
-  console.log('%c spoito.thanks()  ', S.cmd, '%cThanks in 12 languages', S.cmdDesc);
-  console.log('%c spoito.help()    ', S.cmd, '%cAll available commands', S.cmdDesc);
+  console.log('%c spoito.about()   %cAbout this project', S.cmd, S.cmdDesc);
+  console.log('%c spoito.colors()  %cView all 84 palette colors (sortable table)', S.cmd, S.cmdDesc);
+  console.log('%c spoito.scene()   %cDawn landscape — every one of the 84 colors used at least once', S.cmd, S.cmdDesc);
+  console.log('%c spoito.brush()   %cThe tool icon, in pixels', S.cmd, S.cmdDesc);
+  console.log('%c spoito.thanks()  %cThanks in 12 languages', S.cmd, S.cmdDesc);
+  console.log('%c spoito.help()    %cAll available commands', S.cmd, S.cmdDesc);
   console.log('');
 
   console.log('%c   No images leave your browser. Everything runs locally.', S.hint);
@@ -236,13 +223,13 @@
       console.log('%cA pixel-art-friendly color picker for Tomodachi Life paint mode.', S.val);
       console.log('');
       console.log('%cFEATURES', S.sect);
-      console.log('%c  ▸ ', S.label, '%cPick colors from any image, find best 84-palette match', S.val);
-      console.log('%c  ▸ ', S.label, '%cFull-color HSV navigator with step-by-step operation guide', S.val);
-      console.log('%c  ▸ ', S.label, '%cExport as pixel art PNG or paint-by-numbers PNG', S.val);
-      console.log('%c  ▸ ', S.label, '%cMirror axis · isolate · done-tracking · difficulty score (1-100)', S.val);
-      console.log('%c  ▸ ', S.label, '%cWebM time-lapse recording · QR code share', S.val);
-      console.log('%c  ▸ ', S.label, '%c12 languages — auto-detected from your browser', S.val);
-      console.log('%c  ▸ ', S.label, '%cZero server · zero analytics · zero tracking', S.val);
+      console.log('%c  ▸ %cPick colors from any image, find best 84-palette match', S.label, S.val);
+      console.log('%c  ▸ %cFull-color HSV navigator with step-by-step operation guide', S.label, S.val);
+      console.log('%c  ▸ %cExport as pixel art PNG or paint-by-numbers PNG', S.label, S.val);
+      console.log('%c  ▸ %cMirror axis · isolate · done-tracking · difficulty score (1-100)', S.label, S.val);
+      console.log('%c  ▸ %cWebM time-lapse recording · QR code share', S.label, S.val);
+      console.log('%c  ▸ %c12 languages — auto-detected from your browser', S.label, S.val);
+      console.log('%c  ▸ %cZero server · zero analytics · zero tracking', S.label, S.val);
       _rule();
       return '';
     },
@@ -315,7 +302,7 @@
       });
       console.log('');
       console.log('%cTo Tomodachi Life players around the world,', S.sub);
-      console.log('%cand to anyone reading source code: you rock. ✨', S.sub);
+      console.log('%cand to anyone reading source code: ありがとう ✨', S.sub);
       _rule();
       return '';
     },
@@ -324,13 +311,13 @@
       _rule();
       console.log('%cAvailable commands', S.greet);
       console.log('');
-      console.log('%c spoito.about()   ', S.cmd, '%cAbout this project', S.cmdDesc);
-      console.log('%c spoito.colors()  ', S.cmd, '%cView all 84 palette colors', S.cmdDesc);
-      console.log('%c spoito.scene()   ', S.cmd, '%cDawn landscape — every one of the 84 colors used at least once', S.cmdDesc);
-      console.log('%c spoito.brush()   ', S.cmd, '%cTool icon in pixels', S.cmdDesc);
-      console.log('%c spoito.thanks()  ', S.cmd, '%cThanks in 12 languages', S.cmdDesc);
-      console.log('%c spoito.help()    ', S.cmd, '%cThis message', S.cmdDesc);
-      console.log('%c spoito.version   ', S.cmd, '%cVersion info', S.cmdDesc);
+      console.log('%c spoito.about()   %cAbout this project', S.cmd, S.cmdDesc);
+      console.log('%c spoito.colors()  %cView all 84 palette colors', S.cmd, S.cmdDesc);
+      console.log('%c spoito.scene()   %cDawn landscape — every one of the 84 colors used at least once', S.cmd, S.cmdDesc);
+      console.log('%c spoito.brush()   %cTool icon in pixels', S.cmd, S.cmdDesc);
+      console.log('%c spoito.thanks()  %cThanks in 12 languages', S.cmd, S.cmdDesc);
+      console.log('%c spoito.help()    %cThis message', S.cmd, S.cmdDesc);
+      console.log('%c spoito.version   %cVersion info', S.cmd, S.cmdDesc);
       _rule();
       return '';
     }

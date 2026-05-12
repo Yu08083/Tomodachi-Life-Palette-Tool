@@ -47,7 +47,8 @@
     "ruler": "Régua",
     "grid": "Grade",
     "help": "Ajuda",
-    "mirror": "Espelho"
+    "mirror": "Espelho",
+    "backToStart": "Voltar ao início"
   },
   "view": {
     "original": "Original",
@@ -234,7 +235,8 @@
     "savedAgo": "Há {n}d",
     "today": "Hoje",
     "yesterday": "Ontem",
-    "storageFail": "Falha ao salvar no histórico (armazenamento cheio)"
+    "storageFail": "Falha ao salvar no histórico (armazenamento cheio)",
+    "shareCard": "Criar cartão"
   },
   "share": {
     "button": "Compartilhar",
@@ -362,6 +364,55 @@
     "placeReset": "Centralizar",
     "placeCancel": "Cancelar",
     "placeConfirm": "Confirmar",
-    "dither": "Pontilhamento"
+    "dither": "Pontilhamento",
+    "viewAlone": "Apenas esta parte",
+    "placeEnhance": "Ajustar ▾"
+  },
+  "camera": {
+    "openMode": "📷 Usar câmera",
+    "title": "Capturar com câmera",
+    "flip": "Trocar câmera",
+    "capture": "📸 Capturar",
+    "notAvailable": "Não foi possível iniciar a câmera"
+  },
+  "enhance": {
+    "toggle": "Ajustes",
+    "brightness": "Brilho",
+    "contrast": "Contraste",
+    "saturation": "Saturação",
+    "sharpness": "Nitidez",
+    "reset": "Restaurar"
+  },
+  "shareCard": {
+    "title": "Cartão para compartilhar",
+    "hint": "Componha sua obra em imagem para redes sociais",
+    "download": "Baixar PNG",
+    "copy": "Copiar",
+    "share": "Compartilhar em apps",
+    "copied": "Copiado",
+    "copyFail": "Área de transferência indisponível",
+    "shareTitle": "Feito com Spoito-cho",
+    "shareText": "Pixel art com paleta de 84 cores no Spoito-cho",
+    "noArt": "Sem imagem convertida",
+    "size": "Tamanho",
+    "pixels": "Pixels",
+    "colors": "Cores",
+    "colorsUnit": "cores",
+    "diff": "Dificuldade"
+  },
+  "editor": {
+    "toggle": "Editar",
+    "pencil": "Lápis (B)",
+    "eraser": "Borracha (E)",
+    "eyedropper": "Conta-gotas (I)",
+    "bucket": "Preencher (G)",
+    "swap": "Substituir cor (S)",
+    "undo": "Desfazer (Ctrl+Z)",
+    "redo": "Refazer (Ctrl+Y)",
+    "color": "Cor",
+    "colorHint": "← Escolha na paleta",
+    "exit": "Sair da edição",
+    "reset": "Resetar tudo",
+    "resetConfirm": "Descartar todas as edições e voltar à conversão original?"
   }
 }

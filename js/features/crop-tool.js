@@ -48,6 +48,10 @@ function openCropTool(srcCanvas) {
   drawCropCanvas();
   updateCropInfo();
 
+  if (typeof enhanceOnCropOpen === 'function') {
+    try { enhanceOnCropOpen(); } catch (_) {}
+  }
+
   setTimeout(() => {
     document.getElementById('crop-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, 50);
@@ -87,7 +91,15 @@ function drawCropCanvas() {
   ctx.imageSmoothingEnabled = false;
   ctx.clearRect(0, 0, cropDispW, cropDispH);
 
-  ctx.drawImage(cropSrcCanvas, 0, 0, cropDispW, cropDispH);
+  const filterStr = (typeof enhanceGetFilterString === 'function') ? enhanceGetFilterString() : 'none';
+  if (filterStr !== 'none') {
+    ctx.save();
+    ctx.filter = filterStr;
+    ctx.drawImage(cropSrcCanvas, 0, 0, cropDispW, cropDispH);
+    ctx.restore();
+  } else {
+    ctx.drawImage(cropSrcCanvas, 0, 0, cropDispW, cropDispH);
+  }
 
   const bx = cropBox.x * cropScale;
   const by = cropBox.y * cropScale;
@@ -374,12 +386,17 @@ function applyCrop() {
     0, 0, cropBox.w, cropBox.h
   );
 
+  let finalOut = out;
+  if (typeof enhanceBakeToCanvas === 'function' && typeof enhanceIsActive === 'function' && enhanceIsActive()) {
+    finalOut = enhanceBakeToCanvas(out);
+  }
+
   if (_cropCallbackOnApply) {
-    _cropExitCallback(true, out);
+    _cropExitCallback(true, finalOut);
     return;
   }
 
-  finalizeImageLoad(out, true);
+  finalizeImageLoad(finalOut, true);
 }
 
 function cancelCrop() {
@@ -388,7 +405,13 @@ function cancelCrop() {
     return;
   }
   if (!cropSrcCanvas) return;
-  finalizeImageLoad(cropSrcCanvas, false);
+
+  let target = cropSrcCanvas;
+  if (typeof enhanceBakeCopy === 'function' && typeof enhanceIsActive === 'function' && enhanceIsActive()) {
+    const baked = enhanceBakeCopy(cropSrcCanvas);
+    if (baked) target = baked;
+  }
+  finalizeImageLoad(target, false);
 }
 
 function resetCropBox() {

@@ -47,7 +47,8 @@
     "ruler": "Righello",
     "grid": "Griglia",
     "help": "Aiuto",
-    "mirror": "Specchio"
+    "mirror": "Specchio",
+    "backToStart": "All'inizio"
   },
   "view": {
     "original": "Originale",
@@ -234,7 +235,8 @@
     "savedAgo": "{n}g fa",
     "today": "Oggi",
     "yesterday": "Ieri",
-    "storageFail": "Impossibile salvare nella cronologia (spazio esaurito)"
+    "storageFail": "Impossibile salvare nella cronologia (spazio esaurito)",
+    "shareCard": "Card condivisione"
   },
   "share": {
     "button": "Condividi",
@@ -362,6 +364,55 @@
     "placeReset": "Centra",
     "placeCancel": "Annulla",
     "placeConfirm": "Conferma",
-    "dither": "Dithering"
+    "dither": "Dithering",
+    "viewAlone": "Solo questa parte",
+    "placeEnhance": "Regola ▾"
+  },
+  "camera": {
+    "openMode": "📷 Usa la fotocamera",
+    "title": "Scatta con la fotocamera",
+    "flip": "Cambia fotocamera",
+    "capture": "📸 Scatta",
+    "notAvailable": "Impossibile avviare la fotocamera"
+  },
+  "enhance": {
+    "toggle": "Regolazioni",
+    "brightness": "Luminosità",
+    "contrast": "Contrasto",
+    "saturation": "Saturazione",
+    "sharpness": "Nitidezza",
+    "reset": "Reimposta"
+  },
+  "shareCard": {
+    "title": "Card condivisione",
+    "hint": "Componi l'opera in un'immagine condivisibile",
+    "download": "Scarica PNG",
+    "copy": "Copia negli appunti",
+    "share": "Condividi con un'altra app",
+    "copied": "Copiato",
+    "copyFail": "Appunti non supportati",
+    "shareTitle": "Creato con Spoito-cho",
+    "shareText": "Pixel art con palette a 84 colori su Spoito-cho",
+    "noArt": "Nessuna immagine convertita",
+    "size": "Dimensione",
+    "pixels": "Pixel",
+    "colors": "Colori",
+    "colorsUnit": "colori",
+    "diff": "Difficoltà"
+  },
+  "editor": {
+    "toggle": "Modifica",
+    "pencil": "Matita (B)",
+    "eraser": "Gomma (E)",
+    "eyedropper": "Contagocce (I)",
+    "bucket": "Riempi (G)",
+    "swap": "Sostituisci (S)",
+    "undo": "Annulla (Ctrl+Z)",
+    "redo": "Ripeti (Ctrl+Y)",
+    "color": "Colore",
+    "colorHint": "← Tocca dalla palette",
+    "exit": "Esci dalla modifica",
+    "reset": "Ripristina tutto",
+    "resetConfirm": "Annullare tutte le modifiche e tornare alla conversione originale?"
   }
 }

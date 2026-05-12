@@ -47,7 +47,8 @@
     "ruler": "눈금자",
     "grid": "그리드",
     "help": "사용법",
-    "mirror": "대칭"
+    "mirror": "대칭",
+    "backToStart": "처음으로"
   },
   "view": {
     "original": "원본",
@@ -234,7 +235,8 @@
     "savedAgo": "{n}일 전",
     "today": "오늘",
     "yesterday": "어제",
-    "storageFail": "이미지를 기록에 저장하지 못했습니다(용량 부족)"
+    "storageFail": "이미지를 기록에 저장하지 못했습니다(용량 부족)",
+    "shareCard": "공유 카드 만들기"
   },
   "share": {
     "button": "공유",
@@ -362,6 +364,55 @@
     "placeReset": "중앙",
     "placeCancel": "취소",
     "placeConfirm": "확정",
-    "dither": "디더"
+    "dither": "디더",
+    "viewAlone": "이 부분만",
+    "placeEnhance": "보정 ▾"
+  },
+  "camera": {
+    "openMode": "📷 카메라 촬영",
+    "title": "카메라로 촬영",
+    "flip": "전후 전환",
+    "capture": "📸 촬영",
+    "notAvailable": "카메라를 시작할 수 없습니다"
+  },
+  "enhance": {
+    "toggle": "이미지 보정",
+    "brightness": "밝기",
+    "contrast": "대비",
+    "saturation": "채도",
+    "sharpness": "선명도",
+    "reset": "초기화"
+  },
+  "shareCard": {
+    "title": "공유 카드",
+    "hint": "변환된 그림을 SNS용 이미지로 만듭니다",
+    "download": "PNG 다운로드",
+    "copy": "클립보드에 복사",
+    "share": "다른 앱으로 공유",
+    "copied": "복사됨",
+    "copyFail": "클립보드 미지원",
+    "shareTitle": "스포이트초로 만들었어요",
+    "shareText": "스포이트초로 84색 팔레트 픽셀아트를 만들었어요",
+    "noArt": "변환된 이미지가 없습니다",
+    "size": "크기",
+    "pixels": "픽셀",
+    "colors": "사용색",
+    "colorsUnit": "색",
+    "diff": "난이도"
+  },
+  "editor": {
+    "toggle": "편집",
+    "pencil": "연필 (B)",
+    "eraser": "지우개 (E)",
+    "eyedropper": "스포이트 (I)",
+    "bucket": "채우기 (G)",
+    "swap": "색 교체 (S)",
+    "undo": "실행 취소 (Ctrl+Z)",
+    "redo": "다시 실행 (Ctrl+Y)",
+    "color": "사용 색",
+    "colorHint": "← 팔레트에서 선택",
+    "exit": "편집 종료",
+    "reset": "전부 초기화",
+    "resetConfirm": "편집을 모두 버리고 원본 변환 결과로 되돌릴까요?"
   }
 }

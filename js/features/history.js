@@ -159,6 +159,18 @@ function _renderHistoryInto(targetSec, listEl, emptyEl, clearBtn, list) {
     });
     actions.appendChild(useBtn);
 
+    const shareBtn = document.createElement('button');
+    shareBtn.type = 'button';
+    shareBtn.className = 'history-share-btn';
+    shareBtn.setAttribute('aria-label', t('history.shareCard'));
+    shareBtn.title = t('history.shareCard');
+    shareBtn.textContent = '📤';
+    shareBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      historyShareCard(item.id);
+    });
+    actions.appendChild(shareBtn);
+
     const removeBtn = document.createElement('button');
     removeBtn.type = 'button';
     removeBtn.className = 'history-remove-btn';
@@ -219,6 +231,36 @@ function historyRestore(id) {
       loadImageFromImg(img);
     }
   };
+  img.src = item.dataUrl;
+}
+
+function historyShareCard(id) {
+  const list = _historyLoad();
+  const item = list.find(x => x.id === id);
+  if (!item) return;
+  const img = new Image();
+  img.onload = () => {
+    const tmp = document.createElement('canvas');
+    tmp.width = img.naturalWidth || img.width;
+    tmp.height = img.naturalHeight || img.height;
+    tmp.getContext('2d').drawImage(img, 0, 0);
+    let convData = null;
+    if (typeof convertImage === 'function') {
+      try {
+        const grid = (typeof gridSize !== 'undefined' && gridSize) ? gridSize : 64;
+        convData = convertImage(tmp, tmp.width, tmp.height, grid, false);
+      } catch (_) {}
+    }
+    if (!convData) {
+      convData = { width: tmp.width, height: tmp.height, originalCanvas: tmp };
+    }
+    const modal = document.getElementById('modal-history');
+    if (modal && !modal.classList.contains('hidden')) {
+      modal.classList.add('hidden');
+    }
+    if (typeof openShareCardModal === 'function') openShareCardModal(convData);
+  };
+  img.onerror = () => {};
   img.src = item.dataUrl;
 }
 

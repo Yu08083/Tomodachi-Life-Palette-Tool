@@ -47,7 +47,8 @@
     "ruler": "Règle",
     "grid": "Grille",
     "help": "Aide",
-    "mirror": "Miroir"
+    "mirror": "Miroir",
+    "backToStart": "Retour au début"
   },
   "view": {
     "original": "Original",
@@ -234,7 +235,8 @@
     "savedAgo": "Il y a {n}j",
     "today": "Aujourd'hui",
     "yesterday": "Hier",
-    "storageFail": "Échec de sauvegarde dans l'historique (stockage plein)"
+    "storageFail": "Échec de sauvegarde dans l'historique (stockage plein)",
+    "shareCard": "Créer carte"
   },
   "share": {
     "button": "Partager",
@@ -362,6 +364,55 @@
     "placeReset": "Centrer",
     "placeCancel": "Annuler",
     "placeConfirm": "Confirmer",
-    "dither": "Tramage"
+    "dither": "Tramage",
+    "viewAlone": "Cette partie seule",
+    "placeEnhance": "Ajuster ▾"
+  },
+  "camera": {
+    "openMode": "📷 Utiliser la caméra",
+    "title": "Capturer avec la caméra",
+    "flip": "Basculer la caméra",
+    "capture": "📸 Capturer",
+    "notAvailable": "Impossible de démarrer la caméra"
+  },
+  "enhance": {
+    "toggle": "Ajustements",
+    "brightness": "Luminosité",
+    "contrast": "Contraste",
+    "saturation": "Saturation",
+    "sharpness": "Netteté",
+    "reset": "Réinitialiser"
+  },
+  "shareCard": {
+    "title": "Carte de partage",
+    "hint": "Composez votre œuvre en image partageable pour les réseaux",
+    "download": "Télécharger PNG",
+    "copy": "Copier",
+    "share": "Partager via une autre app",
+    "copied": "Copié",
+    "copyFail": "Presse-papiers non pris en charge",
+    "shareTitle": "Créé avec Spoito-cho",
+    "shareText": "J'ai créé ce pixel art avec la palette 84 couleurs sur Spoito-cho",
+    "noArt": "Aucune image convertie",
+    "size": "Taille",
+    "pixels": "Pixels",
+    "colors": "Couleurs",
+    "colorsUnit": "couleurs",
+    "diff": "Difficulté"
+  },
+  "editor": {
+    "toggle": "Éditer",
+    "pencil": "Crayon (B)",
+    "eraser": "Gomme (E)",
+    "eyedropper": "Pipette (I)",
+    "bucket": "Remplir (G)",
+    "swap": "Remplacer (S)",
+    "undo": "Annuler (Ctrl+Z)",
+    "redo": "Refaire (Ctrl+Y)",
+    "color": "Couleur",
+    "colorHint": "← Choisissez dans la palette",
+    "exit": "Quitter l'édition",
+    "reset": "Tout réinitialiser",
+    "resetConfirm": "Annuler toutes les modifications et revenir à la conversion d'origine ?"
   }
 }

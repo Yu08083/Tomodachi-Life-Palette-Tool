@@ -227,8 +227,21 @@
   #drop-zone { padding: 30px 22px 36px; border-radius: 22px; }
   .drop-icon { width: 90px; height: 90px; margin-bottom: 14px; }
   .drop-title { font-size: 1.1rem; }
-  .top-buttons { gap: var(--gap-sm); }
-  .btn { font-size: 0.86rem; padding: 11px 18px; }
+  .top-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gap-sm);
+  }
+  .top-buttons .btn {
+    width: 100%;
+    min-height: 56px;
+    padding: 10px 8px;
+    font-size: 0.84rem;
+    line-height: 1.25;
+    white-space: normal;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
 }
 
 @media (hover: none) {

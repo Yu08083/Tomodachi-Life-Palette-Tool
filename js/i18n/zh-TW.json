@@ -47,7 +47,8 @@
     "ruler": "尺規",
     "grid": "格線",
     "help": "使用方法",
-    "mirror": "對稱"
+    "mirror": "對稱",
+    "backToStart": "回到開始"
   },
   "view": {
     "original": "原圖",
@@ -234,7 +235,8 @@
     "savedAgo": "{n}天前",
     "today": "今天",
     "yesterday": "昨天",
-    "storageFail": "無法將圖片儲存至歷史記錄(容量不足)"
+    "storageFail": "無法將圖片儲存至歷史記錄(容量不足)",
+    "shareCard": "製作分享卡"
   },
   "share": {
     "button": "分享",
@@ -362,6 +364,55 @@
     "placeReset": "置中",
     "placeCancel": "取消",
     "placeConfirm": "確定",
-    "dither": "抖動"
+    "dither": "抖動",
+    "viewAlone": "僅此部分",
+    "placeEnhance": "調整 ▾"
+  },
+  "camera": {
+    "openMode": "📷 用相機拍攝",
+    "title": "相機拍攝",
+    "flip": "切換前後",
+    "capture": "📸 拍攝",
+    "notAvailable": "無法啟動相機"
+  },
+  "enhance": {
+    "toggle": "圖像調整",
+    "brightness": "亮度",
+    "contrast": "對比",
+    "saturation": "飽和度",
+    "sharpness": "銳利度",
+    "reset": "重設"
+  },
+  "shareCard": {
+    "title": "作品分享卡",
+    "hint": "將轉換後的畫作整理成 SNS 分享圖",
+    "download": "下載 PNG",
+    "copy": "複製到剪貼簿",
+    "share": "透過其他應用程式分享",
+    "copied": "已複製",
+    "copyFail": "不支援剪貼簿",
+    "shareTitle": "用滴管帳製作",
+    "shareText": "我用滴管帳製作了 84 色調色盤的像素畫",
+    "noArt": "尚無轉換圖像",
+    "size": "尺寸",
+    "pixels": "像素",
+    "colors": "用色",
+    "colorsUnit": "色",
+    "diff": "難度"
+  },
+  "editor": {
+    "toggle": "編輯",
+    "pencil": "鉛筆 (B)",
+    "eraser": "橡皮 (E)",
+    "eyedropper": "吸管 (I)",
+    "bucket": "填滿 (G)",
+    "swap": "換色 (S)",
+    "undo": "復原 (Ctrl+Z)",
+    "redo": "重做 (Ctrl+Y)",
+    "color": "目前色",
+    "colorHint": "← 從調色盤點選",
+    "exit": "結束編輯",
+    "reset": "全部重置",
+    "resetConfirm": "捨棄所有編輯,恢復為原始轉換結果?"
   }
 }

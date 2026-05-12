@@ -47,7 +47,8 @@
     "ruler": "ルーラー",
     "grid": "グリッド",
     "help": "使い方",
-    "mirror": "対称"
+    "mirror": "対称",
+    "backToStart": "最初に戻る"
   },
   "view": {
     "original": "原画",
@@ -234,7 +235,8 @@
     "savedAgo": "{n}日前",
     "today": "今日",
     "yesterday": "昨日",
-    "storageFail": "画像を履歴に保存できませんでした(容量不足)"
+    "storageFail": "画像を履歴に保存できませんでした(容量不足)",
+    "shareCard": "シェアカード作成"
   },
   "share": {
     "button": "共有",
@@ -362,6 +364,55 @@
     "placeReset": "中央リセット",
     "placeCancel": "キャンセル",
     "placeConfirm": "配置確定",
-    "dither": "ディザ"
+    "dither": "ディザ",
+    "viewAlone": "この部分だけ",
+    "placeEnhance": "補正 ▾"
+  },
+  "camera": {
+    "openMode": "📷 カメラで撮影",
+    "title": "カメラで撮影",
+    "flip": "前後切替",
+    "capture": "📸 撮影",
+    "notAvailable": "カメラを起動できませんでした"
+  },
+  "enhance": {
+    "toggle": "画像補正",
+    "brightness": "明度",
+    "contrast": "コントラスト",
+    "saturation": "彩度",
+    "sharpness": "シャープ",
+    "reset": "補正リセット"
+  },
+  "shareCard": {
+    "title": "作品シェアカード",
+    "hint": "変換後の絵を SNS シェア用にまとめます",
+    "download": "PNGダウンロード",
+    "copy": "クリップボードにコピー",
+    "share": "他のアプリで共有",
+    "copied": "コピーしました",
+    "copyFail": "クリップボード非対応です",
+    "shareTitle": "すぽいと帳で作りました",
+    "shareText": "すぽいと帳で 84色パレットの絵を作りました",
+    "noArt": "変換した画像がありません",
+    "size": "解像度",
+    "pixels": "ピクセル",
+    "colors": "使用色",
+    "colorsUnit": "色",
+    "diff": "塗りやすさ"
+  },
+  "editor": {
+    "toggle": "編集",
+    "pencil": "鉛筆 (B)",
+    "eraser": "消しゴム (E)",
+    "eyedropper": "スポイト (I)",
+    "bucket": "バケツ (G)",
+    "swap": "色置換 (S)",
+    "undo": "元に戻す (Ctrl+Z)",
+    "redo": "やり直し (Ctrl+Y)",
+    "color": "使う色",
+    "colorHint": "← パレットからクリック",
+    "exit": "編集を終了",
+    "reset": "全リセット",
+    "resetConfirm": "編集を全部破棄して元の変換結果に戻しますか?"
   }
 }

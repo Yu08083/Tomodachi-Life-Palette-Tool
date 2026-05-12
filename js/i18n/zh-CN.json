@@ -47,7 +47,8 @@
     "ruler": "尺规",
     "grid": "网格",
     "help": "使用方法",
-    "mirror": "对称"
+    "mirror": "对称",
+    "backToStart": "返回开始"
   },
   "view": {
     "original": "原图",
@@ -234,7 +235,8 @@
     "savedAgo": "{n}天前",
     "today": "今天",
     "yesterday": "昨天",
-    "storageFail": "无法将图片保存至历史记录(容量不足)"
+    "storageFail": "无法将图片保存至历史记录(容量不足)",
+    "shareCard": "制作分享卡"
   },
   "share": {
     "button": "分享",
@@ -362,6 +364,55 @@
     "placeReset": "居中",
     "placeCancel": "取消",
     "placeConfirm": "确定",
-    "dither": "抖动"
+    "dither": "抖动",
+    "viewAlone": "仅此部分",
+    "placeEnhance": "调整 ▾"
+  },
+  "camera": {
+    "openMode": "📷 用相机拍摄",
+    "title": "相机拍摄",
+    "flip": "切换前后",
+    "capture": "📸 拍摄",
+    "notAvailable": "无法启动相机"
+  },
+  "enhance": {
+    "toggle": "图像调整",
+    "brightness": "亮度",
+    "contrast": "对比度",
+    "saturation": "饱和度",
+    "sharpness": "锐度",
+    "reset": "重置"
+  },
+  "shareCard": {
+    "title": "作品分享卡",
+    "hint": "将转换后的画作整理成 SNS 分享图",
+    "download": "下载 PNG",
+    "copy": "复制到剪贴板",
+    "share": "通过其他应用分享",
+    "copied": "已复制",
+    "copyFail": "不支持剪贴板",
+    "shareTitle": "用滴管帐创作",
+    "shareText": "我用滴管帐做了 84 色调色板像素画",
+    "noArt": "尚无转换图像",
+    "size": "尺寸",
+    "pixels": "像素",
+    "colors": "用色",
+    "colorsUnit": "色",
+    "diff": "难度"
+  },
+  "editor": {
+    "toggle": "编辑",
+    "pencil": "铅笔 (B)",
+    "eraser": "橡皮 (E)",
+    "eyedropper": "吸管 (I)",
+    "bucket": "填充 (G)",
+    "swap": "换色 (S)",
+    "undo": "撤销 (Ctrl+Z)",
+    "redo": "重做 (Ctrl+Y)",
+    "color": "当前色",
+    "colorHint": "← 从调色板点选",
+    "exit": "退出编辑",
+    "reset": "全部重置",
+    "resetConfirm": "放弃所有编辑,恢复到原始转换结果?"
   }
 }

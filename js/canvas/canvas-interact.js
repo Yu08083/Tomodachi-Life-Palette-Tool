@@ -33,12 +33,14 @@ function pickPixelFromCoords(clientX, clientY) {
 let _lastTouchPickAt = 0;
 
 function handleCanvasClick(e) {
+  if (typeof pixelEditorActive !== 'undefined' && pixelEditorActive) return;
   if (interactionMode !== 'select') return;
   if (Date.now() - _lastTouchPickAt < 500) return;
   pickPixelFromCoords(e.clientX, e.clientY);
 }
 
 function handleCanvasTouchStart(e) {
+  if (typeof pixelEditorActive !== 'undefined' && pixelEditorActive) return;
   if (interactionMode !== 'select') return;
   if (!e.touches || e.touches.length !== 1) return;
   e.preventDefault();

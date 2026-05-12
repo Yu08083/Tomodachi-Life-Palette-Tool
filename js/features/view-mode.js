@@ -456,6 +456,10 @@ function rebuildConvertedData() {
     ditherEnabled
   );
 
+  if (typeof pixelEditorClearHistory === 'function') {
+    try { pixelEditorClearHistory(); } catch (_) {}
+  }
+
   if (viewMode === 'converted') {
     fitZoomToConverted();
     renderPixelCanvas();
@@ -525,6 +529,10 @@ function setViewMode(mode) {
   renderPixelCanvas();
   rebuildRecipe();
   updateBrushStatus();
+
+  if (typeof pixelEditorOnViewModeChange === 'function') {
+    try { pixelEditorOnViewModeChange(); } catch (_) {}
+  }
 }
 
 function updateImgInfo() {

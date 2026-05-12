@@ -263,6 +263,10 @@
   <link rel="stylesheet" href="./css/features/upload.css">
   <link rel="stylesheet" href="./css/features/crop.css">
   <link rel="stylesheet" href="./css/features/bg-preset.css">
+  <link rel="stylesheet" href="./css/features/camera.css">
+  <link rel="stylesheet" href="./css/features/image-enhance.css">
+  <link rel="stylesheet" href="./css/features/share-card.css">
+  <link rel="stylesheet" href="./css/features/pixel-editor.css">
   <link rel="stylesheet" href="./css/features/canvas.css">
   <link rel="stylesheet" href="./css/features/view-mode.css">
   <link rel="stylesheet" href="./css/features/color-info.css">
@@ -346,6 +350,7 @@
       </div>
       <div class="top-buttons">
         <button class="btn accent" id="demo-btn" data-i18n="upload.demo">デモ画像で試す</button>
+        <button class="btn accent" id="camera-btn" data-i18n="camera.openMode">📷 カメラで撮影</button>
         <button class="btn accent" id="bg-preset-mode-btn" data-i18n="bg.openMode">プリセット背景を使う</button>
         <button class="btn ghost" onclick="openModal('modal-history')" data-i18n="history.title" id="history-open-btn">最近使った画像</button>
         <button class="btn ghost" onclick="openModal('modal-guide')" data-i18n="upload.guide">使い方を見る</button>
@@ -443,6 +448,39 @@
         <div id="crop-canvas-wrap">
           <canvas id="crop-canvas"></canvas>
         </div>
+
+        <div class="enh-wrap">
+          <button type="button" class="btn ghost enh-toggle-btn" id="enh-toggle">
+            <span class="enh-toggle-icon">▾</span>
+            <span data-i18n="enhance.toggle">画像補正</span>
+          </button>
+          <div id="enh-panel" class="hidden">
+            <div class="enh-row">
+              <label data-i18n="enhance.brightness">明度</label>
+              <input type="range" id="enh-brightness" min="-100" max="100" value="0" step="1">
+              <output id="enh-brightness-val">0</output>
+            </div>
+            <div class="enh-row">
+              <label data-i18n="enhance.contrast">コントラスト</label>
+              <input type="range" id="enh-contrast" min="-100" max="100" value="0" step="1">
+              <output id="enh-contrast-val">0</output>
+            </div>
+            <div class="enh-row">
+              <label data-i18n="enhance.saturation">彩度</label>
+              <input type="range" id="enh-saturation" min="-100" max="100" value="0" step="1">
+              <output id="enh-saturation-val">0</output>
+            </div>
+            <div class="enh-row">
+              <label data-i18n="enhance.sharpness">シャープ</label>
+              <input type="range" id="enh-sharpness" min="0" max="100" value="0" step="1">
+              <output id="enh-sharpness-val">0</output>
+            </div>
+            <div class="enh-actions">
+              <button type="button" class="btn small ghost" id="enh-reset" data-i18n="enhance.reset">補正リセット</button>
+            </div>
+          </div>
+        </div>
+
         <div class="crop-buttons">
           <button class="btn primary" id="crop-apply-btn"  data-i18n="crop.confirm">この範囲で確定</button>
           <button class="btn"         id="crop-cancel-btn" data-i18n="crop.skip">切り出さずに使う</button>
@@ -488,8 +526,29 @@
             <button class="btn small ghost" id="bg-place-zoom-out" aria-label="zoom out">−</button>
             <button class="btn small ghost" id="bg-place-zoom-in"  aria-label="zoom in">+</button>
             <button class="btn small ghost" id="bg-place-reset"    data-i18n="bg.placeReset">中央</button>
+            <button class="btn small ghost" id="bg-place-enh-toggle" data-i18n="bg.placeEnhance">補正 ▾</button>
             <button class="btn small"       id="bg-place-cancel"   data-i18n="bg.placeCancel">キャンセル</button>
             <button class="btn small primary" id="bg-place-confirm" data-i18n="bg.placeConfirm">配置確定</button>
+          </div>
+          <div class="bg-place-enh-panel hidden" id="bg-place-enh-panel">
+            <div class="enh-row">
+              <label data-i18n="enhance.brightness">明度</label>
+              <input type="range" id="bg-place-enh-bri" min="-100" max="100" value="0" step="1">
+              <output id="bg-place-enh-bri-val">0</output>
+            </div>
+            <div class="enh-row">
+              <label data-i18n="enhance.contrast">コントラスト</label>
+              <input type="range" id="bg-place-enh-con" min="-100" max="100" value="0" step="1">
+              <output id="bg-place-enh-con-val">0</output>
+            </div>
+            <div class="enh-row">
+              <label data-i18n="enhance.saturation">彩度</label>
+              <input type="range" id="bg-place-enh-sat" min="-100" max="100" value="0" step="1">
+              <output id="bg-place-enh-sat-val">0</output>
+            </div>
+            <div class="enh-actions">
+              <button type="button" class="btn small ghost" id="bg-place-enh-reset" data-i18n="enhance.reset">補正リセット</button>
+            </div>
           </div>
         </div>
 
@@ -535,6 +594,7 @@
                 <button id="mode-select-btn" class="mode-btn active" onclick="setInteractionMode('select')" data-i18n="viewer.select">選択</button>
                 <button id="mode-move-btn"   class="mode-btn"        onclick="setInteractionMode('move')"   data-i18n="viewer.move">移動</button>
               </div>
+              <button id="back-to-upload-btn" class="tool-btn" type="button" data-i18n="viewer.backToStart">最初に戻る</button>
               <button id="ruler-btn" class="tool-btn" onclick="toggleRuler()" data-i18n="viewer.ruler">ルーラー</button>
               <div class="grid-control">
                 <button id="grid-btn"  class="tool-btn" onclick="toggleGrid()"  data-i18n="viewer.grid">グリッド</button>
@@ -558,6 +618,7 @@
                       onclick="toggleDoneColor()"
                       data-i18n="color.markDoneOffShort">塗終</button>
               <button class="tool-btn" onclick="openModal('modal-guide')" data-i18n="viewer.help">使い方</button>
+              <button id="edit-btn" class="tool-btn hidden" data-i18n="editor.toggle">編集</button>
               <button class="tool-btn share-btn-tool" id="share-work-btn" data-i18n="share.shareWork" data-i18n-attr-aria-label="share.shareWork" aria-label="作品を共有">作品を共有</button>
               <div class="zoom-controls">
                 <button id="zoom-out" class="zoom-btn" data-i18n-attr-aria-label="aria.zoomOut" aria-label="ズームアウト">−</button>
@@ -639,6 +700,27 @@
             <span class="csp-sep">/</span>
             <span class="csp-seq" id="csp-seq">-</span>
           </div>
+          <div id="pixel-editor-toolbar" class="hidden">
+            <div class="pe-group">
+              <button class="pe-tool-btn" data-tool="pencil"     data-i18n-attr-title="editor.pencil"     title="鉛筆 (B)">✏️</button>
+              <button class="pe-tool-btn" data-tool="eraser"     data-i18n-attr-title="editor.eraser"     title="消しゴム (E)">🧽</button>
+              <button class="pe-tool-btn" data-tool="eyedropper" data-i18n-attr-title="editor.eyedropper" title="スポイト (I)">💧</button>
+              <button class="pe-tool-btn" data-tool="bucket"     data-i18n-attr-title="editor.bucket"     title="バケツ (G)">🪣</button>
+              <button class="pe-tool-btn" data-tool="swap"       data-i18n-attr-title="editor.swap"       title="色置換 (S)">🔁</button>
+            </div>
+            <div class="pe-group">
+              <button class="pe-tool-btn" id="pe-undo" data-i18n-attr-title="editor.undo" title="元に戻す (Ctrl+Z)">↶</button>
+              <button class="pe-tool-btn" id="pe-redo" data-i18n-attr-title="editor.redo" title="やり直し (Ctrl+Y)">↷</button>
+              <button class="pe-tool-btn" id="pe-reset" data-i18n-attr-title="editor.reset" title="全リセット">⟲</button>
+            </div>
+            <div class="pe-group">
+              <span class="pe-tool-label" data-i18n="editor.color">使う色</span>
+              <span class="pe-current-color none" id="pe-current-color" aria-hidden="true"></span>
+              <span class="pe-tool-label" data-i18n="editor.colorHint">← パレットからクリック</span>
+            </div>
+            <button class="btn ghost pe-exit" id="pe-exit" data-i18n="editor.exit">編集を終了</button>
+          </div>
+
           <div class="canvas-wrapper" id="canvas-wrapper">
             <div class="canvas-stage" id="canvas-stage">
               <div class="ruler-corner" id="ruler-corner"></div>
@@ -980,6 +1062,23 @@
     </div>
   </div>
 
+  <div class="modal hidden" id="modal-share-card">
+    <div class="modal-content modal-content-share-card">
+      <button class="close-btn" onclick="closeModal('modal-share-card')" aria-label="閉じる">×</button>
+      <div class="modal-body">
+        <h2 data-i18n="shareCard.title">作品シェアカード</h2>
+        <div id="share-card-preview-wrap">
+          <canvas id="share-card-preview"></canvas>
+          <div class="share-card-buttons">
+            <button type="button" class="btn primary" id="share-card-download" data-i18n="shareCard.download">PNGダウンロード</button>
+            <button type="button" class="btn" id="share-card-copy" data-i18n="shareCard.copy">クリップボードにコピー</button>
+            <button type="button" class="btn accent hidden" id="share-card-native" data-i18n="shareCard.share">他のアプリで共有</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="modal hidden" id="modal-difficulty">
     <div class="modal-content modal-content-difficulty">
       <button class="close-btn" onclick="closeModal('modal-difficulty')" aria-label="閉じる">×</button>
@@ -1081,22 +1180,42 @@
   <script src="./js/core/palette-data.js"></script>
   <script src="./js/core/color-utils.js"></script>
   <script src="./js/core/state.js"></script>
+  <div class="modal hidden" id="camera-modal">
+    <div class="modal-content modal-content-camera">
+      <button class="close-btn" id="camera-close" aria-label="閉じる">×</button>
+      <div class="modal-body">
+        <h2 data-i18n="camera.title">カメラで撮影</h2>
+        <div class="camera-stage">
+          <video id="camera-video" autoplay playsinline muted></video>
+        </div>
+        <div class="camera-controls">
+          <button class="btn ghost" id="camera-flip" data-i18n="camera.flip">前後切替</button>
+          <button class="btn primary" id="camera-capture" data-i18n="camera.capture">📸 撮影</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="./js/canvas/canvas-render.js"></script>
   <script src="./js/features/view-mode.js"></script>
   <script src="./js/features/fullcolor-guide.js"></script>
   <script src="./js/features/recipe.js"></script>
   <script src="./js/features/color-info.js"></script>
   <script src="./js/canvas/canvas-interact.js"></script>
+  <script src="./js/features/image-enhance.js"></script>
   <script src="./js/features/crop-tool.js"></script>
   <script src="./js/features/bg-preset-regions.js"></script>
   <script src="./js/features/bg-preset-composite.js"></script>
   <script src="./js/features/bg-preset-ui.js"></script>
   <script src="./js/features/image-loader.js"></script>
+  <script src="./js/features/camera.js"></script>
   <script src="./js/lib/qrcode.js"></script>
   <script src="./js/features/favorites.js"></script>
   <script src="./js/features/history.js"></script>
   <script src="./js/features/share.js"></script>
   <script src="./js/features/share-work.js"></script>
+  <script src="./js/features/share-card.js"></script>
+  <script src="./js/features/pixel-editor.js"></script>
   <script src="./js/features/timelapse.js"></script>
   <script src="./js/ui.js"></script>
   <script src="./js/main.js"></script>

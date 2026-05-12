@@ -47,7 +47,8 @@
     "ruler": "Ruler",
     "grid": "Grid",
     "help": "Help",
-    "mirror": "Mirror"
+    "mirror": "Mirror",
+    "backToStart": "Back to Start"
   },
   "view": {
     "original": "Original",
@@ -234,7 +235,8 @@
     "savedAgo": "{n}d ago",
     "today": "Today",
     "yesterday": "Yesterday",
-    "storageFail": "Failed to save image to history (storage full)"
+    "storageFail": "Failed to save image to history (storage full)",
+    "shareCard": "Create Share Card"
   },
   "share": {
     "button": "Share",
@@ -362,6 +364,55 @@
     "placeReset": "Reset",
     "placeCancel": "Cancel",
     "placeConfirm": "Confirm",
-    "dither": "Dither"
+    "dither": "Dither",
+    "viewAlone": "This Part Only",
+    "placeEnhance": "Adjust ▾"
+  },
+  "camera": {
+    "openMode": "📷 Use Camera",
+    "title": "Capture with Camera",
+    "flip": "Switch Camera",
+    "capture": "📸 Capture",
+    "notAvailable": "Could not start camera"
+  },
+  "enhance": {
+    "toggle": "Adjust Image",
+    "brightness": "Brightness",
+    "contrast": "Contrast",
+    "saturation": "Saturation",
+    "sharpness": "Sharpness",
+    "reset": "Reset"
+  },
+  "shareCard": {
+    "title": "Share Card",
+    "hint": "Compose your art into a shareable image for SNS",
+    "download": "Download PNG",
+    "copy": "Copy to Clipboard",
+    "share": "Share with Apps",
+    "copied": "Copied",
+    "copyFail": "Clipboard not supported",
+    "shareTitle": "Made with Spoito-cho",
+    "shareText": "I made this pixel art with the 84-color palette using Spoito-cho",
+    "noArt": "No converted image yet",
+    "size": "Size",
+    "pixels": "Pixels",
+    "colors": "Colors",
+    "colorsUnit": "colors",
+    "diff": "Difficulty"
+  },
+  "editor": {
+    "toggle": "Edit",
+    "pencil": "Pencil (B)",
+    "eraser": "Eraser (E)",
+    "eyedropper": "Eyedropper (I)",
+    "bucket": "Fill (G)",
+    "swap": "Replace Color (S)",
+    "undo": "Undo (Ctrl+Z)",
+    "redo": "Redo (Ctrl+Y)",
+    "color": "Color",
+    "colorHint": "← Tap a palette swatch",
+    "exit": "Exit Edit",
+    "reset": "Reset All",
+    "resetConfirm": "Discard all edits and revert to the original conversion?"
   }
 }

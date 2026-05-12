@@ -191,3 +191,14 @@
   #modal-history .history-list { padding-bottom: var(--gap-lg); }
 }
 .hidden { display: none !important; }
+
+.history-share-btn {
+  background: linear-gradient(135deg, #FFF6E8 0%, #FFE3C6 100%);
+  border: 2px solid var(--orange-l);
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+.history-share-btn:hover { transform: translateY(-1px); }

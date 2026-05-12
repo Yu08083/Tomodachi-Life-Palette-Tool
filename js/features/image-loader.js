@@ -23,9 +23,11 @@ function attachUploadHandlers() {
     demoBtn.addEventListener('click', loadDemoImage);
   }
 
-  resetBtn.addEventListener('click', () => {
+  function _resetToUpload() {
     uploadSec.classList.remove('hidden');
     mainContent.classList.add('hidden');
+    const bgSec = document.getElementById('bg-preset-section');
+    if (bgSec) bgSec.classList.add('hidden');
     closeCropTool();
     imgData = null;
     convertedData = null;
@@ -37,9 +39,20 @@ function attachUploadHandlers() {
     hoverPaletteIdx = -1;
     lastSelPx = -1;
     lastSelPy = -1;
+    if (typeof pixelEditorDeactivate === 'function') {
+      try { pixelEditorDeactivate(); } catch (_) {}
+    }
+    if (typeof pixelEditorClearHistory === 'function') {
+      try { pixelEditorClearHistory(); } catch (_) {}
+    }
     rebuildRecipe();
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  }
+
+  resetBtn.addEventListener('click', _resetToUpload);
+
+  const backBtn = document.getElementById('back-to-upload-btn');
+  if (backBtn) backBtn.addEventListener('click', _resetToUpload);
 
   const recropBtn = document.getElementById('recrop-btn');
   if (recropBtn) {
@@ -82,12 +95,7 @@ img.onload = () => {
 
     rawSourceCanvas = tmp;
 
-    if (img.width === img.height) {
-      finalizeImageLoad(tmp, false);
-    } else {
-
-      openCropTool(tmp);
-    }
+    openCropTool(tmp);
   };
 
   img.onerror = () => {

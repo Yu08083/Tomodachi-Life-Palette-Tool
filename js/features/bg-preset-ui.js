@@ -11,6 +11,8 @@ var _bgPresetCurrent = {
   _previewScale: 1,
 };
 
+var _bgPlaceEnhance = { brightness: 0, contrast: 0, saturation: 0 };
+
 async function openBgPresetMode() {
   document.getElementById('upload-section').classList.add('hidden');
   document.getElementById('bg-preset-section').classList.remove('hidden');
@@ -101,13 +103,17 @@ async function _bgPresetSelectPreset(catId, presetId) {
   }
 }
 
-function _bgPresetEnterPlaceMode(idx, sourceCanvas, fileName) {
+function _bgPresetEnterPlaceMode(idx, sourceCanvas, fileName, originalCopy) {
   const region = _bgPresetCurrent.detect.regions[idx];
   const coverScale = Math.max(region.w / sourceCanvas.width, region.h / sourceCanvas.height);
+
+  _bgPlaceEnhance = { brightness: 0, contrast: 0, saturation: 0 };
+  _bgPlaceResetEnhanceSliders();
 
   _bgPresetCurrent.placing = {
     idx,
     sourceCanvas,
+    originalSourceCanvas: originalCopy || sourceCanvas,
     fileName,
     scale: coverScale,
     tx: 0,
@@ -120,15 +126,63 @@ function _bgPresetEnterPlaceMode(idx, sourceCanvas, fileName) {
   _bgPresetRenderPreview();
 }
 
+function _bgPlaceResetEnhanceSliders() {
+  const ids = [
+    ['bg-place-enh-bri', 0],
+    ['bg-place-enh-con', 0],
+    ['bg-place-enh-sat', 0],
+  ];
+  for (const [id, v] of ids) {
+    const el = document.getElementById(id);
+    if (el) el.value = String(v);
+    const out = document.getElementById(id + '-val');
+    if (out) out.textContent = String(v);
+  }
+}
+
+function _bgPlaceApplyEnhance() {
+  const p = _bgPresetCurrent.placing;
+  if (!p || !p.originalSourceCanvas) return;
+  const orig = p.originalSourceCanvas;
+  const dst = p.sourceCanvas;
+  if (dst.width !== orig.width || dst.height !== orig.height) {
+    dst.width = orig.width;
+    dst.height = orig.height;
+  }
+  const ctx = dst.getContext('2d');
+  const b = _bgPlaceEnhance.brightness;
+  const c = _bgPlaceEnhance.contrast;
+  const s = _bgPlaceEnhance.saturation;
+  ctx.save();
+  if (b === 0 && c === 0 && s === 0) {
+    ctx.filter = 'none';
+  } else {
+    ctx.filter = 'brightness(' + (100+b) + '%) contrast(' + (100+c) + '%) saturate(' + (100+s) + '%)';
+  }
+  ctx.clearRect(0, 0, dst.width, dst.height);
+  ctx.drawImage(orig, 0, 0);
+  ctx.restore();
+  _bgPresetRenderPreview();
+}
+
 function _bgPresetReEditSlot(idx) {
   const slot = _bgPresetCurrent.slots[idx];
   if (!slot || !slot.sourceCanvas) return;
   const region = _bgPresetCurrent.detect.regions[idx];
   const coverScale = Math.max(region.w / slot.sourceCanvas.width, region.h / slot.sourceCanvas.height);
 
+  _bgPlaceEnhance = { brightness: 0, contrast: 0, saturation: 0 };
+  _bgPlaceResetEnhanceSliders();
+
+  const origCopy = document.createElement('canvas');
+  origCopy.width = slot.sourceCanvas.width;
+  origCopy.height = slot.sourceCanvas.height;
+  origCopy.getContext('2d').drawImage(slot.sourceCanvas, 0, 0);
+
   _bgPresetCurrent.placing = {
     idx,
     sourceCanvas: slot.sourceCanvas,
+    originalSourceCanvas: origCopy,
     fileName: slot.fileName,
     scale: slot.scale || coverScale,
     tx: slot.tx || 0,
@@ -486,6 +540,63 @@ function _bgPresetOnTouchEnd(e) {
   }
 }
 
+function _bgPresetOpenSingleRegion(idx) {
+  const slot = _bgPresetCurrent.slots[idx];
+  const detect = _bgPresetCurrent.detect;
+  if (!slot || !slot.sourceCanvas || !detect) return;
+  if (_bgPresetCurrent.placing) _bgPresetCancelPlace();
+
+  const region = detect.regions[idx];
+
+  const out = document.createElement('canvas');
+  out.width = region.w;
+  out.height = region.h;
+  const ctx = out.getContext('2d');
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
+
+  const sw = slot.sourceCanvas.width;
+  const sh = slot.sourceCanvas.height;
+  const sc = slot.scale || Math.max(region.w / sw, region.h / sh);
+  const dispW = sw * sc;
+  const dispH = sh * sc;
+  const dx = (region.w - dispW) / 2 + (slot.tx || 0);
+  const dy = (region.h - dispH) / 2 + (slot.ty || 0);
+  ctx.drawImage(slot.sourceCanvas, dx, dy, dispW, dispH);
+
+  const mask = extractRegionMaskCanvas(detect, idx);
+  if (mask) {
+    ctx.globalCompositeOperation = 'destination-in';
+    ctx.drawImage(mask, 0, 0);
+    ctx.globalCompositeOperation = 'source-over';
+  }
+
+  if (typeof finalizeImageLoad !== 'function') return;
+  document.getElementById('bg-preset-section').classList.add('hidden');
+  finalizeImageLoad(out, true);
+
+  if (typeof convertImage === 'function') {
+    try {
+      convertedData = convertImage(out, out.width, out.height, out.width, false);
+    } catch (_) {}
+  }
+  if (typeof setViewMode === 'function') {
+    try { setViewMode('converted'); } catch (_) {}
+  }
+  if (typeof fitZoomToConverted === 'function') {
+    try { fitZoomToConverted(); } catch (_) {}
+  }
+  if (typeof renderPixelCanvas === 'function') {
+    try { renderPixelCanvas(); } catch (_) {}
+  }
+  if (typeof rebuildRecipe === 'function') {
+    try { rebuildRecipe(); } catch (_) {}
+  }
+  if (typeof updateBrushStatus === 'function') {
+    try { updateBrushStatus(); } catch (_) {}
+  }
+}
+
 function _bgPresetRenderSlots() {
   const wrap = document.getElementById('bg-preset-slots');
   if (!wrap) return;
@@ -526,6 +637,14 @@ function _bgPresetRenderSlots() {
       adjust.textContent = t('bg.adjust');
       adjust.onclick = () => _bgPresetReEditSlot(i);
       row.appendChild(adjust);
+
+      const viewAlone = document.createElement('button');
+      viewAlone.type = 'button';
+      viewAlone.className = 'btn small accent';
+      viewAlone.setAttribute('data-i18n', 'bg.viewAlone');
+      viewAlone.textContent = t('bg.viewAlone');
+      viewAlone.onclick = () => _bgPresetOpenSingleRegion(i);
+      row.appendChild(viewAlone);
 
       const clear = document.createElement('button');
       clear.type = 'button';
@@ -575,7 +694,11 @@ function _bgPresetHandleFile(idx, file) {
     c.width = img.width;
     c.height = img.height;
     c.getContext('2d').drawImage(img, 0, 0);
-    _bgPresetEnterPlaceMode(idx, c, file.name);
+    const origCopy = document.createElement('canvas');
+    origCopy.width = c.width;
+    origCopy.height = c.height;
+    origCopy.getContext('2d').drawImage(c, 0, 0);
+    _bgPresetEnterPlaceMode(idx, c, file.name, origCopy);
   };
   img.onerror = () => {
     URL.revokeObjectURL(url);
@@ -713,6 +836,43 @@ function attachBgPresetHandlers() {
   if (placeZin) placeZin.addEventListener('click', () => _bgPresetZoomPlace(1.2));
   const placeZout = document.getElementById('bg-place-zoom-out');
   if (placeZout) placeZout.addEventListener('click', () => _bgPresetZoomPlace(1 / 1.2));
+
+  const enhBri = document.getElementById('bg-place-enh-bri');
+  const enhCon = document.getElementById('bg-place-enh-con');
+  const enhSat = document.getElementById('bg-place-enh-sat');
+  function bindEnh(el, key) {
+    if (!el) return;
+    const out = document.getElementById(el.id + '-val');
+    const handler = () => {
+      const n = parseInt(el.value, 10);
+      _bgPlaceEnhance[key] = isNaN(n) ? 0 : n;
+      if (out) out.textContent = el.value;
+      _bgPlaceApplyEnhance();
+    };
+    el.addEventListener('input', handler);
+    el.addEventListener('change', handler);
+  }
+  bindEnh(enhBri, 'brightness');
+  bindEnh(enhCon, 'contrast');
+  bindEnh(enhSat, 'saturation');
+
+  const enhReset = document.getElementById('bg-place-enh-reset');
+  if (enhReset) {
+    enhReset.addEventListener('click', () => {
+      _bgPlaceEnhance = { brightness: 0, contrast: 0, saturation: 0 };
+      _bgPlaceResetEnhanceSliders();
+      _bgPlaceApplyEnhance();
+    });
+  }
+
+  const enhToggle = document.getElementById('bg-place-enh-toggle');
+  const enhPanel = document.getElementById('bg-place-enh-panel');
+  if (enhToggle && enhPanel) {
+    enhToggle.addEventListener('click', () => {
+      enhPanel.classList.toggle('hidden');
+      enhToggle.classList.toggle('open');
+    });
+  }
 
   window.addEventListener('i18nchange', () => {
     if (_bgPresetCurrent.detect) {

@@ -304,3 +304,43 @@
   accent-color: var(--orange);
   cursor: pointer;
 }
+
+.bg-place-enh-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 10px var(--gap-md);
+  background: rgba(255, 255, 255, 0.6);
+  border: 2px solid var(--orange-l);
+  border-radius: var(--radius-md);
+}
+.bg-place-enh-panel.hidden { display: none; }
+.bg-place-enh-panel .enh-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 40px;
+  align-items: center;
+  gap: 10px;
+}
+.bg-place-enh-panel label {
+  font-family: var(--font-jp);
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--orange-d);
+}
+.bg-place-enh-panel input[type="range"] {
+  width: 100%;
+  accent-color: var(--orange);
+}
+.bg-place-enh-panel output {
+  font-family: var(--font-jp);
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--ink-2);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.bg-place-enh-panel .enh-actions {
+  display: flex;
+  justify-content: flex-end;
+}

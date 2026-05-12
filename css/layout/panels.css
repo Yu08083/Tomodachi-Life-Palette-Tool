@@ -1,0 +1,98 @@
+main {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: var(--gap-lg) var(--gap-lg) var(--gap-xl);
+}
+section { margin-bottom: var(--gap-lg); }
+section:last-child { margin-bottom: 0; }
+
+.content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(360px, 1fr);
+  gap: var(--gap-lg);
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  #info-panel {
+    position: sticky;
+    top: var(--gap-md);
+    max-height: calc(100vh - var(--gap-lg) * 2);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 899px) {
+  .content-grid { grid-template-columns: 1fr; }
+}
+
+.panel {
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--shadow-md);
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-md);
+  padding: var(--gap-md) var(--gap-lg);
+  background: linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 100%);
+  border-bottom: 2px dashed var(--line);
+  flex-wrap: wrap;
+}
+
+.panel-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.panel-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+}
+
+.panel-subtitle {
+  font-family: var(--font-jp);
+  font-weight: 700;
+  font-size: 0.7rem;
+  color: var(--orange);
+  letter-spacing: 0.08em;
+}
+
+.header-controls {
+  display: flex;
+  gap: var(--gap-sm);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+footer {
+  border-top: 2px dashed var(--line);
+  background: var(--bg-soft);
+  padding: var(--gap-lg);
+  text-align: center;
+}
+footer .foot-line {
+  font-family: var(--font-jp);
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--ink-2);
+  letter-spacing: 0.04em;
+}
+footer .foot-line + .foot-line { margin-top: 4px; }
+footer a { color: var(--orange-d); }
+
+@media (max-width: 600px) {
+  main { padding: var(--gap-md) var(--gap-md) var(--gap-xl); }
+  .panel-header { padding: var(--gap-sm) var(--gap-md); }
+  .panel-title { font-size: 1rem; }
+}

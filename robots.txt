@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yu08083.github.io/Tomodachi-Life-Palette-Tool/sitemap.xml

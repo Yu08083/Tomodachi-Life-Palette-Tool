@@ -39,6 +39,10 @@ async function init() {
     await initI18n();
   }
 
+  if (typeof loadBgPresets === 'function') {
+    try { await loadBgPresets(); } catch (_) {}
+  }
+
   cacheDomRefs();
 
   attachUploadHandlers();
@@ -51,6 +55,10 @@ async function init() {
   attachCopyStepsButton();
   attachModalHandlers();
   attachResizeHandler();
+
+  if (typeof attachBgPresetHandlers === 'function') {
+    try { attachBgPresetHandlers(); } catch (_) {}
+  }
 
   buildPaletteGrid();
   attachPaletteNumberToggle();

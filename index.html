@@ -241,7 +241,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="https://yu08083.github.io/Tomodachi-Life-Palette-Tool/assets/favicon-32.png">
   <link rel="icon" type="image/png" sizes="180x180" href="https://yu08083.github.io/Tomodachi-Life-Palette-Tool/assets/favicon-180.png">
   <link rel="icon" type="image/png" sizes="512x512" href="https://yu08083.github.io/Tomodachi-Life-Palette-Tool/assets/favicon.png">
-  <link rel="apple-touch-icon" href="https://yu08083.github.io/Tomodachi-Life-Palette-Tool/assets/favicon-180.png">
+  <link rel="apple-touch-icon" href="https://yu08083.github.io/Tomodachi-Life-Palette-Tool/assets/apple-touch-icon-180.png">
   <link rel="shortcut icon" href="https://yu08083.github.io/Tomodachi-Life-Palette-Tool/assets/favicon.png">
   <link rel="manifest" href="./manifest.json">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -262,6 +262,7 @@
   <link rel="stylesheet" href="./css/layout/modal.css">
   <link rel="stylesheet" href="./css/features/upload.css">
   <link rel="stylesheet" href="./css/features/crop.css">
+  <link rel="stylesheet" href="./css/features/bg-preset.css">
   <link rel="stylesheet" href="./css/features/canvas.css">
   <link rel="stylesheet" href="./css/features/view-mode.css">
   <link rel="stylesheet" href="./css/features/color-info.css">
@@ -345,6 +346,7 @@
       </div>
       <div class="top-buttons">
         <button class="btn accent" id="demo-btn" data-i18n="upload.demo">デモ画像で試す</button>
+        <button class="btn accent" id="bg-preset-mode-btn" data-i18n="bg.openMode">プリセット背景を使う</button>
         <button class="btn ghost" onclick="openModal('modal-history')" data-i18n="history.title" id="history-open-btn">最近使った画像</button>
         <button class="btn ghost" onclick="openModal('modal-guide')" data-i18n="upload.guide">使い方を見る</button>
         <button class="btn ghost" id="share-btn-top" onclick="openModal('modal-share')" data-i18n="share.button">共有</button>
@@ -445,6 +447,72 @@
           <button class="btn primary" id="crop-apply-btn"  data-i18n="crop.confirm">この範囲で確定</button>
           <button class="btn"         id="crop-cancel-btn" data-i18n="crop.skip">切り出さずに使う</button>
           <button class="btn ghost tertiary" id="crop-reset-btn" data-i18n="crop.reset">中央リセット</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="bg-preset-section" class="hidden">
+      <div class="bg-preset-panel">
+        <div class="bg-preset-header">
+          <span class="label" data-i18n="bg.label">PRESET</span>
+          <h2 data-i18n="bg.title">プリセット背景に画像を貼り付ける</h2>
+          <p data-i18n-html="bg.descHtml">プリセット背景を選んで、青い領域ごとに画像をアップロード。<br>
+             プレビューの番号付き領域をクリックでも個別アップロードできます。</p>
+        </div>
+
+        <div class="bg-preset-pickers">
+          <div class="bg-picker-row">
+            <label data-i18n="bg.categoryLabel">カテゴリ</label>
+            <select id="bg-category-select"></select>
+          </div>
+          <div class="bg-picker-row">
+            <label data-i18n="bg.presetLabel">プリセット</label>
+            <select id="bg-preset-select"></select>
+          </div>
+        </div>
+
+        <div id="bg-preset-preview-wrap">
+          <canvas id="bg-preset-preview"></canvas>
+        </div>
+
+        <div id="bg-place-toolbar" class="hidden">
+          <div class="bg-place-info">
+            <span class="bg-place-badge-show" id="bg-place-badge">1</span>
+            <span class="bg-place-text">
+              <span class="bg-place-title" data-i18n="bg.placeTitle">領域に画像を配置</span>
+              <span class="bg-place-hint" data-i18n="bg.placeHint">ドラッグで移動 / ホイール・ピンチで拡縮</span>
+            </span>
+            <span class="bg-place-filename" id="bg-place-filename"></span>
+          </div>
+          <div class="bg-place-controls">
+            <button class="btn small ghost" id="bg-place-zoom-out" aria-label="zoom out">−</button>
+            <button class="btn small ghost" id="bg-place-zoom-in"  aria-label="zoom in">+</button>
+            <button class="btn small ghost" id="bg-place-reset"    data-i18n="bg.placeReset">中央</button>
+            <button class="btn small"       id="bg-place-cancel"   data-i18n="bg.placeCancel">キャンセル</button>
+            <button class="btn small primary" id="bg-place-confirm" data-i18n="bg.placeConfirm">配置確定</button>
+          </div>
+        </div>
+
+        <div id="bg-preset-slots"></div>
+
+        <div class="bg-preset-controls">
+          <label data-i18n="bg.gridLabel">解像度</label>
+          <select id="bg-preset-grid">
+            <option value="16">16</option>
+            <option value="24">24</option>
+            <option value="32">32</option>
+            <option value="48">48</option>
+            <option value="64" selected>64</option>
+            <option value="96">96</option>
+            <option value="128">128</option>
+            <option value="192">192</option>
+            <option value="256">256</option>
+          </select>
+          <button class="btn primary" id="bg-preset-generate" data-i18n="bg.generate">レシピを見る</button>
+        </div>
+
+        <div class="bg-preset-bottom">
+          <button class="btn ghost" id="bg-preset-back" data-i18n="bg.back">アップロード画面に戻る</button>
         </div>
       </div>
     </section>
@@ -1016,6 +1084,9 @@
   <script src="./js/features/color-info.js"></script>
   <script src="./js/canvas/canvas-interact.js"></script>
   <script src="./js/features/crop-tool.js"></script>
+  <script src="./js/features/bg-preset-regions.js"></script>
+  <script src="./js/features/bg-preset-composite.js"></script>
+  <script src="./js/features/bg-preset-ui.js"></script>
   <script src="./js/features/image-loader.js"></script>
   <script src="./js/lib/qrcode.js"></script>
   <script src="./js/features/favorites.js"></script>

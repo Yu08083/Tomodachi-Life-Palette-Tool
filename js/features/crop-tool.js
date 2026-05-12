@@ -91,12 +91,8 @@ function drawCropCanvas() {
   ctx.imageSmoothingEnabled = false;
   ctx.clearRect(0, 0, cropDispW, cropDispH);
 
-  const filterStr = (typeof enhanceGetFilterString === 'function') ? enhanceGetFilterString() : 'none';
-  if (filterStr !== 'none') {
-    ctx.save();
-    ctx.filter = filterStr;
-    ctx.drawImage(cropSrcCanvas, 0, 0, cropDispW, cropDispH);
-    ctx.restore();
+  if (typeof enhanceRenderPreview === 'function') {
+    enhanceRenderPreview(ctx, cropSrcCanvas, cropDispW, cropDispH);
   } else {
     ctx.drawImage(cropSrcCanvas, 0, 0, cropDispW, cropDispH);
   }

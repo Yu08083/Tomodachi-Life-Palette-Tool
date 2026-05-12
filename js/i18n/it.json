@@ -83,7 +83,9 @@
     "tlStart": "Registra time-lapse",
     "tlStop": "Ferma e salva",
     "tlUnsupported": "Registrazione non supportata da questo browser",
-    "tlEmpty": "Registrazione vuota. Prova un tempo più lungo."
+    "tlEmpty": "Registrazione vuota. Prova un tempo più lungo.",
+    "customSizePh": "48",
+    "customSizeUnit": "celle"
   },
   "color": {
     "labelEn": "color information",

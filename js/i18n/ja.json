@@ -83,7 +83,9 @@
     "tlStart": "タイムラプス録画",
     "tlStop": "録画停止 & 保存",
     "tlUnsupported": "このブラウザは録画に未対応です",
-    "tlEmpty": "録画データが空でした。少し長く録画してから停止してください"
+    "tlEmpty": "録画データが空でした。少し長く録画してから停止してください",
+    "customSizePh": "48",
+    "customSizeUnit": "マス"
   },
   "color": {
     "labelEn": "color information",

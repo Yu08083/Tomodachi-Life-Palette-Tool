@@ -83,7 +83,9 @@
     "tlStart": "錄製縮時影片",
     "tlStop": "停止並儲存",
     "tlUnsupported": "此瀏覽器不支援錄製",
-    "tlEmpty": "錄製內容為空,請錄製久一點再停止"
+    "tlEmpty": "錄製內容為空,請錄製久一點再停止",
+    "customSizePh": "48",
+    "customSizeUnit": "格"
   },
   "color": {
     "labelEn": "color information",

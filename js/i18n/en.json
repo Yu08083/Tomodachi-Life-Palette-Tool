@@ -83,7 +83,9 @@
     "tlStart": "Record time-lapse",
     "tlStop": "Stop & Save",
     "tlUnsupported": "Recording not supported in this browser",
-    "tlEmpty": "Recording was empty. Try recording for a bit longer."
+    "tlEmpty": "Recording was empty. Try recording for a bit longer.",
+    "customSizePh": "48",
+    "customSizeUnit": "cells"
   },
   "color": {
     "labelEn": "color information",

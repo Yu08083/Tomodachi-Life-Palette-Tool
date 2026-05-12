@@ -83,7 +83,9 @@
     "tlStart": "Time-lapse opnemen",
     "tlStop": "Stop & opslaan",
     "tlUnsupported": "Opname wordt niet ondersteund",
-    "tlEmpty": "Opname was leeg. Probeer langer op te nemen."
+    "tlEmpty": "Opname was leeg. Probeer langer op te nemen.",
+    "customSizePh": "48",
+    "customSizeUnit": "cellen"
   },
   "color": {
     "labelEn": "color information",

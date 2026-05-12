@@ -83,7 +83,9 @@
     "tlStart": "Gravar time-lapse",
     "tlStop": "Parar e salvar",
     "tlUnsupported": "Gravação não suportada neste navegador",
-    "tlEmpty": "A gravação ficou vazia. Tente gravar por mais tempo."
+    "tlEmpty": "A gravação ficou vazia. Tente gravar por mais tempo.",
+    "customSizePh": "48",
+    "customSizeUnit": "células"
   },
   "color": {
     "labelEn": "color information",

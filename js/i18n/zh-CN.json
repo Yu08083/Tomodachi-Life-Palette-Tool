@@ -83,7 +83,9 @@
     "tlStart": "录制延时",
     "tlStop": "停止并保存",
     "tlUnsupported": "此浏览器不支持录制",
-    "tlEmpty": "录制内容为空,请录制久一点再停止"
+    "tlEmpty": "录制内容为空,请录制久一点再停止",
+    "customSizePh": "48",
+    "customSizeUnit": "格"
   },
   "color": {
     "labelEn": "color information",

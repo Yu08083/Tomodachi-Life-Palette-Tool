@@ -370,3 +370,62 @@
   letter-spacing: 0.05em;
 }
 .tl-elapsed.hidden { display: none; }
+
+.brush-pill-custom {
+  cursor: text;
+  gap: 6px;
+  padding: 9px 14px 9px 12px;
+}
+.brush-custom-icon {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+}
+.brush-pill-custom:hover .brush-custom-icon {
+  opacity: 1;
+}
+#brush-custom-input {
+  width: 36px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font: inherit;
+  font-weight: 800;
+  font-size: 0.84rem;
+  letter-spacing: 0.02em;
+  color: inherit;
+  text-align: right;
+  padding: 0;
+  margin: 0;
+  -moz-appearance: textfield;
+  caret-color: var(--orange);
+}
+#brush-custom-input::placeholder {
+  color: var(--ink-3);
+  opacity: 0.7;
+  font-weight: 600;
+}
+#brush-custom-input::-webkit-outer-spin-button,
+#brush-custom-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.brush-pill-custom:focus-within {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(255, 107, 26, 0.18);
+}
+.brush-pill-custom.active {
+  background: var(--orange);
+  color: #fff;
+  border-color: var(--orange-d);
+  box-shadow: 0 3px 0 var(--orange-d);
+}
+.brush-pill-custom.active .brush-custom-icon { opacity: 0.9; }
+.brush-pill-custom.active #brush-custom-input { color: #fff; caret-color: #fff; }
+.brush-pill-custom.active #brush-custom-input::placeholder { color: rgba(255,255,255,0.7); }
+
+@media (max-width: 600px) {
+  #brush-custom-input { width: 30px; font-size: 0.78rem; }
+  .brush-custom-icon { font-size: 0.72rem; }
+}

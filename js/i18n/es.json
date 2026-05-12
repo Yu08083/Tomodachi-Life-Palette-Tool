@@ -83,7 +83,9 @@
     "tlStart": "Grabar lapso",
     "tlStop": "Detener y guardar",
     "tlUnsupported": "Grabación no compatible con este navegador",
-    "tlEmpty": "La grabación está vacía. Intenta grabar un poco más."
+    "tlEmpty": "La grabación está vacía. Intenta grabar un poco más.",
+    "customSizePh": "48",
+    "customSizeUnit": "celdas"
   },
   "color": {
     "labelEn": "color information",

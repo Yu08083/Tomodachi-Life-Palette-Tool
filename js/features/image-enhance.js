@@ -19,8 +19,8 @@ function enhanceBakeToCanvas(canvas) {
   const src = document.createElement('canvas');
   src.width = w;
   src.height = h;
-  src.getContext('2d', { willReadFrequently: true }).drawImage(canvas, 0, 0);
-  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+  src.getContext('2d').drawImage(canvas, 0, 0);
+  const ctx = canvas.getContext('2d');
   ctx.save();
   ctx.filter = enhanceGetFilterString();
   ctx.clearRect(0, 0, w, h);
@@ -38,7 +38,7 @@ function enhanceBakeCopy(srcCanvas) {
   const out = document.createElement('canvas');
   out.width = w;
   out.height = h;
-  const ctx = out.getContext('2d', { willReadFrequently: true });
+  const ctx = out.getContext('2d');
   if (enhanceIsActive()) {
     ctx.save();
     ctx.filter = enhanceGetFilterString();
@@ -51,6 +51,39 @@ function enhanceBakeCopy(srcCanvas) {
     ctx.drawImage(srcCanvas, 0, 0);
   }
   return out;
+}
+
+function enhanceRenderPreview(ctx, srcCanvas, dispW, dispH) {
+  if (!ctx || !srcCanvas) return;
+  const sharp = _enhanceState.sharpness;
+  if (sharp <= 0) {
+    const filterStr = enhanceGetFilterString();
+    if (filterStr !== 'none') {
+      ctx.save();
+      ctx.filter = filterStr;
+      ctx.drawImage(srcCanvas, 0, 0, dispW, dispH);
+      ctx.restore();
+    } else {
+      ctx.drawImage(srcCanvas, 0, 0, dispW, dispH);
+    }
+    return;
+  }
+  const w = srcCanvas.width, h = srcCanvas.height;
+  const tmp = document.createElement('canvas');
+  tmp.width = w;
+  tmp.height = h;
+  const tctx = tmp.getContext('2d');
+  const filterStr = enhanceGetFilterString();
+  if (filterStr !== 'none') {
+    tctx.save();
+    tctx.filter = filterStr;
+    tctx.drawImage(srcCanvas, 0, 0);
+    tctx.restore();
+  } else {
+    tctx.drawImage(srcCanvas, 0, 0);
+  }
+  _enhanceSharpenInPlace(tmp, sharp / 100);
+  ctx.drawImage(tmp, 0, 0, dispW, dispH);
 }
 
 function _enhanceSharpenInPlace(canvas, amount) {

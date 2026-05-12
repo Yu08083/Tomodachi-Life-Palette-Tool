@@ -83,7 +83,9 @@
     "tlStart": "Enregistrer",
     "tlStop": "Arrêter & Sauver",
     "tlUnsupported": "L'enregistrement n'est pas pris en charge",
-    "tlEmpty": "L'enregistrement est vide. Essayez plus longtemps."
+    "tlEmpty": "L'enregistrement est vide. Essayez plus longtemps.",
+    "customSizePh": "48",
+    "customSizeUnit": "cases"
   },
   "color": {
     "labelEn": "color information",

@@ -83,7 +83,9 @@
     "tlStart": "Zeitraffer aufnehmen",
     "tlStop": "Stop & Speichern",
     "tlUnsupported": "Aufnahme in diesem Browser nicht unterstützt",
-    "tlEmpty": "Aufnahme war leer. Versuchen Sie es länger."
+    "tlEmpty": "Aufnahme war leer. Versuchen Sie es länger.",
+    "customSizePh": "48",
+    "customSizeUnit": "Felder"
   },
   "color": {
     "labelEn": "color information",

@@ -83,7 +83,9 @@
     "tlStart": "Записать таймлапс",
     "tlStop": "Стоп и сохранить",
     "tlUnsupported": "Запись не поддерживается в этом браузере",
-    "tlEmpty": "Запись пуста. Попробуйте записать дольше."
+    "tlEmpty": "Запись пуста. Попробуйте записать дольше.",
+    "customSizePh": "48",
+    "customSizeUnit": "клеток"
   },
   "color": {
     "labelEn": "color information",

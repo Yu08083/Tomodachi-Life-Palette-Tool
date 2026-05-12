@@ -83,7 +83,9 @@
     "tlStart": "타임랩스 녹화",
     "tlStop": "정지 & 저장",
     "tlUnsupported": "이 브라우저는 녹화를 지원하지 않습니다",
-    "tlEmpty": "녹화 데이터가 비어 있습니다. 좀 더 길게 녹화해 주세요"
+    "tlEmpty": "녹화 데이터가 비어 있습니다. 좀 더 길게 녹화해 주세요",
+    "customSizePh": "48",
+    "customSizeUnit": "칸"
   },
   "color": {
     "labelEn": "color information",

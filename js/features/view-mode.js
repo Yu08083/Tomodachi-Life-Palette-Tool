@@ -565,18 +565,56 @@ function attachConvertControls() {
 
   _loadLogoSafe('./assets/favicon.png');
 
-  document.querySelectorAll('.brush-pill').forEach(btn => {
+  document.querySelectorAll('.brush-pill[data-size]').forEach(btn => {
     btn.addEventListener('click', () => {
       const newSize = parseInt(btn.dataset.size, 10);
       if (newSize === gridSize) return;
       gridSize = newSize;
-      document.querySelectorAll('.brush-pill').forEach(b => {
-        b.classList.toggle('active', parseInt(b.dataset.size, 10) === gridSize);
-      });
+      _updateBrushPillsActive();
+      const ci = document.getElementById('brush-custom-input');
+      if (ci) ci.value = '';
       rebuildConvertedData();
       updateImgInfo();
     });
   });
+
+  const customInput = document.getElementById('brush-custom-input');
+  if (customInput) {
+    const applyCustom = () => {
+      const v = parseInt(customInput.value, 10);
+      if (isNaN(v) || v < 4 || v > 512) return;
+      if (v === gridSize) return;
+      gridSize = v;
+      _updateBrushPillsActive();
+      rebuildConvertedData();
+      updateImgInfo();
+    };
+    customInput.addEventListener('change', applyCustom);
+    customInput.addEventListener('blur', applyCustom);
+    customInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        applyCustom();
+        customInput.blur();
+      }
+    });
+    customInput.addEventListener('click', (e) => e.stopPropagation());
+  }
+
+  function _updateBrushPillsActive() {
+    let matched = false;
+    document.querySelectorAll('.brush-pill[data-size]').forEach(b => {
+      const ms = parseInt(b.dataset.size, 10) === gridSize;
+      b.classList.toggle('active', ms);
+      if (ms) matched = true;
+    });
+    const customPill = document.getElementById('brush-custom-pill');
+    if (customPill) {
+      customPill.classList.toggle('active', !matched);
+      const ci = document.getElementById('brush-custom-input');
+      if (ci && !matched) ci.value = String(gridSize);
+    }
+  }
 
   document.querySelectorAll('.brush-mode-tab').forEach(tab => {
     tab.addEventListener('click', () => {

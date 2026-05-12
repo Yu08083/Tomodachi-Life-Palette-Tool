@@ -410,9 +410,14 @@
     "undo": "Annulla (Ctrl+Z)",
     "redo": "Ripeti (Ctrl+Y)",
     "color": "Colore",
-    "colorHint": "← Tocca dalla palette",
+    "colorHint": "Clic per scegliere",
     "exit": "Esci dalla modifica",
     "reset": "Ripristina tutto",
-    "resetConfirm": "Annullare tutte le modifiche e tornare alla conversione originale?"
+    "resetConfirm": "Annullare tutte le modifiche e tornare alla conversione originale?",
+    "rotateCcw": "Ruota 90° sx",
+    "rotateCw": "Ruota 90° dx",
+    "flipH": "Capovolgi orizz.",
+    "flipV": "Capovolgi vert.",
+    "changeColor": "Clic per cambiare"
   }
 }

@@ -62,7 +62,7 @@ function detectBlueRegions(image) {
   const c = document.createElement('canvas');
   c.width = w;
   c.height = h;
-  const ctx = c.getContext('2d');
+  const ctx = c.getContext('2d', { willReadFrequently: true });
   ctx.drawImage(image, 0, 0);
   const data = ctx.getImageData(0, 0, w, h).data;
 
@@ -156,7 +156,7 @@ function extractRegionMaskCanvas(detect, regionIndex) {
   const c = document.createElement('canvas');
   c.width = rw;
   c.height = rh;
-  const ctx = c.getContext('2d');
+  const ctx = c.getContext('2d', { willReadFrequently: true });
   const imageData = ctx.createImageData(rw, rh);
   const out = imageData.data;
   const targetLabel = region.id;

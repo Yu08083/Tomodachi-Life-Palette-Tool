@@ -410,9 +410,14 @@
     "undo": "撤销 (Ctrl+Z)",
     "redo": "重做 (Ctrl+Y)",
     "color": "当前色",
-    "colorHint": "← 从调色板点选",
+    "colorHint": "点击选择",
     "exit": "退出编辑",
     "reset": "全部重置",
-    "resetConfirm": "放弃所有编辑,恢复到原始转换结果?"
+    "resetConfirm": "放弃所有编辑,恢复到原始转换结果?",
+    "rotateCcw": "向左旋转90°",
+    "rotateCw": "向右旋转90°",
+    "flipH": "水平翻转",
+    "flipV": "垂直翻转",
+    "changeColor": "点击换色"
   }
 }

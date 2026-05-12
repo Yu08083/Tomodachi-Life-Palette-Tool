@@ -410,9 +410,14 @@
     "undo": "Deshacer (Ctrl+Z)",
     "redo": "Rehacer (Ctrl+Y)",
     "color": "Color",
-    "colorHint": "← Elige de la paleta",
+    "colorHint": "Clic para elegir",
     "exit": "Salir de edición",
     "reset": "Restablecer todo",
-    "resetConfirm": "¿Descartar todas las ediciones y volver a la conversión original?"
+    "resetConfirm": "¿Descartar todas las ediciones y volver a la conversión original?",
+    "rotateCcw": "Girar 90° izq.",
+    "rotateCw": "Girar 90° der.",
+    "flipH": "Voltear horizontal",
+    "flipV": "Voltear vertical",
+    "changeColor": "Clic para cambiar color"
   }
 }

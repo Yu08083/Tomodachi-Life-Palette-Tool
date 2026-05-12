@@ -410,9 +410,14 @@
     "undo": "元に戻す (Ctrl+Z)",
     "redo": "やり直し (Ctrl+Y)",
     "color": "使う色",
-    "colorHint": "← パレットからクリック",
+    "colorHint": "クリックで選択",
     "exit": "編集を終了",
     "reset": "全リセット",
-    "resetConfirm": "編集を全部破棄して元の変換結果に戻しますか?"
+    "resetConfirm": "編集を全部破棄して元の変換結果に戻しますか?",
+    "rotateCcw": "左に90°回転",
+    "rotateCw": "右に90°回転",
+    "flipH": "左右反転",
+    "flipV": "上下反転",
+    "changeColor": "クリックで色変更"
   }
 }

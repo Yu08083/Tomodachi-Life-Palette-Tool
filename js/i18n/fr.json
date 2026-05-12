@@ -410,9 +410,14 @@
     "undo": "Annuler (Ctrl+Z)",
     "redo": "Refaire (Ctrl+Y)",
     "color": "Couleur",
-    "colorHint": "← Choisissez dans la palette",
+    "colorHint": "Cliquer pour choisir",
     "exit": "Quitter l'édition",
     "reset": "Tout réinitialiser",
-    "resetConfirm": "Annuler toutes les modifications et revenir à la conversion d'origine ?"
+    "resetConfirm": "Annuler toutes les modifications et revenir à la conversion d'origine ?",
+    "rotateCcw": "Rotation 90° gauche",
+    "rotateCw": "Rotation 90° droite",
+    "flipH": "Miroir horizontal",
+    "flipV": "Miroir vertical",
+    "changeColor": "Cliquer pour changer"
   }
 }

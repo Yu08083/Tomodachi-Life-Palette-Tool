@@ -74,9 +74,10 @@ function _cameraCapture() {
 
   closeCameraModal();
   if (typeof openCropTool === 'function') {
-    rawSourceCanvas = c;
+    const scaled = (typeof _downscaleIfTooBig === 'function') ? _downscaleIfTooBig(c) : c;
+    rawSourceCanvas = scaled;
     document.getElementById('upload-section').classList.add('hidden');
-    openCropTool(c);
+    openCropTool(scaled);
   }
 }
 

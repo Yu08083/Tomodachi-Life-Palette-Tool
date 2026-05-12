@@ -410,9 +410,14 @@
     "undo": "Undo (Ctrl+Z)",
     "redo": "Redo (Ctrl+Y)",
     "color": "Color",
-    "colorHint": "← Tap a palette swatch",
+    "colorHint": "Click to pick",
     "exit": "Exit Edit",
     "reset": "Reset All",
-    "resetConfirm": "Discard all edits and revert to the original conversion?"
+    "resetConfirm": "Discard all edits and revert to the original conversion?",
+    "rotateCcw": "Rotate 90° Left",
+    "rotateCw": "Rotate 90° Right",
+    "flipH": "Flip Horizontal",
+    "flipV": "Flip Vertical",
+    "changeColor": "Click to change color"
   }
 }

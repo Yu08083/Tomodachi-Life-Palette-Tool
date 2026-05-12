@@ -106,6 +106,75 @@ function _editorShowUI(on) {
   if (canvas) canvas.classList.toggle('editing', on);
 }
 
+function _editorBuildColorPopup() {
+  const grid = document.getElementById('pe-color-grid');
+  if (!grid) return;
+  if (grid.children.length > 0) return;
+  if (typeof PALETTE === 'undefined' || !PALETTE.length) return;
+  for (let i = 0; i < PALETTE.length; i++) {
+    const cell = document.createElement('button');
+    cell.type = 'button';
+    cell.className = 'pe-color-cell';
+    cell.style.background = PALETTE[i].h;
+    cell.dataset.idx = String(i);
+    cell.title = '#' + (i + 1) + ' ' + PALETTE[i].h.toUpperCase();
+    cell.addEventListener('click', (e) => {
+      e.stopPropagation();
+      pixelEditorSetColor(i);
+      _editorCloseColorPopup();
+    });
+    grid.appendChild(cell);
+  }
+}
+
+function _editorToggleColorPopup() {
+  const pop = document.getElementById('pe-color-popup');
+  if (!pop) return;
+  if (pop.classList.contains('hidden')) {
+    _editorBuildColorPopup();
+    _editorMarkSelectedColorCell();
+    pop.classList.remove('hidden');
+    setTimeout(() => {
+      document.addEventListener('click', _editorOutsidePopupClick);
+      document.addEventListener('keydown', _editorPopupKey);
+    }, 0);
+  } else {
+    _editorCloseColorPopup();
+  }
+}
+
+function _editorCloseColorPopup() {
+  const pop = document.getElementById('pe-color-popup');
+  if (pop) pop.classList.add('hidden');
+  document.removeEventListener('click', _editorOutsidePopupClick);
+  document.removeEventListener('keydown', _editorPopupKey);
+}
+
+function _editorOutsidePopupClick(e) {
+  const pop = document.getElementById('pe-color-popup');
+  const sw = document.getElementById('pe-current-color');
+  if (!pop) return;
+  if (pop.contains(e.target)) return;
+  if (sw && sw.contains(e.target)) return;
+  _editorCloseColorPopup();
+}
+
+function _editorPopupKey(e) {
+  if (e.key === 'Escape') {
+    e.preventDefault();
+    _editorCloseColorPopup();
+  }
+}
+
+function _editorMarkSelectedColorCell() {
+  const grid = document.getElementById('pe-color-grid');
+  if (!grid) return;
+  const cells = grid.children;
+  for (let i = 0; i < cells.length; i++) {
+    cells[i].classList.toggle('selected', i === pixelEditorColorIdx);
+  }
+}
+
 function _editorUpdateUI() {
   document.querySelectorAll('.pe-tool-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.tool === pixelEditorTool);
@@ -120,6 +189,7 @@ function _editorUpdateUI() {
       sw.classList.add('none');
     }
   }
+  _editorMarkSelectedColorCell();
   const undoBtn = document.getElementById('pe-undo');
   const redoBtn = document.getElementById('pe-redo');
   if (undoBtn) undoBtn.disabled = _editorHistory.length === 0;
@@ -366,24 +436,120 @@ function _editorCommitOp(op) {
   _editorUpdateUI();
 }
 
+function _editorTransformAndSnapshot(transformFn) {
+  if (!convertedData || !convertedData.paletteMap) return;
+  const w = convertedData.width, h = convertedData.height;
+  const oldMap = new Int16Array(convertedData.paletteMap);
+  const result = transformFn(convertedData.paletteMap, w, h);
+  if (!result) return;
+  const { newMap, newW, newH } = result;
+  _editorApplyMapDims(newMap, newW, newH);
+  _editorHistory.push({
+    type: 'transform',
+    before: { map: oldMap, w, h },
+    after: { map: new Int16Array(newMap), w: newW, h: newH },
+  });
+  if (_editorHistory.length > _EDITOR_HISTORY_MAX) _editorHistory.shift();
+  _editorRedoStack.length = 0;
+  _editorRefreshAfterEdit(true);
+}
+
+function _editorApplyMapDims(map, w, h) {
+  if (!convertedData) return;
+  const palRgb = getPaletteRgb();
+  const newData = new Uint8ClampedArray(w * h * 4);
+  for (let i = 0; i < map.length; i++) {
+    const idx = map[i];
+    const p = i * 4;
+    if (idx < 0) {
+      newData[p] = 0; newData[p+1] = 0; newData[p+2] = 0; newData[p+3] = 0;
+    } else {
+      const c = palRgb[idx];
+      newData[p] = c.r; newData[p+1] = c.g; newData[p+2] = c.b; newData[p+3] = 255;
+    }
+  }
+  convertedData.paletteMap = map;
+  convertedData.width = w;
+  convertedData.height = h;
+  convertedData.data = newData;
+  if (convertedData.originalCanvas) {
+    convertedData.originalCanvas.width = w;
+    convertedData.originalCanvas.height = h;
+    const ctx = convertedData.originalCanvas.getContext('2d');
+    const img = new ImageData(new Uint8ClampedArray(newData), w, h);
+    ctx.putImageData(img, 0, 0);
+  }
+}
+
+function pixelEditorRotate(dir) {
+  if (!pixelEditorActive) return;
+  _editorTransformAndSnapshot((oldMap, w, h) => {
+    let newW, newH;
+    let newMap;
+    if (dir === 'cw') {
+      newW = h; newH = w;
+      newMap = new Int16Array(newW * newH);
+      for (let y = 0; y < h; y++)
+        for (let x = 0; x < w; x++)
+          newMap[x * newW + (h - 1 - y)] = oldMap[y * w + x];
+    } else if (dir === 'ccw') {
+      newW = h; newH = w;
+      newMap = new Int16Array(newW * newH);
+      for (let y = 0; y < h; y++)
+        for (let x = 0; x < w; x++)
+          newMap[(w - 1 - x) * newW + y] = oldMap[y * w + x];
+    } else {
+      return null;
+    }
+    return { newMap, newW, newH };
+  });
+}
+
+function pixelEditorFlip(axis) {
+  if (!pixelEditorActive) return;
+  _editorTransformAndSnapshot((oldMap, w, h) => {
+    const newMap = new Int16Array(w * h);
+    if (axis === 'h') {
+      for (let y = 0; y < h; y++)
+        for (let x = 0; x < w; x++)
+          newMap[y * w + (w - 1 - x)] = oldMap[y * w + x];
+    } else if (axis === 'v') {
+      for (let y = 0; y < h; y++)
+        for (let x = 0; x < w; x++)
+          newMap[(h - 1 - y) * w + x] = oldMap[y * w + x];
+    } else {
+      return null;
+    }
+    return { newMap, newW: w, newH: h };
+  });
+}
+
 function pixelEditorUndo() {
   if (_editorHistory.length === 0) return;
   const op = _editorHistory.pop();
-  const reverseChanges = op.changes.map(([i, o]) => [i, undefined, o]);
-  _editorApplyChanges(reverseChanges);
+  if (op.type === 'transform') {
+    _editorApplyMapDims(new Int16Array(op.before.map), op.before.w, op.before.h);
+  } else {
+    const reverseChanges = op.changes.map(([i, o]) => [i, undefined, o]);
+    _editorApplyChanges(reverseChanges);
+  }
   _editorRedoStack.push(op);
-  _editorRefreshAfterEdit();
+  _editorRefreshAfterEdit(op.type === 'transform');
 }
 
 function pixelEditorRedo() {
   if (_editorRedoStack.length === 0) return;
   const op = _editorRedoStack.pop();
-  _editorApplyChanges(op.changes);
+  if (op.type === 'transform') {
+    _editorApplyMapDims(new Int16Array(op.after.map), op.after.w, op.after.h);
+  } else {
+    _editorApplyChanges(op.changes);
+  }
   _editorHistory.push(op);
-  _editorRefreshAfterEdit();
+  _editorRefreshAfterEdit(op.type === 'transform');
 }
 
-function _editorRefreshAfterEdit() {
+function _editorRefreshAfterEdit(transformed) {
   if (!convertedData) return;
   const used = new Set();
   const map = convertedData.paletteMap;
@@ -392,6 +558,18 @@ function _editorRefreshAfterEdit() {
     if (v >= 0) used.add(v);
   }
   convertedData.usedSet = used;
+
+  if (transformed) {
+    if (typeof setupCanvases === 'function') {
+      try { setupCanvases(); } catch (_) {}
+    }
+    if (typeof fitZoomToConverted === 'function') {
+      try { fitZoomToConverted(); } catch (_) {}
+    }
+    if (typeof updateImgInfo === 'function') {
+      try { updateImgInfo(); } catch (_) {}
+    }
+  }
 
   if (typeof renderPixelCanvas === 'function') renderPixelCanvas();
   _editorScheduleRecipeRebuild();
@@ -424,6 +602,24 @@ function attachPixelEditorHandlers() {
   if (redoBtn) redoBtn.addEventListener('click', pixelEditorRedo);
   const resetBtn = document.getElementById('pe-reset');
   if (resetBtn) resetBtn.addEventListener('click', pixelEditorReset);
+
+  const rotCcw = document.getElementById('pe-rot-ccw');
+  if (rotCcw) rotCcw.addEventListener('click', () => pixelEditorRotate('ccw'));
+  const rotCw = document.getElementById('pe-rot-cw');
+  if (rotCw) rotCw.addEventListener('click', () => pixelEditorRotate('cw'));
+  const flipH = document.getElementById('pe-flip-h');
+  if (flipH) flipH.addEventListener('click', () => pixelEditorFlip('h'));
+  const flipV = document.getElementById('pe-flip-v');
+  if (flipV) flipV.addEventListener('click', () => pixelEditorFlip('v'));
+
+  const colorSwatch = document.getElementById('pe-current-color');
+  if (colorSwatch) {
+    colorSwatch.addEventListener('click', (e) => {
+      e.stopPropagation();
+      _editorToggleColorPopup();
+    });
+  }
+
   const exitBtn = document.getElementById('pe-exit');
   if (exitBtn) exitBtn.addEventListener('click', pixelEditorDeactivate);
 

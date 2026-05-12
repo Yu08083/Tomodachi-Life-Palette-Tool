@@ -18,7 +18,7 @@ function _detectSafeCanvasDim() {
     const c = document.createElement('canvas');
     c.width = 5000;
     c.height = 5000;
-    const ctx = c.getContext('2d');
+    const ctx = c.getContext('2d', { willReadFrequently: true });
     if (!ctx) { _maxSafeCanvasDim = 3800; return _maxSafeCanvasDim; }
     ctx.fillStyle = '#FF0000';
     ctx.fillRect(0, 0, 2, 2);
@@ -43,7 +43,7 @@ function _testLogoCanvasSafety(logo) {
     const test = document.createElement('canvas');
     test.width = 8;
     test.height = 8;
-    const tctx = test.getContext('2d');
+    const tctx = test.getContext('2d', { willReadFrequently: true });
     tctx.drawImage(logo, 0, 0, 8, 8);
     test.toDataURL('image/png');
     return true;
@@ -215,7 +215,7 @@ function convertImage(srcCanvas, srcWidth, srcHeight, gridSize, dither) {
   const dsCanvas = document.createElement('canvas');
   dsCanvas.width  = outW;
   dsCanvas.height = outH;
-  const dsCtx = dsCanvas.getContext('2d');
+  const dsCtx = dsCanvas.getContext('2d', { willReadFrequently: true });
   dsCtx.imageSmoothingEnabled = true;
   dsCtx.imageSmoothingQuality = 'high';
   dsCtx.clearRect(0, 0, outW, outH);
@@ -371,8 +371,8 @@ function _applyHsvAdjustment(srcCanvas, brightnessPct, saturationPct) {
   const out = document.createElement('canvas');
   out.width = srcCanvas.width;
   out.height = srcCanvas.height;
-  const sCtx = srcCanvas.getContext('2d');
-  const dCtx = out.getContext('2d');
+  const sCtx = srcCanvas.getContext('2d', { willReadFrequently: true });
+  const dCtx = out.getContext('2d', { willReadFrequently: true });
   const img = sCtx.getImageData(0, 0, srcCanvas.width, srcCanvas.height);
   const d = img.data;
 
@@ -424,7 +424,7 @@ function _ensureOriginalPaletteMap() {
     return imgData._paletteMap;
   }
   const w = sourceCanvas.width, h = sourceCanvas.height;
-  const ctx = sourceCanvas.getContext('2d');
+  const ctx = sourceCanvas.getContext('2d', { willReadFrequently: true });
   const data = ctx.getImageData(0, 0, w, h).data;
   const map = new Int16Array(w * h);
   const palRgb = PALETTE.map(p => hexToRgb(p.h));
@@ -511,7 +511,9 @@ function setViewMode(mode) {
     if (!convertedData) rebuildConvertedData();
     fitZoomToConverted();
   } else {
-    if (imgData.width <= 16 && imgData.height <= 16)        zoom = 16;
+    if (typeof _fitZoomToOriginalView === 'function') {
+      zoom = _fitZoomToOriginalView(imgData.width, imgData.height);
+    } else if (imgData.width <= 16 && imgData.height <= 16)        zoom = 16;
     else if (imgData.width <= 32 && imgData.height <= 32)   zoom = 8;
     else if (imgData.width <= 64 && imgData.height <= 64)   zoom = 4;
     else if (imgData.width <= 128 && imgData.height <= 128) zoom = 2;
@@ -720,7 +722,7 @@ function composeBrandedImage(srcCanvas, srcW, srcH) {
       const out = document.createElement('canvas');
       out.width  = outW;
       out.height = outH;
-      const ctx = out.getContext('2d');
+      const ctx = out.getContext('2d', { willReadFrequently: true });
 
       ctx.imageSmoothingEnabled = false;
       ctx.fillStyle = '#FFFFFF';
@@ -1134,7 +1136,7 @@ function composePaintByNumbers(d, options) {
       const out = document.createElement('canvas');
       out.width = layout.outW;
       out.height = layout.outH;
-      const ctx = out.getContext('2d');
+      const ctx = out.getContext('2d', { willReadFrequently: true });
 
       ctx.fillStyle = '#FFFFFF';
       ctx.fillRect(0, 0, layout.outW, layout.outH);

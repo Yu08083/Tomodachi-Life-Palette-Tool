@@ -78,6 +78,44 @@ function _handleUploadedFile(file) {
   }
 }
 
+const MAX_UPLOAD_SIDE = 1600;
+
+function _downscaleIfTooBig(srcCanvas) {
+  if (!srcCanvas) return srcCanvas;
+  const w = srcCanvas.width;
+  const h = srcCanvas.height;
+  const max = Math.max(w, h);
+  if (max <= MAX_UPLOAD_SIDE) return srcCanvas;
+  const s = MAX_UPLOAD_SIDE / max;
+  const nw = Math.round(w * s);
+  const nh = Math.round(h * s);
+  const out = document.createElement('canvas');
+  out.width = nw;
+  out.height = nh;
+  const ctx = out.getContext('2d', { willReadFrequently: true });
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
+  ctx.drawImage(srcCanvas, 0, 0, nw, nh);
+  return out;
+}
+
+function _fitZoomToOriginalView(w, h) {
+  if (w <= 16 && h <= 16) return 16;
+  if (w <= 32 && h <= 32) return 8;
+  if (w <= 64 && h <= 64) return 4;
+  if (w <= 128 && h <= 128) return 2;
+  const wrap = document.getElementById('canvas-wrapper');
+  if (!wrap) return 1;
+  const avail = Math.max(240, (wrap.clientWidth || 600) - 40);
+  if (w <= avail && h <= avail) return 1;
+  const fit = Math.min(avail / w, avail / h);
+  if (fit >= 0.75) return 1;
+  if (fit >= 0.5)  return 0.5;
+  if (fit >= 0.33) return 0.33;
+  if (fit >= 0.25) return 0.25;
+  return 0.2;
+}
+
 function loadImageFile(file) {
   if (!file) return;
 
@@ -88,14 +126,15 @@ img.onload = () => {
     const tmp = document.createElement('canvas');
     tmp.width  = img.width;
     tmp.height = img.height;
-    const ctx = tmp.getContext('2d');
+    const ctx = tmp.getContext('2d', { willReadFrequently: true });
     ctx.drawImage(img, 0, 0);
 
     URL.revokeObjectURL(url);
 
-    rawSourceCanvas = tmp;
+    const scaled = _downscaleIfTooBig(tmp);
+    rawSourceCanvas = scaled;
 
-    openCropTool(tmp);
+    openCropTool(scaled);
   };
 
   img.onerror = () => {
@@ -109,7 +148,7 @@ img.onload = () => {
 function finalizeImageLoad(canvas, isCropped) {
   const w = canvas.width;
   const h = canvas.height;
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
   imgData = {
     width: w,
@@ -135,7 +174,9 @@ function finalizeImageLoad(canvas, isCropped) {
   const dlPbnInit = document.getElementById('download-pbn-btn');
   if (dlPbnInit) dlPbnInit.classList.add('hidden');
 
-  if (w <= 16 && h <= 16)        zoom = 16;
+  if (typeof _fitZoomToOriginalView === 'function') {
+    zoom = _fitZoomToOriginalView(w, h);
+  } else if (w <= 16 && h <= 16)        zoom = 16;
   else if (w <= 32 && h <= 32)   zoom = 8;
   else if (w <= 64 && h <= 64)   zoom = 4;
   else if (w <= 128 && h <= 128) zoom = 2;
@@ -178,7 +219,7 @@ function loadImageFromImg(img) {
   const tmp = document.createElement('canvas');
   tmp.width  = img.naturalWidth || img.width;
   tmp.height = img.naturalHeight || img.height;
-  const ctx = tmp.getContext('2d');
+  const ctx = tmp.getContext('2d', { willReadFrequently: true });
   ctx.drawImage(img, 0, 0);
   rawSourceCanvas = tmp;
   if (tmp.width === tmp.height) {
@@ -193,7 +234,7 @@ function generateDemoCanvas() {
   const canvas = document.createElement('canvas');
   canvas.width = 16;
   canvas.height = 16;
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
   ctx.imageSmoothingEnabled = false;
   ctx.clearRect(0, 0, 16, 16);
 

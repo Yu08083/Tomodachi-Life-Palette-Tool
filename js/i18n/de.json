@@ -410,9 +410,14 @@
     "undo": "Rückgängig (Strg+Z)",
     "redo": "Wiederherstellen (Strg+Y)",
     "color": "Farbe",
-    "colorHint": "← Aus der Palette wählen",
+    "colorHint": "Klicken zum Wählen",
     "exit": "Bearbeitung beenden",
     "reset": "Alles zurücksetzen",
-    "resetConfirm": "Alle Änderungen verwerfen und zur Originalkonvertierung zurückkehren?"
+    "resetConfirm": "Alle Änderungen verwerfen und zur Originalkonvertierung zurückkehren?",
+    "rotateCcw": "90° links drehen",
+    "rotateCw": "90° rechts drehen",
+    "flipH": "Horizontal spiegeln",
+    "flipV": "Vertikal spiegeln",
+    "changeColor": "Farbe ändern"
   }
 }

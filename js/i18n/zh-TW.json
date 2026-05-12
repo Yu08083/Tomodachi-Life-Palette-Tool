@@ -410,9 +410,14 @@
     "undo": "復原 (Ctrl+Z)",
     "redo": "重做 (Ctrl+Y)",
     "color": "目前色",
-    "colorHint": "← 從調色盤點選",
+    "colorHint": "點擊選擇",
     "exit": "結束編輯",
     "reset": "全部重置",
-    "resetConfirm": "捨棄所有編輯,恢復為原始轉換結果?"
+    "resetConfirm": "捨棄所有編輯,恢復為原始轉換結果?",
+    "rotateCcw": "向左旋轉90°",
+    "rotateCw": "向右旋轉90°",
+    "flipH": "水平翻轉",
+    "flipV": "垂直翻轉",
+    "changeColor": "點擊換色"
   }
 }

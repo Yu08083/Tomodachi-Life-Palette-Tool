@@ -95,10 +95,32 @@ async function init() {
   });
 
   window.addEventListener('i18nchange', refreshDynamicLabels);
+
+  let _resizeRaf = null;
+  window.addEventListener('resize', () => {
+    if (_resizeRaf) cancelAnimationFrame(_resizeRaf);
+    _resizeRaf = requestAnimationFrame(() => {
+      _resizeRaf = null;
+      if (typeof imgData !== 'undefined' && imgData && typeof viewMode !== 'undefined' && viewMode === 'original' && typeof _fitZoomToOriginalView === 'function') {
+        const newZoom = _fitZoomToOriginalView(imgData.width, imgData.height);
+        if (newZoom !== zoom) {
+          zoom = newZoom;
+          if (typeof renderPixelCanvas === 'function') renderPixelCanvas();
+          if (typeof updateImgInfo === 'function') updateImgInfo();
+        }
+      }
+    });
+  });
 }
 
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', init);
 } else {
   init();
+}
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
 }

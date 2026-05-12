@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#FF6B1A">
+  <meta name="color-scheme" content="light dark">
   <title data-i18n="meta.title">トモコレ ドット絵変換メーカー｜すぽいと帳【無料・84色パレット】</title>
   <meta name="description" content="トモコレ(トモダチコレクション わくわく生活)の84色パレット対応 ドット絵変換メーカー。画像をワンクリックで Mii 似顔絵・帽子・服・床絵・看板・壁紙用のドット絵に。HSV手順自動算出・番号塗り絵PNG・タイムラプス録画・塗りやすさスコア・対称線・12言語。スマホ対応、ブラウザ完結、画像はサーバーに送られません。完全無料。Tomodachi Life paint palette converter.">
   <meta name="keywords" content="トモコレ,トモダチコレクション,トモコレ ドット絵,トモコレ 画像変換,トモコレ 似顔絵,トモコレ パレット,Tomodachi Life,トモダチライフ,わくわく生活,Mii,似顔絵,ペイント,paint,ペイントツール,パレット,palette,84色,84 colors,ドット絵,pixel art,ピクセルアート,画像変換メーカー,ドット絵変換,ドット絵メーカー,カラーピッカー,color picker,スポイト,spoito,すぽいと,HSV,RGB,HEX,番号塗り絵,paint by number,PBN,色変換,color converter,画像変換,image converter,quantize,quantization,3DS,Nintendo,ペイント機能,カラーパレット,似顔絵 作り方,看板 作り方,壁紙 作り方,服 デザイン,帽子 デザイン,ドット絵 ジェネレーター,pixel art generator,无料,オンラインツール,無料">
@@ -714,9 +715,18 @@
               <button class="pe-tool-btn" id="pe-reset" data-i18n-attr-title="editor.reset" title="全リセット">⟲</button>
             </div>
             <div class="pe-group">
+              <button class="pe-tool-btn" id="pe-rot-ccw" data-i18n-attr-title="editor.rotateCcw" title="左に90°">⤺</button>
+              <button class="pe-tool-btn" id="pe-rot-cw"  data-i18n-attr-title="editor.rotateCw"  title="右に90°">⤻</button>
+              <button class="pe-tool-btn" id="pe-flip-h"  data-i18n-attr-title="editor.flipH"     title="左右反転">⇄</button>
+              <button class="pe-tool-btn" id="pe-flip-v"  data-i18n-attr-title="editor.flipV"     title="上下反転">⇅</button>
+            </div>
+            <div class="pe-group pe-color-group">
               <span class="pe-tool-label" data-i18n="editor.color">使う色</span>
-              <span class="pe-current-color none" id="pe-current-color" aria-hidden="true"></span>
-              <span class="pe-tool-label" data-i18n="editor.colorHint">← パレットからクリック</span>
+              <button type="button" class="pe-current-color none" id="pe-current-color" data-i18n-attr-title="editor.changeColor" title="クリックで色変更" aria-haspopup="true"></button>
+              <span class="pe-tool-label pe-color-hint" data-i18n="editor.colorHint">クリックで選択</span>
+              <div class="pe-color-popup hidden" id="pe-color-popup" role="dialog" aria-label="palette">
+                <div class="pe-color-grid" id="pe-color-grid"></div>
+              </div>
             </div>
             <button class="btn ghost pe-exit" id="pe-exit" data-i18n="editor.exit">編集を終了</button>
           </div>
@@ -1176,10 +1186,10 @@
 
   <img id="branding-logo" src="./assets/favicon.png" alt="" style="display:none" aria-hidden="true" loading="lazy" decoding="async">
 
-  <script src="./js/core/i18n.js"></script>
-  <script src="./js/core/palette-data.js"></script>
-  <script src="./js/core/color-utils.js"></script>
-  <script src="./js/core/state.js"></script>
+  <script defer src="./js/core/i18n.js"></script>
+  <script defer src="./js/core/palette-data.js"></script>
+  <script defer src="./js/core/color-utils.js"></script>
+  <script defer src="./js/core/state.js"></script>
   <div class="modal hidden" id="camera-modal">
     <div class="modal-content modal-content-camera">
       <button class="close-btn" id="camera-close" aria-label="閉じる">×</button>
@@ -1196,30 +1206,30 @@
     </div>
   </div>
 
-  <script src="./js/canvas/canvas-render.js"></script>
-  <script src="./js/features/view-mode.js"></script>
-  <script src="./js/features/fullcolor-guide.js"></script>
-  <script src="./js/features/recipe.js"></script>
-  <script src="./js/features/color-info.js"></script>
-  <script src="./js/canvas/canvas-interact.js"></script>
-  <script src="./js/features/image-enhance.js"></script>
-  <script src="./js/features/crop-tool.js"></script>
-  <script src="./js/features/bg-preset-regions.js"></script>
-  <script src="./js/features/bg-preset-composite.js"></script>
-  <script src="./js/features/bg-preset-ui.js"></script>
-  <script src="./js/features/image-loader.js"></script>
-  <script src="./js/features/camera.js"></script>
-  <script src="./js/lib/qrcode.js"></script>
-  <script src="./js/features/favorites.js"></script>
-  <script src="./js/features/history.js"></script>
-  <script src="./js/features/share.js"></script>
-  <script src="./js/features/share-work.js"></script>
-  <script src="./js/features/share-card.js"></script>
-  <script src="./js/features/pixel-editor.js"></script>
-  <script src="./js/features/timelapse.js"></script>
-  <script src="./js/ui.js"></script>
-  <script src="./js/main.js"></script>
-  <script src="./js/console-art.js"></script>
+  <script defer src="./js/canvas/canvas-render.js"></script>
+  <script defer src="./js/features/view-mode.js"></script>
+  <script defer src="./js/features/fullcolor-guide.js"></script>
+  <script defer src="./js/features/recipe.js"></script>
+  <script defer src="./js/features/color-info.js"></script>
+  <script defer src="./js/canvas/canvas-interact.js"></script>
+  <script defer src="./js/features/image-enhance.js"></script>
+  <script defer src="./js/features/crop-tool.js"></script>
+  <script defer src="./js/features/bg-preset-regions.js"></script>
+  <script defer src="./js/features/bg-preset-composite.js"></script>
+  <script defer src="./js/features/bg-preset-ui.js"></script>
+  <script defer src="./js/features/image-loader.js"></script>
+  <script defer src="./js/features/camera.js"></script>
+  <script defer src="./js/lib/qrcode.js"></script>
+  <script defer src="./js/features/favorites.js"></script>
+  <script defer src="./js/features/history.js"></script>
+  <script defer src="./js/features/share.js"></script>
+  <script defer src="./js/features/share-work.js"></script>
+  <script defer src="./js/features/share-card.js"></script>
+  <script defer src="./js/features/pixel-editor.js"></script>
+  <script defer src="./js/features/timelapse.js"></script>
+  <script defer src="./js/ui.js"></script>
+  <script defer src="./js/main.js"></script>
+  <script defer src="./js/console-art.js"></script>
 
 </body>
 </html>

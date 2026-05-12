@@ -410,9 +410,14 @@
     "undo": "Desfazer (Ctrl+Z)",
     "redo": "Refazer (Ctrl+Y)",
     "color": "Cor",
-    "colorHint": "← Escolha na paleta",
+    "colorHint": "Clique para escolher",
     "exit": "Sair da edição",
     "reset": "Resetar tudo",
-    "resetConfirm": "Descartar todas as edições e voltar à conversão original?"
+    "resetConfirm": "Descartar todas as edições e voltar à conversão original?",
+    "rotateCcw": "Girar 90° esq.",
+    "rotateCw": "Girar 90° dir.",
+    "flipH": "Inverter horizontal",
+    "flipV": "Inverter vertical",
+    "changeColor": "Clique para mudar"
   }
 }

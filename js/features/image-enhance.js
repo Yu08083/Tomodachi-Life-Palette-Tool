@@ -19,8 +19,8 @@ function enhanceBakeToCanvas(canvas) {
   const src = document.createElement('canvas');
   src.width = w;
   src.height = h;
-  src.getContext('2d').drawImage(canvas, 0, 0);
-  const ctx = canvas.getContext('2d');
+  src.getContext('2d', { willReadFrequently: true }).drawImage(canvas, 0, 0);
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
   ctx.save();
   ctx.filter = enhanceGetFilterString();
   ctx.clearRect(0, 0, w, h);
@@ -38,7 +38,7 @@ function enhanceBakeCopy(srcCanvas) {
   const out = document.createElement('canvas');
   out.width = w;
   out.height = h;
-  const ctx = out.getContext('2d');
+  const ctx = out.getContext('2d', { willReadFrequently: true });
   if (enhanceIsActive()) {
     ctx.save();
     ctx.filter = enhanceGetFilterString();
@@ -56,7 +56,7 @@ function enhanceBakeCopy(srcCanvas) {
 function _enhanceSharpenInPlace(canvas, amount) {
   const w = canvas.width;
   const h = canvas.height;
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
   let src;
   try { src = ctx.getImageData(0, 0, w, h); } catch (_) { return; }
   const sd = src.data;

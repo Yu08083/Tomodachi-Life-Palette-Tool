@@ -410,9 +410,14 @@
     "undo": "Ongedaan maken (Ctrl+Z)",
     "redo": "Opnieuw (Ctrl+Y)",
     "color": "Kleur",
-    "colorHint": "← Kies uit het palet",
+    "colorHint": "Klik om te kiezen",
     "exit": "Bewerken stoppen",
     "reset": "Alles resetten",
-    "resetConfirm": "Alle bewerkingen verwerpen en terug naar de oorspronkelijke conversie?"
+    "resetConfirm": "Alle bewerkingen verwerpen en terug naar de oorspronkelijke conversie?",
+    "rotateCcw": "90° linksom",
+    "rotateCw": "90° rechtsom",
+    "flipH": "Horizontaal spiegelen",
+    "flipV": "Verticaal spiegelen",
+    "changeColor": "Klik om te wijzigen"
   }
 }

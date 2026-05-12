@@ -328,4 +328,41 @@
     writable: false,
     configurable: false
   });
+
+  Object.defineProperty(window, 'tomodati', {
+    get() {
+      const warm = 'color:#FFAA4D;font-size:15px;font-weight:700;font-family:"Hiragino Maru Gothic ProN","Yu Gothic","Meiryo",sans-serif;padding:6px 0;';
+      const muted = 'color:#C9A77A;font-size:14px;font-family:"Hiragino Maru Gothic ProN","Yu Gothic","Meiryo",sans-serif;';
+      const emph = 'color:#FF5555;font-size:22px;font-weight:900;font-family:"Hiragino Maru Gothic ProN","Yu Gothic","Meiryo",sans-serif;text-shadow:0 0 8px rgba(255,85,85,0.55),1px 1px 0 rgba(0,0,0,0.3);padding:0 6px;';
+
+      console.log('%c今いるトモダチを大切に', warm);
+      console.log('%c私には%c「もう」%cいません', muted, emph, muted);
+
+      setTimeout(() => {
+        console.clear();
+        const myst    = 'color:#9B7FE0;font-size:13px;font-family:"Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;';
+        const mystEm  = 'color:#A88FE8;font-size:15px;font-weight:800;font-family:"Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;padding:4px 0;';
+        const cipher  = 'color:#5EB8F0;font-size:20px;font-weight:800;font-family:"JetBrains Mono","Courier New",monospace;letter-spacing:0.12em;padding:14px 0;text-shadow:0 0 6px rgba(94,184,240,0.5);';
+        const tiny    = 'color:#7A6A55;font-size:11px;font-style:italic;font-family:sans-serif;padding:4px 0;';
+
+        console.log('%c更に深く知りたい方は', mystEm);
+        console.log('%c暗号を解いてください', mystEm);
+        console.log('');
+        console.log('%cツイッターのアカウントを特定してください', myst);
+        console.log('%cIDは', myst);
+        console.log('%c73686c6c616463736e', cipher);
+        console.log('%c※ 73686c6c616463736e は暗号化済みです', tiny);
+      }, 3500);
+
+      return '';
+    },
+    configurable: false
+  });
 })();
+
+
+  Object.defineProperty(window, 'spoito', {
+    value: Object.freeze(api),
+    writable: false,
+    configurable: false
+  });

@@ -386,30 +386,37 @@
   opacity: 1;
 }
 #brush-custom-input {
+  -webkit-appearance: none !important;
+  -moz-appearance: textfield !important;
+  appearance: none !important;
+  color-scheme: light;
   width: 36px;
-  background: transparent;
-  border: none;
-  outline: none;
-  font: inherit;
-  font-weight: 800;
-  font-size: 0.84rem;
-  letter-spacing: 0.02em;
-  color: inherit;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  font-family: var(--font-mono) !important;
+  font-weight: 800 !important;
+  font-size: 0.84rem !important;
+  letter-spacing: 0.02em !important;
+  color: var(--ink) !important;
   text-align: right;
   padding: 0;
   margin: 0;
-  -moz-appearance: textfield;
+  box-shadow: none !important;
   caret-color: var(--orange);
 }
 #brush-custom-input::placeholder {
   color: var(--ink-3);
-  opacity: 0.7;
+  opacity: 0.6;
   font-weight: 600;
 }
 #brush-custom-input::-webkit-outer-spin-button,
 #brush-custom-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  margin: 0 !important;
+  display: none !important;
 }
 .brush-pill-custom:focus-within {
   border-color: var(--orange);
@@ -421,11 +428,16 @@
   border-color: var(--orange-d);
   box-shadow: 0 3px 0 var(--orange-d);
 }
-.brush-pill-custom.active .brush-custom-icon { opacity: 0.9; }
-.brush-pill-custom.active #brush-custom-input { color: #fff; caret-color: #fff; }
-.brush-pill-custom.active #brush-custom-input::placeholder { color: rgba(255,255,255,0.7); }
+.brush-pill-custom.active .brush-custom-icon { opacity: 0.95; }
+.brush-pill-custom.active #brush-custom-input {
+  color: #fff !important;
+  caret-color: #fff;
+}
+.brush-pill-custom.active #brush-custom-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
 
 @media (max-width: 600px) {
-  #brush-custom-input { width: 30px; font-size: 0.78rem; }
+  #brush-custom-input { width: 30px; font-size: 0.78rem !important; }
   .brush-custom-icon { font-size: 0.72rem; }
 }

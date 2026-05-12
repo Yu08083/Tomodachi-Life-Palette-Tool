@@ -361,6 +361,7 @@
     "placeHint": "Trascina per spostare / rotella · pinch per zoom",
     "placeReset": "Centra",
     "placeCancel": "Annulla",
-    "placeConfirm": "Conferma"
+    "placeConfirm": "Conferma",
+    "dither": "Dithering"
   }
 }

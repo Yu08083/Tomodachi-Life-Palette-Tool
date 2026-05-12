@@ -361,6 +361,7 @@
     "placeHint": "ドラッグで移動 / ホイール・ピンチで拡縮",
     "placeReset": "中央リセット",
     "placeCancel": "キャンセル",
-    "placeConfirm": "配置確定"
+    "placeConfirm": "配置確定",
+    "dither": "ディザ"
   }
 }

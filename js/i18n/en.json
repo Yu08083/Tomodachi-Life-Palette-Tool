@@ -361,6 +361,7 @@
     "placeHint": "Drag to move / Wheel / pinch to zoom",
     "placeReset": "Reset",
     "placeCancel": "Cancel",
-    "placeConfirm": "Confirm"
+    "placeConfirm": "Confirm",
+    "dither": "Dither"
   }
 }

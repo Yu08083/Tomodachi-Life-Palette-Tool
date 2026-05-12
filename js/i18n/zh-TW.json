@@ -361,6 +361,7 @@
     "placeHint": "拖曳移動 / 滾輪·捏合縮放",
     "placeReset": "置中",
     "placeCancel": "取消",
-    "placeConfirm": "確定"
+    "placeConfirm": "確定",
+    "dither": "抖動"
   }
 }

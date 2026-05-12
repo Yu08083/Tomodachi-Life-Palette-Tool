@@ -361,6 +361,7 @@
     "placeHint": "Arrastra para mover / rueda · pellizco para zoom",
     "placeReset": "Centrar",
     "placeCancel": "Cancelar",
-    "placeConfirm": "Confirmar"
+    "placeConfirm": "Confirmar",
+    "dither": "Tramado"
   }
 }

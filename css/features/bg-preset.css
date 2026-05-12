@@ -287,3 +287,20 @@
   .bg-place-title { font-size: 0.84rem; }
   .bg-place-hint  { font-size: 0.7rem; }
 }
+
+.bg-dither-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-jp);
+  font-weight: 700;
+  font-size: 0.86rem;
+  color: var(--ink);
+  cursor: pointer;
+  user-select: none;
+}
+.bg-dither-toggle input[type="checkbox"] {
+  width: 18px; height: 18px;
+  accent-color: var(--orange);
+  cursor: pointer;
+}

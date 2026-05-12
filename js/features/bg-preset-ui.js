@@ -6,6 +6,7 @@ var _bgPresetCurrent = {
   detect: null,
   slots: [],
   gridSize: 64,
+  dither: false,
   placing: null,
   _previewScale: 1,
 };
@@ -199,7 +200,7 @@ function _bgPresetConfirmPlace() {
   dctx.imageSmoothingEnabled = true;
   dctx.imageSmoothingQuality = 'high';
   dctx.drawImage(cropped, 0, 0, dotW, dotH);
-  bgPresetConvertImage(dot);
+  bgPresetConvertImage(dot, _bgPresetCurrent.dither);
 
   slot.fileName = p.fileName;
   slot.sourceCanvas = p.sourceCanvas;
@@ -620,7 +621,7 @@ function _bgPresetRefreshAllConversions() {
     dctx.imageSmoothingEnabled = true;
     dctx.imageSmoothingQuality = 'high';
     dctx.drawImage(cropped, 0, 0, dotW, dotH);
-    bgPresetConvertImage(dot);
+    bgPresetConvertImage(dot, _bgPresetCurrent.dither);
     slot.convertedCanvas = dot;
   }
   _bgPresetRenderPreview();
@@ -686,6 +687,15 @@ function attachBgPresetHandlers() {
     gridSelect.value = String(_bgPresetCurrent.gridSize);
     gridSelect.addEventListener('change', e => {
       _bgPresetCurrent.gridSize = parseInt(e.target.value, 10);
+      _bgPresetRefreshAllConversions();
+    });
+  }
+
+  const ditherToggle = document.getElementById('bg-preset-dither');
+  if (ditherToggle) {
+    ditherToggle.checked = _bgPresetCurrent.dither;
+    ditherToggle.addEventListener('change', e => {
+      _bgPresetCurrent.dither = !!e.target.checked;
       _bgPresetRefreshAllConversions();
     });
   }

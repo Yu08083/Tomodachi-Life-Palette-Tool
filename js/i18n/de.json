@@ -361,6 +361,7 @@
     "placeHint": "Ziehen zum Verschieben / Mausrad · Pinch zum Zoomen",
     "placeReset": "Zentrieren",
     "placeCancel": "Abbrechen",
-    "placeConfirm": "Bestätigen"
+    "placeConfirm": "Bestätigen",
+    "dither": "Dithering"
   }
 }

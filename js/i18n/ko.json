@@ -361,6 +361,7 @@
     "placeHint": "드래그로 이동 / 휠·핀치로 확대축소",
     "placeReset": "중앙",
     "placeCancel": "취소",
-    "placeConfirm": "확정"
+    "placeConfirm": "확정",
+    "dither": "디더"
   }
 }

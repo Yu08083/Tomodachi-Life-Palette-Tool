@@ -361,6 +361,7 @@
     "placeHint": "Перетаскивайте / колесо · щипок для масштаба",
     "placeReset": "По центру",
     "placeCancel": "Отмена",
-    "placeConfirm": "Подтвердить"
+    "placeConfirm": "Подтвердить",
+    "dither": "Дизеринг"
   }
 }

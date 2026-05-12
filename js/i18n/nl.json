@@ -361,6 +361,7 @@
     "placeHint": "Sleep om te verplaatsen / wiel · pinch om te zoomen",
     "placeReset": "Centreren",
     "placeCancel": "Annuleren",
-    "placeConfirm": "Bevestigen"
+    "placeConfirm": "Bevestigen",
+    "dither": "Dithering"
   }
 }

@@ -158,8 +158,7 @@ function rebuildRecipe() {
       el.addEventListener('mouseenter', () => setHoverPalette(item.idx));
       el.addEventListener('mouseleave', () => setHoverPalette(-1));
       el.addEventListener('click', () => {
-        if (hoverPaletteIdx === item.idx) setHoverPalette(-1);
-        else setHoverPalette(item.idx);
+        _recipeEyedropper(item.idx);
       });
     });
 
@@ -168,6 +167,32 @@ function rebuildRecipe() {
 
   doneState._refreshAfterRebuild();
   if (typeof updateDifficultyDisplay === 'function') updateDifficultyDisplay();
+}
+
+function _recipeEyedropper(idx) {
+  if (typeof idx !== 'number' || idx < 0) return;
+  if (typeof PALETTE === 'undefined' || !PALETTE[idx]) return;
+
+  if (typeof pixelEditorActive !== 'undefined' && pixelEditorActive) {
+    if (typeof pixelEditorSetColor === 'function') {
+      pixelEditorSetColor(idx);
+      return;
+    }
+  }
+
+  const p = PALETTE[idx];
+  if (typeof hexToRgb === 'function' && typeof selectColor === 'function') {
+    const c = hexToRgb(p.h);
+    if (c) {
+      try { selectColor(c.r, c.g, c.b, -1, -1); } catch (_) {}
+    }
+  } else if (typeof closestIdx !== 'undefined') {
+    closestIdx = idx;
+  }
+
+  if (typeof isolateEnabled !== 'undefined' && isolateEnabled && typeof refreshIsolateOnSelection === 'function') {
+    refreshIsolateOnSelection();
+  }
 }
 
 function updateRecipeRowChecks() {

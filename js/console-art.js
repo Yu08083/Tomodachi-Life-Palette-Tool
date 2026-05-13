@@ -359,3 +359,10 @@
     configurable: false
   });
 })();
+
+
+  Object.defineProperty(window, 'spoito', {
+    value: Object.freeze(api),
+    writable: false,
+    configurable: false
+  });

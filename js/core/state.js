@@ -50,6 +50,13 @@ function getCurrentCropAspect() {
 var dropZone, fileInput, uploadSec, mainContent;
 var pixelCanvas, overlayCanvas;
 var zoomLabel, zoomInBtn, zoomOutBtn, resetBtn;
+var isolateMaskColor = '#FFFFFF';
+var isolateMaskOpacity = 0.85;
+var _zoomPerMode = { original: null, converted: null };
+var gridOffsetX = 0;
+var gridOffsetY = 0;
+var preBlurAmount = 0;
+var regionMergeMin = 0;
 var noSelectMsg, colorInfo, imgInfoEl;
 var demoBtn;
 

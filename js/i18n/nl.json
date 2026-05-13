@@ -48,7 +48,12 @@
     "grid": "Raster",
     "help": "Help",
     "mirror": "Spiegel",
-    "backToStart": "Terug naar start"
+    "backToStart": "Terug naar start",
+    "gridOffset": "Raster verschuiven",
+    "gridOffsetTitle": "Raster aanpassen",
+    "gridReset": "Reset",
+    "gridOffsetX": "X",
+    "gridOffsetY": "Y"
   },
   "view": {
     "original": "Origineel",
@@ -85,7 +90,23 @@
     "tlUnsupported": "Opname wordt niet ondersteund",
     "tlEmpty": "Opname was leeg. Probeer langer op te nemen.",
     "customSizePh": "48",
-    "customSizeUnit": "cellen"
+    "customSizeUnit": "cellen",
+    "saveOriginal": "Origineel opslaan",
+    "savePosterized": "Posterized opslaan",
+    "preprocessLabel": "Voorbewerking",
+    "preBlur": "Vervaging",
+    "preBlurOff": "Geen",
+    "preBlurLight": "Licht",
+    "preBlurMid": "Gemiddeld",
+    "preBlurStrong": "Sterk",
+    "regionMerge": "Gebieden samenvoegen",
+    "regionMergeOff": "Geen",
+    "regionMergeLight": "Kleine vlekken weg",
+    "regionMergeMid": "Gemiddeld samenvoegen",
+    "regionMergeStrong": "Stevig samenvoegen",
+    "preprocessHint": "Egalere uitkomst",
+    "collapseOpen": "Geavanceerde opties tonen",
+    "collapseClose": "Geavanceerde opties verbergen"
   },
   "color": {
     "labelEn": "color information",
@@ -108,7 +129,10 @@
     "isolateOffShort": "Isoleer",
     "isolateOnShort": "Alles",
     "markDoneOffShort": "Klaar",
-    "markDoneOnShort": "Terug"
+    "markDoneOnShort": "Terug",
+    "maskSettings": "Maskerinstellingen",
+    "maskColor": "Maskerkleur",
+    "maskOpacity": "Dekking"
   },
   "palette": {
     "fullColor": "Volledige kleur",
@@ -213,7 +237,8 @@
   },
   "aria": {
     "zoomOut": "Uitzoomen",
-    "zoomIn": "Inzoomen"
+    "zoomIn": "Inzoomen",
+    "zoomFit": "Aanpassen aan scherm"
   },
   "notice": {
     "label": "NOTICE",

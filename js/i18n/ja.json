@@ -48,7 +48,12 @@
     "grid": "グリッド",
     "help": "使い方",
     "mirror": "対称",
-    "backToStart": "最初に戻る"
+    "backToStart": "最初に戻る",
+    "gridOffset": "グリッド位置",
+    "gridOffsetTitle": "グリッド位置の調整",
+    "gridReset": "リセット",
+    "gridOffsetX": "X",
+    "gridOffsetY": "Y"
   },
   "view": {
     "original": "原画",
@@ -85,7 +90,23 @@
     "tlUnsupported": "このブラウザは録画に未対応です",
     "tlEmpty": "録画データが空でした。少し長く録画してから停止してください",
     "customSizePh": "48",
-    "customSizeUnit": "マス"
+    "customSizeUnit": "マス",
+    "saveOriginal": "原画を<wbr>保存",
+    "savePosterized": "近似色で<wbr>保存",
+    "preprocessLabel": "前処理",
+    "preBlur": "ぼかし",
+    "preBlurOff": "なし",
+    "preBlurLight": "軽め",
+    "preBlurMid": "普通",
+    "preBlurStrong": "強め",
+    "regionMerge": "領域マージ",
+    "regionMergeOff": "なし",
+    "regionMergeLight": "小さい点を消す",
+    "regionMergeMid": "中サイズも統合",
+    "regionMergeStrong": "大胆に統合",
+    "preprocessHint": "ムラの少ない仕上がりに",
+    "collapseOpen": "詳細オプションを開く",
+    "collapseClose": "詳細オプションを閉じる"
   },
   "color": {
     "labelEn": "color information",
@@ -108,7 +129,10 @@
     "isolateOffShort": "色だけ",
     "isolateOnShort": "全色",
     "markDoneOffShort": "塗終",
-    "markDoneOnShort": "戻す"
+    "markDoneOnShort": "戻す",
+    "maskSettings": "周りの色設定",
+    "maskColor": "周りの色",
+    "maskOpacity": "不透明度"
   },
   "palette": {
     "fullColor": "フルカラー",
@@ -213,7 +237,8 @@
   },
   "aria": {
     "zoomOut": "ズームアウト",
-    "zoomIn": "ズームイン"
+    "zoomIn": "ズームイン",
+    "zoomFit": "画面に合わせる"
   },
   "notice": {
     "label": "NOTICE",

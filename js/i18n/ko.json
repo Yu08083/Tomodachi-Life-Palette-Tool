@@ -48,7 +48,12 @@
     "grid": "그리드",
     "help": "사용법",
     "mirror": "대칭",
-    "backToStart": "처음으로"
+    "backToStart": "처음으로",
+    "gridOffset": "그리드 위치",
+    "gridOffsetTitle": "그리드 위치 조정",
+    "gridReset": "리셋",
+    "gridOffsetX": "X",
+    "gridOffsetY": "Y"
   },
   "view": {
     "original": "원본",
@@ -85,7 +90,23 @@
     "tlUnsupported": "이 브라우저는 녹화를 지원하지 않습니다",
     "tlEmpty": "녹화 데이터가 비어 있습니다. 좀 더 길게 녹화해 주세요",
     "customSizePh": "48",
-    "customSizeUnit": "칸"
+    "customSizeUnit": "칸",
+    "saveOriginal": "원본 저장",
+    "savePosterized": "근사 색상으로 저장",
+    "preprocessLabel": "전처리",
+    "preBlur": "블러",
+    "preBlurOff": "없음",
+    "preBlurLight": "약하게",
+    "preBlurMid": "보통",
+    "preBlurStrong": "강하게",
+    "regionMerge": "영역 병합",
+    "regionMergeOff": "없음",
+    "regionMergeLight": "작은 점 제거",
+    "regionMergeMid": "중간 크기 병합",
+    "regionMergeStrong": "과감히 병합",
+    "preprocessHint": "얼룩이 적은 마무리",
+    "collapseOpen": "고급 옵션 열기",
+    "collapseClose": "고급 옵션 닫기"
   },
   "color": {
     "labelEn": "color information",
@@ -108,7 +129,10 @@
     "isolateOffShort": "이 색만",
     "isolateOnShort": "전체",
     "markDoneOffShort": "완료",
-    "markDoneOnShort": "되돌리기"
+    "markDoneOnShort": "되돌리기",
+    "maskSettings": "마스크 설정",
+    "maskColor": "마스크 색상",
+    "maskOpacity": "불투명도"
   },
   "palette": {
     "fullColor": "풀 컬러",
@@ -225,7 +249,8 @@
   },
   "aria": {
     "zoomOut": "축소",
-    "zoomIn": "확대"
+    "zoomIn": "확대",
+    "zoomFit": "화면에 맞춤"
   },
   "history": {
     "title": "최근 사용한 이미지",

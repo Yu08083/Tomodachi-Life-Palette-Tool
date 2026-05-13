@@ -48,7 +48,12 @@
     "grid": "Grid",
     "help": "Help",
     "mirror": "Mirror",
-    "backToStart": "Back to Start"
+    "backToStart": "Back to Start",
+    "gridOffset": "Grid offset",
+    "gridOffsetTitle": "Adjust grid position",
+    "gridReset": "Reset",
+    "gridOffsetX": "X",
+    "gridOffsetY": "Y"
   },
   "view": {
     "original": "Original",
@@ -85,7 +90,23 @@
     "tlUnsupported": "Recording not supported in this browser",
     "tlEmpty": "Recording was empty. Try recording for a bit longer.",
     "customSizePh": "48",
-    "customSizeUnit": "cells"
+    "customSizeUnit": "cells",
+    "saveOriginal": "Save Original",
+    "savePosterized": "Save Posterized",
+    "preprocessLabel": "Pre-process",
+    "preBlur": "Blur",
+    "preBlurOff": "None",
+    "preBlurLight": "Light",
+    "preBlurMid": "Medium",
+    "preBlurStrong": "Strong",
+    "regionMerge": "Region merge",
+    "regionMergeOff": "None",
+    "regionMergeLight": "Remove tiny dots",
+    "regionMergeMid": "Merge medium",
+    "regionMergeStrong": "Bold merge",
+    "preprocessHint": "Smoother result",
+    "collapseOpen": "Show advanced options",
+    "collapseClose": "Hide advanced options"
   },
   "color": {
     "labelEn": "color information",
@@ -108,7 +129,10 @@
     "isolateOffShort": "Isolate",
     "isolateOnShort": "All",
     "markDoneOffShort": "Done",
-    "markDoneOnShort": "Undo"
+    "markDoneOnShort": "Undo",
+    "maskSettings": "Mask settings",
+    "maskColor": "Mask color",
+    "maskOpacity": "Opacity"
   },
   "palette": {
     "fullColor": "Full color",
@@ -225,7 +249,8 @@
   },
   "aria": {
     "zoomOut": "Zoom out",
-    "zoomIn": "Zoom in"
+    "zoomIn": "Zoom in",
+    "zoomFit": "Fit to screen"
   },
   "history": {
     "title": "Recent images",

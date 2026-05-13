@@ -48,7 +48,12 @@
     "grid": "网格",
     "help": "使用方法",
     "mirror": "对称",
-    "backToStart": "返回开始"
+    "backToStart": "返回开始",
+    "gridOffset": "网格偏移",
+    "gridOffsetTitle": "调整网格位置",
+    "gridReset": "重置",
+    "gridOffsetX": "X",
+    "gridOffsetY": "Y"
   },
   "view": {
     "original": "原图",
@@ -85,7 +90,23 @@
     "tlUnsupported": "此浏览器不支持录制",
     "tlEmpty": "录制内容为空,请录制久一点再停止",
     "customSizePh": "48",
-    "customSizeUnit": "格"
+    "customSizeUnit": "格",
+    "saveOriginal": "保存原图",
+    "savePosterized": "近似颜色保存",
+    "preprocessLabel": "预处理",
+    "preBlur": "模糊",
+    "preBlurOff": "无",
+    "preBlurLight": "轻微",
+    "preBlurMid": "中等",
+    "preBlurStrong": "强",
+    "regionMerge": "区域合并",
+    "regionMergeOff": "无",
+    "regionMergeLight": "清除小点",
+    "regionMergeMid": "合并中等区域",
+    "regionMergeStrong": "大胆合并",
+    "preprocessHint": "减少色斑",
+    "collapseOpen": "显示高级选项",
+    "collapseClose": "隐藏高级选项"
   },
   "color": {
     "labelEn": "color information",
@@ -108,7 +129,10 @@
     "isolateOffShort": "此色",
     "isolateOnShort": "全部",
     "markDoneOffShort": "完成",
-    "markDoneOnShort": "还原"
+    "markDoneOnShort": "还原",
+    "maskSettings": "遮罩设置",
+    "maskColor": "遮罩颜色",
+    "maskOpacity": "不透明度"
   },
   "palette": {
     "fullColor": "全彩",
@@ -213,7 +237,8 @@
   },
   "aria": {
     "zoomOut": "缩小",
-    "zoomIn": "放大"
+    "zoomIn": "放大",
+    "zoomFit": "适应屏幕"
   },
   "notice": {
     "label": "NOTICE",

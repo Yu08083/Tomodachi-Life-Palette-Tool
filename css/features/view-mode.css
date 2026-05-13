@@ -448,3 +448,76 @@
   #brush-custom-input { width: 30px; font-size: 0.78rem !important; }
   .brush-custom-icon { font-size: 0.72rem; }
 }
+
+.preprocess-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.preprocess-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.preprocess-item label {
+  font-family: var(--font-jp);
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--orange-d);
+}
+.preprocess-item select {
+  font-family: var(--font-jp);
+  font-size: 0.84rem;
+  padding: 4px 8px;
+  border: 1.5px solid var(--orange-l);
+  border-radius: var(--radius-sm);
+  background: var(--card);
+  color: var(--ink);
+  cursor: pointer;
+}
+.preprocess-item select:focus {
+  outline: none;
+  border-color: var(--orange);
+  box-shadow: 0 0 0 2px rgba(255, 107, 26, 0.18);
+}
+
+.cv-collapse-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1.5px dashed var(--orange-l);
+  border-radius: var(--radius-sm);
+  padding: 6px 14px;
+  font-family: var(--font-jp);
+  font-weight: 700;
+  font-size: 0.84rem;
+  color: var(--orange-d);
+  cursor: pointer;
+  margin: 8px 0 6px;
+  transition: background 0.12s, border-color 0.12s;
+}
+.cv-collapse-toggle:hover {
+  background: var(--ink-soft, #fff6e8);
+  border-color: var(--orange);
+}
+.cv-collapse-toggle .cv-collapse-icon {
+  font-size: 0.78rem;
+  transition: transform 0.15s ease;
+  color: var(--orange);
+}
+.cv-collapse-toggle.open .cv-collapse-icon { color: var(--orange-d); }
+
+.cv-collapsible {
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+}
+.cv-collapsible.collapsed {
+  max-height: 0;
+  padding: 0;
+  border: 0;
+}
+.cv-collapsible.collapsed > * {
+  visibility: hidden;
+}

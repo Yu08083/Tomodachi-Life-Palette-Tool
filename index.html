@@ -602,6 +602,33 @@
                 <div class="grid-sub-toggle hidden" id="grid-sub-toggle">
                   <button class="grid-sub-btn active" data-sub="8">8</button>
                   <button class="grid-sub-btn"        data-sub="16">16</button>
+                  <button class="grid-sub-btn grid-offset-toggle" id="grid-offset-btn" data-i18n-attr-title="viewer.gridOffset" title="グリッド位置">⇄</button>
+                </div>
+                <div class="grid-offset-popover hidden" id="grid-offset-popover">
+                  <div class="gop-title">
+                    <span data-i18n="viewer.gridOffsetTitle">グリッド位置の調整</span>
+                    <button type="button" class="gop-close" id="gop-close" aria-label="閉じる">×</button>
+                  </div>
+                  <div class="gop-pad">
+                    <div></div>
+                    <button class="gop-btn" data-axis="y" data-delta="-0.5" aria-label="up half">↑½</button>
+                    <button class="gop-btn" data-axis="y" data-delta="-1" aria-label="up 1">↑1</button>
+                    <div></div>
+                    <button class="gop-btn" data-axis="x" data-delta="-1" aria-label="left 1">1←</button>
+                    <button class="gop-btn" data-axis="x" data-delta="-0.5" aria-label="left half">½←</button>
+                    <button class="gop-btn gop-reset" id="gop-reset" data-i18n-attr-title="viewer.gridReset" title="リセット" aria-label="リセット">⟲</button>
+                    <button class="gop-btn" data-axis="x" data-delta="0.5" aria-label="right half">→½</button>
+                    <button class="gop-btn" data-axis="x" data-delta="1" aria-label="right 1">→1</button>
+                    <div></div>
+                    <button class="gop-btn" data-axis="y" data-delta="1" aria-label="down 1">↓1</button>
+                    <button class="gop-btn" data-axis="y" data-delta="0.5" aria-label="down half">↓½</button>
+                    <div></div>
+                  </div>
+                  <div class="gop-status">
+                    <span data-i18n="viewer.gridOffsetX">X</span>: <span id="gop-x">0</span>
+                    <span class="gop-sep">·</span>
+                    <span data-i18n="viewer.gridOffsetY">Y</span>: <span id="gop-y">0</span>
+                  </div>
                 </div>
               </div>
               <div class="mirror-control">
@@ -625,6 +652,7 @@
                 <button id="zoom-out" class="zoom-btn" data-i18n-attr-aria-label="aria.zoomOut" aria-label="ズームアウト">−</button>
                 <span id="zoom-label">1×</span>
                 <button id="zoom-in"  class="zoom-btn" data-i18n-attr-aria-label="aria.zoomIn"  aria-label="ズームイン">＋</button>
+                <button id="zoom-fit" class="zoom-btn zoom-fit-btn" title="画面に合わせる" data-i18n-attr-title="aria.zoomFit" aria-label="画面に合わせる">⤢</button>
               </div>
             </div>
           </div>
@@ -667,6 +695,11 @@
               <span class="brush-info-text" id="brush-status">ブラシ 8px ・ 32×32マス</span>
               <span class="cv-hint" data-i18n="view.brushHint">小さい＝細かい・大きい＝ざっくり</span>
             </div>
+            <button type="button" id="cv-collapse-toggle" class="cv-collapse-toggle">
+              <span class="cv-collapse-icon">▾</span>
+              <span class="cv-collapse-label" data-i18n="view.collapseOpen">詳細オプション</span>
+            </button>
+            <div id="cv-collapsible" class="cv-collapsible">
             <div class="cv-row">
               <span class="cv-label" data-i18n="view.ditherLabel">オプション</span>
               <label class="cv-toggle">
@@ -678,6 +711,30 @@
                 <span data-i18n="view.pbnGrid">番号塗り絵にマス目強調</span>
               </label>
               <span class="cv-hint" data-i18n="view.ditherHint">写真やグラデーションは ON 推奨</span>
+            </div>
+            <div class="cv-row">
+              <span class="cv-label" data-i18n="view.preprocessLabel">前処理</span>
+              <div class="preprocess-group">
+                <div class="preprocess-item">
+                  <label data-i18n="view.preBlur">ぼかし</label>
+                  <select id="pre-blur-select">
+                    <option value="0" data-i18n="view.preBlurOff">なし</option>
+                    <option value="1" data-i18n="view.preBlurLight">軽め</option>
+                    <option value="3" data-i18n="view.preBlurMid">普通</option>
+                    <option value="6" data-i18n="view.preBlurStrong">強め</option>
+                  </select>
+                </div>
+                <div class="preprocess-item">
+                  <label data-i18n="view.regionMerge">領域マージ</label>
+                  <select id="region-merge-select">
+                    <option value="0" data-i18n="view.regionMergeOff">なし</option>
+                    <option value="3" data-i18n="view.regionMergeLight">小さい点を消す</option>
+                    <option value="8" data-i18n="view.regionMergeMid">中サイズも統合</option>
+                    <option value="20" data-i18n="view.regionMergeStrong">大胆に統合</option>
+                  </select>
+                </div>
+              </div>
+              <span class="cv-hint" data-i18n="view.preprocessHint">ムラの少ない仕上がりに</span>
             </div>
             <div class="cv-row hsv-row">
               <span class="cv-label" data-i18n="view.adjustLabel">画像調整</span>
@@ -694,6 +751,7 @@
                 </label>
                 <button id="hsv-reset-btn" class="hsv-reset" data-i18n="view.adjustReset">リセット</button>
               </div>
+            </div>
             </div>
           </div>
 
@@ -803,9 +861,21 @@
                         onclick="toggleIsolate()"
                         data-i18n="color.isolateOff"
                         data-label-off="この色だけ表示" data-label-on="全色を表示">この色だけ表示</button>
+                <button type="button" class="btn small isolate-settings-btn" id="isolate-settings-btn" data-i18n-attr-title="color.maskSettings" title="周りの色設定" aria-haspopup="true">⚙</button>
                 <button class="btn small done-btn" id="done-btn-panel" type="button"
                         onclick="toggleDoneColor()"
                         data-i18n="color.markDoneOff">塗り終わった</button>
+              </div>
+              <div class="isolate-settings-popover hidden" id="isolate-settings-popover">
+                <div class="iss-row">
+                  <span class="iss-label" data-i18n="color.maskColor">周りの色</span>
+                  <div class="iss-swatches" id="iss-swatches"></div>
+                </div>
+                <div class="iss-row">
+                  <span class="iss-label" data-i18n="color.maskOpacity">不透明度</span>
+                  <input type="range" id="iss-opacity" min="20" max="100" step="5" value="85">
+                  <output id="iss-opacity-val">85%</output>
+                </div>
               </div>
             </div>
 

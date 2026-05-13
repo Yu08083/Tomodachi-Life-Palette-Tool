@@ -111,9 +111,7 @@ function _fitZoomToOriginalView(w, h) {
   const fit = Math.min(avail / w, avail / h);
   if (fit >= 0.75) return 1;
   if (fit >= 0.5)  return 0.5;
-  if (fit >= 0.33) return 0.33;
-  if (fit >= 0.25) return 0.25;
-  return 0.2;
+  return 0.25;
 }
 
 function loadImageFile(file) {
@@ -170,9 +168,17 @@ function finalizeImageLoad(canvas, isCropped) {
   document.getElementById('view-converted-btn').classList.remove('active');
   document.getElementById('convert-controls').classList.remove('hidden');
   const dlBtnInit = document.getElementById('download-btn');
-  if (dlBtnInit) dlBtnInit.classList.add('hidden');
+  if (dlBtnInit) {
+    dlBtnInit.classList.remove('hidden');
+    dlBtnInit.setAttribute('data-i18n-html', 'view.saveOriginal');
+    if (typeof t === 'function') dlBtnInit.innerHTML = t('view.saveOriginal');
+  }
   const dlPbnInit = document.getElementById('download-pbn-btn');
-  if (dlPbnInit) dlPbnInit.classList.add('hidden');
+  if (dlPbnInit) {
+    dlPbnInit.classList.remove('hidden');
+    dlPbnInit.setAttribute('data-i18n-html', 'view.savePosterized');
+    if (typeof t === 'function') dlPbnInit.innerHTML = t('view.savePosterized');
+  }
 
   if (typeof _fitZoomToOriginalView === 'function') {
     zoom = _fitZoomToOriginalView(w, h);
@@ -181,6 +187,11 @@ function finalizeImageLoad(canvas, isCropped) {
   else if (w <= 64 && h <= 64)   zoom = 4;
   else if (w <= 128 && h <= 128) zoom = 2;
   else                           zoom = 1;
+
+  if (typeof _zoomPerMode === 'object' && _zoomPerMode) {
+    _zoomPerMode.original = null;
+    _zoomPerMode.converted = null;
+  }
 
   updateImgInfo();
   setupCanvases();

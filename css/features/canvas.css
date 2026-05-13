@@ -51,6 +51,7 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  position: relative;
 }
 .grid-sub-toggle {
   display: inline-flex;
@@ -420,4 +421,171 @@
   .canvas-selection-pill { font-size: 0.82rem; padding: 5px 10px 5px 5px; gap: 6px; top: 6px; right: 6px; }
   .csp-swatch { width: 18px; height: 18px; }
   .csp-seq { font-size: 0.7rem; }
+}
+
+.zoom-fit-btn {
+  font-size: 0.9rem;
+}
+
+.isolate-settings-btn {
+  min-width: auto;
+  padding: 6px 10px;
+  font-size: 0.85rem;
+}
+.isolate-settings-popover {
+  position: fixed;
+  z-index: 1000;
+  background: var(--card);
+  border: 2px solid var(--orange);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  min-width: 240px;
+}
+.isolate-settings-popover.hidden { display: none; }
+.iss-row {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0;
+}
+.iss-label {
+  font-family: var(--font-jp);
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--orange-d);
+}
+.iss-swatches {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.iss-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
+  border: 1px solid rgba(0,0,0,0.18);
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.08s ease;
+}
+.iss-swatch:hover { transform: scale(1.15); }
+.iss-swatch.active {
+  outline: 2px solid var(--orange-d);
+  outline-offset: 2px;
+}
+.isolate-settings-popover input[type="range"] {
+  width: 100%;
+  accent-color: var(--orange);
+}
+.isolate-settings-popover output {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.grid-offset-toggle {
+  font-size: 0.9rem;
+  padding: 4px 8px;
+  min-width: auto;
+}
+.grid-offset-popover {
+  position: fixed;
+  z-index: 1000;
+  background: var(--card);
+  border: 2px solid var(--orange);
+  border-radius: var(--radius-md);
+  padding: 10px 12px 8px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+  min-width: 200px;
+  max-width: 240px;
+  backdrop-filter: blur(6px);
+  background-color: rgba(255, 246, 232, 0.96);
+}
+.grid-offset-popover.hidden { display: none; }
+.gop-title {
+  font-family: var(--font-jp);
+  font-weight: 700;
+  font-size: 0.78rem;
+  color: var(--orange-d);
+  text-align: center;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.gop-close {
+  background: transparent;
+  border: none;
+  color: var(--ink-3);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+.gop-close:hover { color: var(--orange-d); }
+
+@media (max-width: 600px) {
+  .grid-offset-popover {
+    right: 8px;
+    top: 8px;
+    bottom: auto;
+    min-width: 180px;
+    max-width: 220px;
+  }
+}
+.grid-offset-popover .gop-pad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 38px;
+  gap: 3px;
+  margin-bottom: 8px;
+}
+.grid-offset-popover .gop-btn {
+  font-family: var(--font-jp);
+  font-weight: 700;
+  font-size: 0.74rem;
+  padding: 0;
+  background: var(--ink-soft, #fff6e8);
+  border: 1.5px solid var(--orange-l);
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform 0.08s ease, background 0.12s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  line-height: 1;
+}
+.grid-offset-popover .gop-btn:hover {
+  background: var(--orange-l);
+  transform: scale(1.06);
+}
+.grid-offset-popover .gop-btn.gop-reset {
+  font-size: 1.1rem;
+  background: transparent;
+  border-color: var(--ink-3);
+  color: var(--ink-2);
+}
+.grid-offset-popover .gop-btn.gop-reset:hover {
+  background: var(--ink-3);
+  color: #fff;
+}
+.grid-offset-popover .gop-status {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--ink-2);
+  padding-top: 5px;
+  border-top: 1px dashed var(--orange-l);
+}
+.grid-offset-popover .gop-status .gop-sep { color: var(--ink-3); margin: 0 6px; }
+.grid-offset-popover .gop-status span[id^="gop-"] {
+  font-weight: 800;
+  color: var(--orange-d);
+  font-variant-numeric: tabular-nums;
 }

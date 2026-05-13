@@ -48,7 +48,12 @@
     "grid": "Raster",
     "help": "Hilfe",
     "mirror": "Spiegel",
-    "backToStart": "Zum Anfang"
+    "backToStart": "Zum Anfang",
+    "gridOffset": "Raster verschieben",
+    "gridOffsetTitle": "Raster anpassen",
+    "gridReset": "Reset",
+    "gridOffsetX": "X",
+    "gridOffsetY": "Y"
   },
   "view": {
     "original": "Original",
@@ -85,7 +90,23 @@
     "tlUnsupported": "Aufnahme in diesem Browser nicht unterstützt",
     "tlEmpty": "Aufnahme war leer. Versuchen Sie es länger.",
     "customSizePh": "48",
-    "customSizeUnit": "Felder"
+    "customSizeUnit": "Felder",
+    "saveOriginal": "Original speichern",
+    "savePosterized": "Posterisiert speichern",
+    "preprocessLabel": "Vorverarbeitung",
+    "preBlur": "Weichzeichnen",
+    "preBlurOff": "Aus",
+    "preBlurLight": "Leicht",
+    "preBlurMid": "Mittel",
+    "preBlurStrong": "Stark",
+    "regionMerge": "Bereich verschmelzen",
+    "regionMergeOff": "Aus",
+    "regionMergeLight": "Kleine Punkte entfernen",
+    "regionMergeMid": "Mittel verschmelzen",
+    "regionMergeStrong": "Stark verschmelzen",
+    "preprocessHint": "Gleichmäßigeres Ergebnis",
+    "collapseOpen": "Erweiterte Optionen einblenden",
+    "collapseClose": "Erweiterte Optionen ausblenden"
   },
   "color": {
     "labelEn": "color information",
@@ -108,7 +129,10 @@
     "isolateOffShort": "Isolieren",
     "isolateOnShort": "Alle",
     "markDoneOffShort": "Fertig",
-    "markDoneOnShort": "Zurück"
+    "markDoneOnShort": "Zurück",
+    "maskSettings": "Masken-Einstellungen",
+    "maskColor": "Maskenfarbe",
+    "maskOpacity": "Deckkraft"
   },
   "palette": {
     "fullColor": "Vollfarbe",
@@ -213,7 +237,8 @@
   },
   "aria": {
     "zoomOut": "Verkleinern",
-    "zoomIn": "Vergrößern"
+    "zoomIn": "Vergrößern",
+    "zoomFit": "An Bildschirm anpassen"
   },
   "notice": {
     "label": "NOTICE",

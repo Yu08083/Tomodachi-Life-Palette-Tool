@@ -48,7 +48,12 @@
     "grid": "Сетка",
     "help": "Справка",
     "mirror": "Зеркало",
-    "backToStart": "В начало"
+    "backToStart": "В начало",
+    "gridOffset": "Смещение сетки",
+    "gridOffsetTitle": "Настройка сетки",
+    "gridReset": "Сброс",
+    "gridOffsetX": "X",
+    "gridOffsetY": "Y"
   },
   "view": {
     "original": "Оригинал",
@@ -85,7 +90,23 @@
     "tlUnsupported": "Запись не поддерживается в этом браузере",
     "tlEmpty": "Запись пуста. Попробуйте записать дольше.",
     "customSizePh": "48",
-    "customSizeUnit": "клеток"
+    "customSizeUnit": "клеток",
+    "saveOriginal": "Сохранить ориг.",
+    "savePosterized": "Аппрокс. цвета",
+    "preprocessLabel": "Предобработка",
+    "preBlur": "Размытие",
+    "preBlurOff": "Нет",
+    "preBlurLight": "Слабое",
+    "preBlurMid": "Среднее",
+    "preBlurStrong": "Сильное",
+    "regionMerge": "Объединение зон",
+    "regionMergeOff": "Нет",
+    "regionMergeLight": "Убрать мелкие точки",
+    "regionMergeMid": "Среднее слияние",
+    "regionMergeStrong": "Сильное слияние",
+    "preprocessHint": "Более ровный результат",
+    "collapseOpen": "Показать расширенные опции",
+    "collapseClose": "Скрыть расширенные опции"
   },
   "color": {
     "labelEn": "color information",
@@ -108,7 +129,10 @@
     "isolateOffShort": "Только",
     "isolateOnShort": "Все",
     "markDoneOffShort": "Готово",
-    "markDoneOnShort": "Назад"
+    "markDoneOnShort": "Назад",
+    "maskSettings": "Настройки маски",
+    "maskColor": "Цвет маски",
+    "maskOpacity": "Непрозрачность"
   },
   "palette": {
     "fullColor": "Полный цвет",
@@ -213,7 +237,8 @@
   },
   "aria": {
     "zoomOut": "Уменьшить",
-    "zoomIn": "Увеличить"
+    "zoomIn": "Увеличить",
+    "zoomFit": "По размеру экрана"
   },
   "notice": {
     "label": "ВНИМАНИЕ",

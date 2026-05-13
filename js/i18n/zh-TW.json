@@ -48,7 +48,12 @@
     "grid": "格線",
     "help": "使用方法",
     "mirror": "對稱",
-    "backToStart": "回到開始"
+    "backToStart": "回到開始",
+    "gridOffset": "網格偏移",
+    "gridOffsetTitle": "調整網格位置",
+    "gridReset": "重置",
+    "gridOffsetX": "X",
+    "gridOffsetY": "Y"
   },
   "view": {
     "original": "原圖",
@@ -85,7 +90,23 @@
     "tlUnsupported": "此瀏覽器不支援錄製",
     "tlEmpty": "錄製內容為空,請錄製久一點再停止",
     "customSizePh": "48",
-    "customSizeUnit": "格"
+    "customSizeUnit": "格",
+    "saveOriginal": "儲存原圖",
+    "savePosterized": "近似顏色儲存",
+    "preprocessLabel": "前處理",
+    "preBlur": "模糊",
+    "preBlurOff": "無",
+    "preBlurLight": "輕微",
+    "preBlurMid": "中等",
+    "preBlurStrong": "強",
+    "regionMerge": "區域合併",
+    "regionMergeOff": "無",
+    "regionMergeLight": "清除小點",
+    "regionMergeMid": "合併中等區域",
+    "regionMergeStrong": "大膽合併",
+    "preprocessHint": "減少色斑",
+    "collapseOpen": "顯示進階選項",
+    "collapseClose": "隱藏進階選項"
   },
   "color": {
     "labelEn": "color information",
@@ -108,7 +129,10 @@
     "isolateOffShort": "此色",
     "isolateOnShort": "全部",
     "markDoneOffShort": "完成",
-    "markDoneOnShort": "還原"
+    "markDoneOnShort": "還原",
+    "maskSettings": "遮罩設定",
+    "maskColor": "遮罩顏色",
+    "maskOpacity": "不透明度"
   },
   "palette": {
     "fullColor": "全彩",
@@ -213,7 +237,8 @@
   },
   "aria": {
     "zoomOut": "縮小",
-    "zoomIn": "放大"
+    "zoomIn": "放大",
+    "zoomFit": "適應螢幕"
   },
   "notice": {
     "label": "NOTICE",

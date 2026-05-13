@@ -100,15 +100,19 @@ function drawGridOverlay(ctx) {
   ctx.strokeStyle = 'rgba(232, 90, 12, 0.55)';
   ctx.lineWidth = Math.max(1, baseLine * 0.18);
   ctx.beginPath();
-  for (let x = sub; x < gridW; x += sub) {
-    if (x === cxIdx) continue;
-    const px = Math.round(x * cellW) + 0.5;
+  const offX = (typeof gridOffsetX === 'number') ? gridOffsetX : 0;
+  const offY = (typeof gridOffsetY === 'number') ? gridOffsetY : 0;
+  const startX = ((offX % sub) + sub) % sub;
+  const startY = ((offY % sub) + sub) % sub;
+  for (let x = startX; x < gridW; x += sub) {
+    if (Math.abs(x - cxIdx) < 0.001) continue;
+    const px = x * cellW + 0.5;
     ctx.moveTo(px, 0);
     ctx.lineTo(px, H);
   }
-  for (let y = sub; y < gridH; y += sub) {
-    if (y === cyIdx) continue;
-    const py = Math.round(y * cellH) + 0.5;
+  for (let y = startY; y < gridH; y += sub) {
+    if (Math.abs(y - cyIdx) < 0.001) continue;
+    const py = y * cellH + 0.5;
     ctx.moveTo(0, py);
     ctx.lineTo(W, py);
   }
@@ -325,6 +329,17 @@ function initGrid() {
   if (sub) sub.classList.toggle('hidden', !gridEnabled);
 }
 
+function _getMaskFillStyle() {
+  const c = (typeof isolateMaskColor === 'string' && isolateMaskColor) ? isolateMaskColor : '#FFFFFF';
+  const a = (typeof isolateMaskOpacity === 'number' && isolateMaskOpacity >= 0 && isolateMaskOpacity <= 1) ? isolateMaskOpacity : 0.85;
+  const m = /^#([0-9A-Fa-f]{6})$/.exec(c);
+  if (!m) return `rgba(255, 255, 255, ${a})`;
+  const r = parseInt(m[1].slice(0, 2), 16);
+  const g = parseInt(m[1].slice(2, 4), 16);
+  const b = parseInt(m[1].slice(4, 6), 16);
+  return `rgba(${r}, ${g}, ${b}, ${a})`;
+}
+
 function drawColorMaskOverlay(ctx) {
   const isolateActive = isolateEnabled && isolateTargetIdx >= 0;
   const doneActive = doneState.any();
@@ -345,7 +360,7 @@ function drawColorMaskOverlay(ctx) {
   if (!map) return;
 
   ctx.save();
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+  ctx.fillStyle = _getMaskFillStyle();
   for (let y = 0; y < h; y++) {
     for (let x = 0; x < w; x++) {
       const idx = map[y * w + x];
@@ -408,6 +423,304 @@ function refreshIsolateOnSelection() {
     renderPixelCanvas();
   }
   _updateIsolateButtonState();
+}
+
+function attachIsolateSettings() {
+  const btn = document.getElementById('isolate-settings-btn');
+  const pop = document.getElementById('isolate-settings-popover');
+  if (!btn || !pop) return;
+
+  const presets = [
+    { color: '#FFFFFF', label: '白' },
+    { color: '#000000', label: '黒' },
+    { color: '#808080', label: '灰' },
+    { color: '#FFE3C6', label: '薄橙' },
+    { color: '#D6E4F0', label: '薄青' },
+    { color: '#E5D6F0', label: '薄紫' },
+  ];
+  const sw = document.getElementById('iss-swatches');
+  if (sw && sw.children.length === 0) {
+    presets.forEach(p => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'iss-swatch';
+      b.style.background = p.color;
+      b.dataset.color = p.color;
+      b.title = p.label;
+      b.setAttribute('aria-label', p.label);
+      b.addEventListener('click', (e) => {
+        e.stopPropagation();
+        isolateMaskColor = p.color;
+        _markActiveSwatch();
+        if (typeof renderPixelCanvas === 'function') renderPixelCanvas();
+      });
+      sw.appendChild(b);
+    });
+    _markActiveSwatch();
+  }
+
+  const op = document.getElementById('iss-opacity');
+  const opVal = document.getElementById('iss-opacity-val');
+  if (op) {
+    const handler = () => {
+      const n = parseInt(op.value, 10);
+      if (isNaN(n)) return;
+      isolateMaskOpacity = Math.max(0, Math.min(1, n / 100));
+      if (opVal) opVal.textContent = n + '%';
+      if (typeof renderPixelCanvas === 'function') renderPixelCanvas();
+    };
+    op.addEventListener('input', handler);
+    op.addEventListener('change', handler);
+  }
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    pop.classList.toggle('hidden');
+    if (!pop.classList.contains('hidden')) {
+      _markActiveSwatch();
+      _positionPopoverNearButton(pop, btn);
+      setTimeout(() => {
+        document.addEventListener('click', _outsideIsolatePopover);
+        document.addEventListener('keydown', _isolatePopoverKey);
+        window.addEventListener('resize', _repositionIsolatePopover);
+        window.addEventListener('scroll', _repositionIsolatePopover, true);
+      }, 0);
+    } else {
+      document.removeEventListener('click', _outsideIsolatePopover);
+      document.removeEventListener('keydown', _isolatePopoverKey);
+      window.removeEventListener('resize', _repositionIsolatePopover);
+      window.removeEventListener('scroll', _repositionIsolatePopover, true);
+    }
+  });
+}
+
+function _repositionIsolatePopover() {
+  const pop = document.getElementById('isolate-settings-popover');
+  const btn = document.getElementById('isolate-settings-btn');
+  if (!pop || !btn || pop.classList.contains('hidden')) return;
+  _positionPopoverNearButton(pop, btn);
+}
+
+function _markActiveSwatch() {
+  const sw = document.getElementById('iss-swatches');
+  if (!sw) return;
+  for (let i = 0; i < sw.children.length; i++) {
+    const b = sw.children[i];
+    b.classList.toggle('active', b.dataset.color === isolateMaskColor);
+  }
+}
+
+function _outsideIsolatePopover(e) {
+  const pop = document.getElementById('isolate-settings-popover');
+  const btn = document.getElementById('isolate-settings-btn');
+  if (!pop) return;
+  if (pop.contains(e.target) || (btn && btn.contains(e.target))) return;
+  pop.classList.add('hidden');
+  document.removeEventListener('click', _outsideIsolatePopover);
+  document.removeEventListener('keydown', _isolatePopoverKey);
+}
+
+function _isolatePopoverKey(e) {
+  if (e.key === 'Escape') {
+    const pop = document.getElementById('isolate-settings-popover');
+    if (pop) pop.classList.add('hidden');
+    document.removeEventListener('click', _outsideIsolatePopover);
+    document.removeEventListener('keydown', _isolatePopoverKey);
+    window.removeEventListener('resize', _repositionIsolatePopover);
+    window.removeEventListener('scroll', _repositionIsolatePopover, true);
+  }
+}
+
+function attachGridOffset() {
+  const btn = document.getElementById('grid-offset-btn');
+  const pop = document.getElementById('grid-offset-popover');
+  if (!btn || !pop) return;
+
+  const xEl = document.getElementById('gop-x');
+  const yEl = document.getElementById('gop-y');
+
+  function syncDisplay() {
+    if (xEl) xEl.textContent = (typeof gridOffsetX === 'number') ? gridOffsetX.toString() : '0';
+    if (yEl) yEl.textContent = (typeof gridOffsetY === 'number') ? gridOffsetY.toString() : '0';
+  }
+
+  pop.querySelectorAll('.gop-btn[data-axis]').forEach(b => {
+    b.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const axis = b.dataset.axis;
+      const delta = parseFloat(b.dataset.delta);
+      if (isNaN(delta)) return;
+      if (axis === 'x') gridOffsetX = +(gridOffsetX + delta).toFixed(1);
+      else              gridOffsetY = +(gridOffsetY + delta).toFixed(1);
+      syncDisplay();
+      if (!gridEnabled) {
+        gridEnabled = true;
+        const gb = document.getElementById('grid-btn');
+        if (gb) gb.classList.add('active');
+        const gs = document.getElementById('grid-sub-toggle');
+        if (gs) gs.classList.remove('hidden');
+      }
+      try { localStorage.setItem('spoito_grid_off_x', String(gridOffsetX)); } catch (_) {}
+      try { localStorage.setItem('spoito_grid_off_y', String(gridOffsetY)); } catch (_) {}
+      if (typeof renderPixelCanvas === 'function') renderPixelCanvas();
+    });
+  });
+
+  const reset = document.getElementById('gop-reset');
+  if (reset) {
+    reset.addEventListener('click', (e) => {
+      e.stopPropagation();
+      gridOffsetX = 0;
+      gridOffsetY = 0;
+      try {
+        localStorage.removeItem('spoito_grid_off_x');
+        localStorage.removeItem('spoito_grid_off_y');
+      } catch (_) {}
+      syncDisplay();
+      if (typeof renderPixelCanvas === 'function') renderPixelCanvas();
+    });
+  }
+
+  const closeBtn = document.getElementById('gop-close');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      pop.classList.add('hidden');
+      document.removeEventListener('keydown', _gridOffsetPopoverKey);
+    });
+  }
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    pop.classList.toggle('hidden');
+    if (!pop.classList.contains('hidden')) {
+      syncDisplay();
+      _positionGridOffsetPopover();
+      setTimeout(() => {
+        document.addEventListener('keydown', _gridOffsetPopoverKey);
+        window.addEventListener('resize', _positionGridOffsetPopover);
+      }, 0);
+    } else {
+      document.removeEventListener('keydown', _gridOffsetPopoverKey);
+      window.removeEventListener('resize', _positionGridOffsetPopover);
+    }
+  });
+
+  try {
+    const sx = parseFloat(localStorage.getItem('spoito_grid_off_x') || '0');
+    const sy = parseFloat(localStorage.getItem('spoito_grid_off_y') || '0');
+    if (!isNaN(sx)) gridOffsetX = sx;
+    if (!isNaN(sy)) gridOffsetY = sy;
+    syncDisplay();
+  } catch (_) {}
+}
+
+function _outsideGridOffsetPopover(e) {
+  const pop = document.getElementById('grid-offset-popover');
+  const btn = document.getElementById('grid-offset-btn');
+  if (!pop) return;
+  if (pop.contains(e.target) || (btn && btn.contains(e.target))) return;
+  pop.classList.add('hidden');
+  document.removeEventListener('click', _outsideGridOffsetPopover);
+  document.removeEventListener('keydown', _gridOffsetPopoverKey);
+}
+
+function _positionGridOffsetPopover() {
+  const pop = document.getElementById('grid-offset-popover');
+  if (!pop || pop.classList.contains('hidden')) return;
+
+  const isMobile = window.matchMedia('(max-width: 600px)').matches;
+  if (isMobile) {
+    pop.style.left = 'auto';
+    pop.style.right = '8px';
+    pop.style.top = '8px';
+    pop.style.bottom = 'auto';
+    return;
+  }
+
+  const wrap = document.getElementById('canvas-wrapper');
+  if (!wrap) {
+    pop.style.right = '16px';
+    pop.style.top = '16px';
+    pop.style.left = 'auto';
+    pop.style.bottom = 'auto';
+    return;
+  }
+  const r = wrap.getBoundingClientRect();
+  pop.style.visibility = 'hidden';
+  pop.style.left = '0';
+  pop.style.top = '0';
+  pop.style.right = 'auto';
+  pop.style.bottom = 'auto';
+  requestAnimationFrame(() => {
+    const pw = pop.offsetWidth;
+    const ph = pop.offsetHeight;
+    const vw = window.innerWidth || document.documentElement.clientWidth;
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    const margin = 12;
+
+    let left = r.right - pw - margin;
+    if (left < margin) left = margin;
+    if (left + pw > vw - margin) left = vw - pw - margin;
+
+    let top = r.top + margin;
+    if (top < margin) top = margin;
+    if (top + ph > vh - margin) top = vh - ph - margin;
+
+    pop.style.left = left + 'px';
+    pop.style.top = top + 'px';
+    pop.style.visibility = '';
+  });
+}
+
+function _gridOffsetPopoverKey(e) {
+  if (e.key === 'Escape') {
+    const pop = document.getElementById('grid-offset-popover');
+    if (pop) pop.classList.add('hidden');
+    document.removeEventListener('keydown', _gridOffsetPopoverKey);
+  }
+}
+
+function _repositionGridOffsetPopover() {
+  const pop = document.getElementById('grid-offset-popover');
+  const btn = document.getElementById('grid-offset-btn');
+  if (!pop || !btn || pop.classList.contains('hidden')) return;
+  _positionPopoverNearButton(pop, btn);
+}
+
+function _positionPopoverNearButton(pop, btn) {
+  const r = btn.getBoundingClientRect();
+  pop.style.visibility = 'hidden';
+  pop.style.left = '0';
+  pop.style.top = '0';
+  pop.style.right = 'auto';
+  pop.style.bottom = 'auto';
+  requestAnimationFrame(() => {
+    const pw = pop.offsetWidth;
+    const ph = pop.offsetHeight;
+    const vw = window.innerWidth || document.documentElement.clientWidth;
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    const margin = 8;
+
+    let left = r.left;
+    if (left + pw > vw - margin) left = vw - pw - margin;
+    if (left < margin) left = margin;
+
+    let top = r.bottom + 6;
+    if (top + ph > vh - margin) {
+      const above = r.top - 6 - ph;
+      if (above >= margin) {
+        top = above;
+      } else {
+        top = vh - ph - margin;
+      }
+    }
+    if (top < margin) top = margin;
+
+    pop.style.left = left + 'px';
+    pop.style.top = top + 'px';
+    pop.style.visibility = '';
+  });
 }
 
 function initIsolate() {

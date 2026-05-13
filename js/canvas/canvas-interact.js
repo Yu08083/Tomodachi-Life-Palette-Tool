@@ -90,6 +90,18 @@ function zoomOutClick() {
 function attachZoomControls() {
   zoomInBtn.addEventListener('click', zoomInClick);
   zoomOutBtn.addEventListener('click', zoomOutClick);
+  const fitBtn = document.getElementById('zoom-fit');
+  if (fitBtn) {
+    fitBtn.addEventListener('click', () => {
+      if (viewMode === 'converted' && typeof fitZoomToConverted === 'function') {
+        fitZoomToConverted();
+      } else if (viewMode === 'original' && typeof _fitZoomToOriginalView === 'function' && typeof imgData !== 'undefined' && imgData) {
+        zoom = _fitZoomToOriginalView(imgData.width, imgData.height);
+      }
+      renderPixelCanvas();
+      if (typeof updateImgInfo === 'function') updateImgInfo();
+    });
+  }
 }
 
 function setInteractionMode(mode) {

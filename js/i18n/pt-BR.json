@@ -48,7 +48,12 @@
     "grid": "Grade",
     "help": "Ajuda",
     "mirror": "Espelho",
-    "backToStart": "Voltar ao início"
+    "backToStart": "Voltar ao início",
+    "gridOffset": "Deslocar grade",
+    "gridOffsetTitle": "Ajustar a grade",
+    "gridReset": "Reset",
+    "gridOffsetX": "X",
+    "gridOffsetY": "Y"
   },
   "view": {
     "original": "Original",
@@ -85,7 +90,23 @@
     "tlUnsupported": "Gravação não suportada neste navegador",
     "tlEmpty": "A gravação ficou vazia. Tente gravar por mais tempo.",
     "customSizePh": "48",
-    "customSizeUnit": "células"
+    "customSizeUnit": "células",
+    "saveOriginal": "Salvar original",
+    "savePosterized": "Cores aproximadas",
+    "preprocessLabel": "Pré-processo",
+    "preBlur": "Desfoque",
+    "preBlurOff": "Nenhum",
+    "preBlurLight": "Leve",
+    "preBlurMid": "Médio",
+    "preBlurStrong": "Forte",
+    "regionMerge": "Mesclar regiões",
+    "regionMergeOff": "Nenhuma",
+    "regionMergeLight": "Remover pontos pequenos",
+    "regionMergeMid": "Mesclar médias",
+    "regionMergeStrong": "Mesclar forte",
+    "preprocessHint": "Acabamento mais uniforme",
+    "collapseOpen": "Mostrar opções avançadas",
+    "collapseClose": "Ocultar opções avançadas"
   },
   "color": {
     "labelEn": "color information",
@@ -108,7 +129,10 @@
     "isolateOffShort": "Isolar",
     "isolateOnShort": "Tudo",
     "markDoneOffShort": "Feito",
-    "markDoneOnShort": "Desfaz"
+    "markDoneOnShort": "Desfaz",
+    "maskSettings": "Configurações de máscara",
+    "maskColor": "Cor da máscara",
+    "maskOpacity": "Opacidade"
   },
   "palette": {
     "fullColor": "Cor completa",
@@ -213,7 +237,8 @@
   },
   "aria": {
     "zoomOut": "Diminuir zoom",
-    "zoomIn": "Aumentar zoom"
+    "zoomIn": "Aumentar zoom",
+    "zoomFit": "Ajustar à tela"
   },
   "notice": {
     "label": "NOTICE",

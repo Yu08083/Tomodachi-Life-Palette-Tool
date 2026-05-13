@@ -85,6 +85,8 @@ async function init() {
 
   initGrid();
   if (typeof initIsolate === 'function') initIsolate();
+  if (typeof attachIsolateSettings === 'function') attachIsolateSettings();
+  if (typeof attachGridOffset === 'function') attachGridOffset();
   if (typeof initMirror === 'function') initMirror();
 
   document.querySelectorAll('.grid-sub-btn').forEach(b => {

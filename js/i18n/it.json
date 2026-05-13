@@ -48,7 +48,12 @@
     "grid": "Griglia",
     "help": "Aiuto",
     "mirror": "Specchio",
-    "backToStart": "All'inizio"
+    "backToStart": "All'inizio",
+    "gridOffset": "Sposta griglia",
+    "gridOffsetTitle": "Regola la griglia",
+    "gridReset": "Reset",
+    "gridOffsetX": "X",
+    "gridOffsetY": "Y"
   },
   "view": {
     "original": "Originale",
@@ -85,7 +90,23 @@
     "tlUnsupported": "Registrazione non supportata da questo browser",
     "tlEmpty": "Registrazione vuota. Prova un tempo più lungo.",
     "customSizePh": "48",
-    "customSizeUnit": "celle"
+    "customSizeUnit": "celle",
+    "saveOriginal": "Salva originale",
+    "savePosterized": "Salva colori vicini",
+    "preprocessLabel": "Pre-elaborazione",
+    "preBlur": "Sfocatura",
+    "preBlurOff": "Nessuna",
+    "preBlurLight": "Leggera",
+    "preBlurMid": "Media",
+    "preBlurStrong": "Forte",
+    "regionMerge": "Unione regioni",
+    "regionMergeOff": "Nessuna",
+    "regionMergeLight": "Rimuovi punti piccoli",
+    "regionMergeMid": "Unione media",
+    "regionMergeStrong": "Unione forte",
+    "preprocessHint": "Resa più uniforme",
+    "collapseOpen": "Mostra opzioni avanzate",
+    "collapseClose": "Nascondi opzioni avanzate"
   },
   "color": {
     "labelEn": "color information",
@@ -108,7 +129,10 @@
     "isolateOffShort": "Isola",
     "isolateOnShort": "Tutto",
     "markDoneOffShort": "Fatto",
-    "markDoneOnShort": "Annulla"
+    "markDoneOnShort": "Annulla",
+    "maskSettings": "Impostazioni maschera",
+    "maskColor": "Colore maschera",
+    "maskOpacity": "Opacità"
   },
   "palette": {
     "fullColor": "Colore pieno",
@@ -213,7 +237,8 @@
   },
   "aria": {
     "zoomOut": "Riduci zoom",
-    "zoomIn": "Aumenta zoom"
+    "zoomIn": "Aumenta zoom",
+    "zoomFit": "Adatta a schermo"
   },
   "notice": {
     "label": "NOTICE",

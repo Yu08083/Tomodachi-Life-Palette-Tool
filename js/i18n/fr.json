@@ -48,7 +48,12 @@
     "grid": "Grille",
     "help": "Aide",
     "mirror": "Miroir",
-    "backToStart": "Retour au début"
+    "backToStart": "Retour au début",
+    "gridOffset": "Décalage grille",
+    "gridOffsetTitle": "Ajuster la grille",
+    "gridReset": "Réinit.",
+    "gridOffsetX": "X",
+    "gridOffsetY": "Y"
   },
   "view": {
     "original": "Original",
@@ -85,7 +90,23 @@
     "tlUnsupported": "L'enregistrement n'est pas pris en charge",
     "tlEmpty": "L'enregistrement est vide. Essayez plus longtemps.",
     "customSizePh": "48",
-    "customSizeUnit": "cases"
+    "customSizeUnit": "cases",
+    "saveOriginal": "Photo originale",
+    "savePosterized": "Couleurs approchées",
+    "preprocessLabel": "Pré-traitement",
+    "preBlur": "Flou",
+    "preBlurOff": "Aucun",
+    "preBlurLight": "Léger",
+    "preBlurMid": "Moyen",
+    "preBlurStrong": "Fort",
+    "regionMerge": "Fusion régions",
+    "regionMergeOff": "Aucune",
+    "regionMergeLight": "Supprimer petits points",
+    "regionMergeMid": "Fusion moyenne",
+    "regionMergeStrong": "Fusion forte",
+    "preprocessHint": "Rendu plus uniforme",
+    "collapseOpen": "Afficher les options avancées",
+    "collapseClose": "Masquer les options avancées"
   },
   "color": {
     "labelEn": "color information",
@@ -108,7 +129,10 @@
     "isolateOffShort": "Isoler",
     "isolateOnShort": "Tout",
     "markDoneOffShort": "Fait",
-    "markDoneOnShort": "Annuler"
+    "markDoneOnShort": "Annuler",
+    "maskSettings": "Réglages du masque",
+    "maskColor": "Couleur du masque",
+    "maskOpacity": "Opacité"
   },
   "palette": {
     "fullColor": "Couleur réelle",
@@ -225,7 +249,8 @@
   },
   "aria": {
     "zoomOut": "Dézoomer",
-    "zoomIn": "Zoomer"
+    "zoomIn": "Zoomer",
+    "zoomFit": "S'adapter à l'écran"
   },
   "history": {
     "title": "Images récentes",

@@ -212,6 +212,18 @@ function convertImage(srcCanvas, srcWidth, srcHeight, gridSize, dither) {
     outW = Math.max(1, Math.round(gridSize * aspect));
   }
 
+  const blurAmt = (typeof preBlurAmount === 'number' && preBlurAmount > 0) ? preBlurAmount : 0;
+  let processedSrc = srcCanvas;
+  if (blurAmt > 0) {
+    const tmp = document.createElement('canvas');
+    tmp.width = srcCanvas.width;
+    tmp.height = srcCanvas.height;
+    const tctx = tmp.getContext('2d');
+    tctx.filter = 'blur(' + blurAmt + 'px)';
+    tctx.drawImage(srcCanvas, 0, 0);
+    processedSrc = tmp;
+  }
+
   const dsCanvas = document.createElement('canvas');
   dsCanvas.width  = outW;
   dsCanvas.height = outH;
@@ -219,7 +231,7 @@ function convertImage(srcCanvas, srcWidth, srcHeight, gridSize, dither) {
   dsCtx.imageSmoothingEnabled = true;
   dsCtx.imageSmoothingQuality = 'high';
   dsCtx.clearRect(0, 0, outW, outH);
-  dsCtx.drawImage(srcCanvas, 0, 0, outW, outH);
+  dsCtx.drawImage(processedSrc, 0, 0, outW, outH);
 
   const imageData = dsCtx.getImageData(0, 0, outW, outH);
   const data = imageData.data;
@@ -293,6 +305,27 @@ function convertImage(srcCanvas, srcWidth, srcHeight, gridSize, dither) {
     if (v >= 0) usedSet.add(v);
   }
 
+  const mergeMin = (typeof regionMergeMin === 'number' && regionMergeMin > 1) ? regionMergeMin : 0;
+  if (mergeMin > 0) {
+    _mergeSmallRegions(paletteMap, outW, outH, mergeMin);
+    for (let i = 0, p = 0; i < paletteMap.length; i++, p += 4) {
+      const idx = paletteMap[i];
+      if (idx >= 0 && palRgb[idx]) {
+        const c = palRgb[idx];
+        data[p]     = c.r;
+        data[p + 1] = c.g;
+        data[p + 2] = c.b;
+        data[p + 3] = 255;
+      }
+    }
+    dsCtx.putImageData(imageData, 0, 0);
+    usedSet.clear();
+    for (let i = 0; i < paletteMap.length; i++) {
+      const v = paletteMap[i];
+      if (v >= 0) usedSet.add(v);
+    }
+  }
+
   return {
     width: outW,
     height: outH,
@@ -301,6 +334,56 @@ function convertImage(srcCanvas, srcWidth, srcHeight, gridSize, dither) {
     paletteMap,
     usedSet
   };
+}
+
+function _mergeSmallRegions(map, W, H, minSize) {
+  const visited = new Uint8Array(W * H);
+  const stack = [];
+  for (let p0 = 0; p0 < map.length; p0++) {
+    if (visited[p0]) continue;
+    const color = map[p0];
+    if (color < 0) { visited[p0] = 1; continue; }
+
+    const region = [];
+    stack.length = 0;
+    stack.push(p0);
+    visited[p0] = 1;
+    const neighborCounts = {};
+    while (stack.length > 0) {
+      const p = stack.pop();
+      region.push(p);
+      const x = p % W;
+      const y = (p - x) / W;
+      const dirs = [
+        [x - 1, y], [x + 1, y], [x, y - 1], [x, y + 1]
+      ];
+      for (const [nx, ny] of dirs) {
+        if (nx < 0 || nx >= W || ny < 0 || ny >= H) continue;
+        const np = ny * W + nx;
+        const nc = map[np];
+        if (nc === color) {
+          if (!visited[np]) {
+            visited[np] = 1;
+            stack.push(np);
+          }
+        } else if (nc >= 0) {
+          neighborCounts[nc] = (neighborCounts[nc] || 0) + 1;
+        }
+      }
+    }
+    if (region.length < minSize) {
+      let bestC = -1, bestN = 0;
+      for (const k in neighborCounts) {
+        if (neighborCounts[k] > bestN) {
+          bestN = neighborCounts[k];
+          bestC = parseInt(k, 10);
+        }
+      }
+      if (bestC >= 0) {
+        for (const p of region) map[p] = bestC;
+      }
+    }
+  }
 }
 
 function _diffuse(buf, x, y, W, H, er, eg, eb, factor) {
@@ -497,27 +580,46 @@ function setViewMode(mode) {
   if (mode === viewMode) return;
   if (mode === 'converted' && !imgData) return;
 
+  _zoomPerMode[viewMode] = zoom;
+
   viewMode = mode;
 
   document.getElementById('view-original-btn').classList.toggle('active', mode === 'original');
   document.getElementById('view-converted-btn').classList.toggle('active', mode === 'converted');
   document.getElementById('convert-controls').classList.remove('hidden');
   const dlBtn = document.getElementById('download-btn');
-  if (dlBtn) dlBtn.classList.toggle('hidden', mode !== 'converted');
+  if (dlBtn) dlBtn.classList.remove('hidden');
   const dlPbnBtn = document.getElementById('download-pbn-btn');
-  if (dlPbnBtn) dlPbnBtn.classList.toggle('hidden', mode !== 'converted');
+  if (dlPbnBtn) dlPbnBtn.classList.remove('hidden');
 
   if (mode === 'converted') {
     if (!convertedData) rebuildConvertedData();
-    fitZoomToConverted();
+    if (_zoomPerMode.converted != null) {
+      zoom = _zoomPerMode.converted;
+    } else {
+      fitZoomToConverted();
+    }
   } else {
-    if (typeof _fitZoomToOriginalView === 'function') {
+    if (_zoomPerMode.original != null) {
+      zoom = _zoomPerMode.original;
+    } else if (typeof _fitZoomToOriginalView === 'function') {
       zoom = _fitZoomToOriginalView(imgData.width, imgData.height);
     } else if (imgData.width <= 16 && imgData.height <= 16)        zoom = 16;
     else if (imgData.width <= 32 && imgData.height <= 32)   zoom = 8;
     else if (imgData.width <= 64 && imgData.height <= 64)   zoom = 4;
     else if (imgData.width <= 128 && imgData.height <= 128) zoom = 2;
     else                                                    zoom = 1;
+  }
+
+  if (dlBtn) {
+    const labelKey = (mode === 'original') ? 'view.saveOriginal' : 'view.savePng';
+    dlBtn.setAttribute('data-i18n-html', labelKey);
+    if (typeof t === 'function') dlBtn.innerHTML = t(labelKey);
+  }
+  if (dlPbnBtn) {
+    const pbnKey = (mode === 'original') ? 'view.savePosterized' : 'view.saveNumbered';
+    dlPbnBtn.setAttribute('data-i18n-html', pbnKey);
+    if (typeof t === 'function') dlPbnBtn.innerHTML = t(pbnKey);
   }
 
   updateImgInfo();
@@ -628,10 +730,65 @@ function attachConvertControls() {
     });
   });
 
+  const collapseToggle = document.getElementById('cv-collapse-toggle');
+  const collapsible = document.getElementById('cv-collapsible');
+  if (collapseToggle && collapsible) {
+    let saved = '0';
+    try { saved = localStorage.getItem('spoito_cv_collapsed') || '0'; } catch (_) {}
+    const applyState = (collapsed) => {
+      collapsible.classList.toggle('collapsed', collapsed);
+      collapseToggle.classList.toggle('open', !collapsed);
+      const icon = collapseToggle.querySelector('.cv-collapse-icon');
+      if (icon) icon.textContent = collapsed ? '▸' : '▾';
+      const lbl = collapseToggle.querySelector('.cv-collapse-label');
+      if (lbl && typeof t === 'function') {
+        lbl.textContent = t(collapsed ? 'view.collapseOpen' : 'view.collapseClose');
+      }
+    };
+    applyState(saved === '1');
+    collapseToggle.addEventListener('click', () => {
+      const next = !collapsible.classList.contains('collapsed');
+      applyState(next);
+      try { localStorage.setItem('spoito_cv_collapsed', next ? '1' : '0'); } catch (_) {}
+    });
+  }
+
   const ditherEl = document.getElementById('dither-toggle');
   if (ditherEl) {
     ditherEl.addEventListener('change', () => {
       ditherEnabled = ditherEl.checked;
+      rebuildConvertedData();
+    });
+  }
+
+  const preBlurEl = document.getElementById('pre-blur-select');
+  if (preBlurEl) {
+    try {
+      const saved = localStorage.getItem('spoito_pre_blur');
+      if (saved != null) {
+        preBlurEl.value = saved;
+        preBlurAmount = parseFloat(saved) || 0;
+      }
+    } catch (_) {}
+    preBlurEl.addEventListener('change', () => {
+      preBlurAmount = parseFloat(preBlurEl.value) || 0;
+      try { localStorage.setItem('spoito_pre_blur', preBlurEl.value); } catch (_) {}
+      rebuildConvertedData();
+    });
+  }
+
+  const regionEl = document.getElementById('region-merge-select');
+  if (regionEl) {
+    try {
+      const saved = localStorage.getItem('spoito_region_merge');
+      if (saved != null) {
+        regionEl.value = saved;
+        regionMergeMin = parseInt(saved, 10) || 0;
+      }
+    } catch (_) {}
+    regionEl.addEventListener('change', () => {
+      regionMergeMin = parseInt(regionEl.value, 10) || 0;
+      try { localStorage.setItem('spoito_region_merge', regionEl.value); } catch (_) {}
       rebuildConvertedData();
     });
   }
@@ -704,7 +861,16 @@ function attachConvertControls() {
 }
 
 function downloadConvertedImage() {
-  if (viewMode !== 'converted' || !convertedData) return;
+  if (viewMode === 'original') {
+    _downloadOriginalImage();
+    return;
+  }
+  if (!convertedData) {
+    if (typeof rebuildConvertedData === 'function') {
+      try { rebuildConvertedData(); } catch (_) {}
+    }
+  }
+  if (!convertedData) return;
 
   const sourceCanvas = convertedData.originalCanvas;
   if (!sourceCanvas) return;
@@ -733,6 +899,107 @@ function downloadConvertedImage() {
       console.error('ドット絵生成エラー:', err);
       alert(t('view.exportFail'));
     });
+}
+
+function _downloadOriginalPosterized() {
+  if (typeof imgData === 'undefined' || !imgData || !imgData.originalCanvas) return;
+  const src = (typeof _getAdjustedSourceCanvas === 'function') ? _getAdjustedSourceCanvas() : imgData.originalCanvas;
+  if (!src) return;
+
+  const w = src.width, h = src.height;
+  const out = document.createElement('canvas');
+  out.width = w;
+  out.height = h;
+  const octx = out.getContext('2d', { willReadFrequently: true });
+  octx.drawImage(src, 0, 0);
+  let img;
+  try { img = octx.getImageData(0, 0, w, h); } catch (e) { return; }
+  const data = img.data;
+
+  const palRgb = (typeof getPaletteRgb === 'function') ? getPaletteRgb() : [];
+  if (!palRgb || palRgb.length === 0) return;
+
+  const palLab = [];
+  for (let i = 0; i < palRgb.length; i++) {
+    const c = palRgb[i];
+    palLab.push(_rgbToLab(c.r, c.g, c.b));
+  }
+
+  for (let i = 0; i < data.length; i += 4) {
+    if (data[i + 3] < 8) continue;
+    const lab = _rgbToLab(data[i], data[i + 1], data[i + 2]);
+    let best = 0;
+    let bestD = Infinity;
+    for (let k = 0; k < palLab.length; k++) {
+      const pl = palLab[k];
+      const dl = lab.L - pl.L;
+      const da = lab.a - pl.a;
+      const db = lab.b - pl.b;
+      const d = dl * dl + da * da + db * db;
+      if (d < bestD) { bestD = d; best = k; }
+    }
+    const c = palRgb[best];
+    data[i]     = c.r;
+    data[i + 1] = c.g;
+    data[i + 2] = c.b;
+    data[i + 3] = 255;
+  }
+  octx.putImageData(img, 0, 0);
+
+  out.toBlob(blob => {
+    if (!blob) {
+      alert(t('view.exportFail'));
+      return;
+    }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    const now = new Date();
+    const ymd = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}`;
+    const hms = `${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}`;
+    a.download = `supoito_posterized_${ymd}_${hms}.png`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }, 'image/png');
+}
+
+function _rgbToLab(R, G, B) {
+  let r = R / 255, g = G / 255, b = B / 255;
+  r = r > 0.04045 ? Math.pow((r + 0.055) / 1.055, 2.4) : r / 12.92;
+  g = g > 0.04045 ? Math.pow((g + 0.055) / 1.055, 2.4) : g / 12.92;
+  b = b > 0.04045 ? Math.pow((b + 0.055) / 1.055, 2.4) : b / 12.92;
+  const X = (r * 0.4124564 + g * 0.3575761 + b * 0.1804375) / 0.95047;
+  const Y = (r * 0.2126729 + g * 0.7151522 + b * 0.0721750) / 1.00000;
+  const Z = (r * 0.0193339 + g * 0.1191920 + b * 0.9503041) / 1.08883;
+  const fx = X > 0.008856 ? Math.pow(X, 1/3) : 7.787 * X + 16/116;
+  const fy = Y > 0.008856 ? Math.pow(Y, 1/3) : 7.787 * Y + 16/116;
+  const fz = Z > 0.008856 ? Math.pow(Z, 1/3) : 7.787 * Z + 16/116;
+  return { L: 116 * fy - 16, a: 500 * (fx - fy), b: 200 * (fy - fz) };
+}
+
+function _downloadOriginalImage() {
+  if (typeof imgData === 'undefined' || !imgData || !imgData.originalCanvas) return;
+  const src = (typeof _getAdjustedSourceCanvas === 'function') ? _getAdjustedSourceCanvas() : imgData.originalCanvas;
+  if (!src) return;
+  src.toBlob(blob => {
+    if (!blob) {
+      alert(t('view.exportFail'));
+      return;
+    }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    const now = new Date();
+    const ymd = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}`;
+    const hms = `${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}`;
+    a.download = `supoito_original_${ymd}_${hms}.png`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }, 'image/png');
 }
 
 function composeBrandedImage(srcCanvas, srcW, srcH) {
@@ -846,7 +1113,16 @@ function composeBrandedImage(srcCanvas, srcW, srcH) {
 }
 
 function downloadPaintByNumbersImage() {
-  if (viewMode !== 'converted' || !convertedData) return;
+  if (viewMode === 'original') {
+    _downloadOriginalPosterized();
+    return;
+  }
+  if (!convertedData) {
+    if (typeof rebuildConvertedData === 'function') {
+      try { rebuildConvertedData(); } catch (_) {}
+    }
+  }
+  if (!convertedData) return;
 
   const maxSide = Math.max(convertedData.width, convertedData.height);
   if (maxSide >= 128) {

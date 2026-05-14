@@ -1,4 +1,4 @@
-const CACHE = 'spoito-cho-v1';
+const CACHE = 'spoito-cho-v2';
 const APP_SHELL = [
   './',
   './index.html',
@@ -40,7 +40,7 @@ self.addEventListener('fetch', (e) => {
             const copy = resp.clone();
             caches.open(CACHE).then(c => c.put(req, copy)).catch(() => {});
           }
-        }).catch(() => {});
+        }).catch(() => { /* offline: ignore background revalidate */ });
         return cached;
       }
       return fetch(req).then(resp => {

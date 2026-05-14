@@ -374,7 +374,7 @@ function applyCrop() {
   const out = document.createElement('canvas');
   out.width  = cropBox.w;
   out.height = cropBox.h;
-  const ctx = out.getContext('2d');
+  const ctx = out.getContext('2d', { willReadFrequently: true });
   ctx.imageSmoothingEnabled = false;
   ctx.drawImage(
     cropSrcCanvas,
@@ -486,7 +486,7 @@ function transformCropSource(action) {
   const out = document.createElement('canvas');
   out.width  = newW;
   out.height = newH;
-  const ctx = out.getContext('2d');
+  const ctx = out.getContext('2d', { willReadFrequently: true });
   ctx.imageSmoothingEnabled = false;
 
   ctx.save();

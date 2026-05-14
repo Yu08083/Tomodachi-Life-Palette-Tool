@@ -27,3 +27,79 @@
   .btn:hover { transform: none; }
   #drop-zone:hover { transform: none; }
 }
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .app-header {
+    padding: 4px 10px;
+    min-height: 40px;
+  }
+  .app-header h1 { font-size: 1rem; }
+  .app-header .header-sub { display: none; }
+
+  .canvas-wrapper {
+    max-height: 75vh;
+    min-height: 200px;
+  }
+
+  .seo-intro,
+  .seo-faq,
+  .external-links-row {
+    display: none;
+  }
+
+  .top-buttons {
+    margin-top: 8px;
+    gap: 6px;
+  }
+  .top-buttons .btn {
+    padding: 8px 14px;
+    font-size: 0.82rem;
+    min-height: 38px;
+  }
+
+  #drop-zone {
+    padding: 14px 16px;
+    min-height: auto;
+  }
+  .drop-icon,
+  .drop-note {
+    display: none;
+  }
+  .drop-title {
+    font-size: 0.92rem;
+    margin: 0;
+  }
+
+  .panel {
+    padding: 8px 10px;
+  }
+
+  .loupe-toggle {
+    top: 4px;
+    right: 4px;
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+
+  .loupe {
+    width: 110px;
+    height: 110px;
+  }
+
+  .mobile-color-bar {
+    padding: 6px 10px;
+    padding-bottom: calc(6px + env(safe-area-inset-bottom));
+  }
+  .mcb-swatch {
+    width: 28px;
+    height: 28px;
+  }
+  .mcb-hex { font-size: 12px; }
+  .mcb-meta { font-size: 10px; }
+
+  .image-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}

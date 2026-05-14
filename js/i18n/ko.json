@@ -17,7 +17,9 @@
     "demo": "데모 이미지로 시도",
     "guide": "사용법 보기",
     "discordTitle": "Discord 서버",
-    "discordSub": "작품 공유 · 피드백"
+    "discordSub": "작품 공유·피드백",
+    "officialTitle": "공식 사이트",
+    "officialSub": "닌텐도 일본 공식"
   },
   "crop": {
     "label": "CROP",
@@ -132,7 +134,8 @@
     "markDoneOnShort": "되돌리기",
     "maskSettings": "마스크 설정",
     "maskColor": "마스크 색상",
-    "maskOpacity": "불투명도"
+    "maskOpacity": "불투명도",
+    "tapDetail": "탭하면 자세히 ↑"
   },
   "palette": {
     "fullColor": "풀 컬러",
@@ -446,5 +449,8 @@
     "flipH": "좌우 반전",
     "flipV": "상하 반전",
     "changeColor": "클릭으로 색 변경"
+  },
+  "canvas": {
+    "loupe": "돋보기"
   }
 }

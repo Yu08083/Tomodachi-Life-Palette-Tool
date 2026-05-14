@@ -17,7 +17,9 @@
     "demo": "デモ画像で試す",
     "guide": "使い方を見る",
     "discordTitle": "Discord サーバー",
-    "discordSub": "作品共有・要望相談はこちら"
+    "discordSub": "作品共有・要望相談",
+    "officialTitle": "トモコレ 公式サイト",
+    "officialSub": "任天堂公式ページ"
   },
   "crop": {
     "label": "CROP",
@@ -132,7 +134,8 @@
     "markDoneOnShort": "戻す",
     "maskSettings": "周りの色設定",
     "maskColor": "周りの色",
-    "maskOpacity": "不透明度"
+    "maskOpacity": "不透明度",
+    "tapDetail": "タップで詳細 ↑"
   },
   "palette": {
     "fullColor": "フルカラー",
@@ -446,5 +449,8 @@
     "flipH": "左右反転",
     "flipV": "上下反転",
     "changeColor": "クリックで色変更"
+  },
+  "canvas": {
+    "loupe": "ルーペ"
   }
 }

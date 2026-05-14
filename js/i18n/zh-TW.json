@@ -17,7 +17,9 @@
     "demo": "用範例圖片試試",
     "guide": "查看使用方法",
     "discordTitle": "Discord 伺服器",
-    "discordSub": "作品分享與意見"
+    "discordSub": "作品分享·回饋",
+    "officialTitle": "官方網站",
+    "officialSub": "任天堂日本官網"
   },
   "crop": {
     "label": "CROP",
@@ -132,7 +134,8 @@
     "markDoneOnShort": "還原",
     "maskSettings": "遮罩設定",
     "maskColor": "遮罩顏色",
-    "maskOpacity": "不透明度"
+    "maskOpacity": "不透明度",
+    "tapDetail": "點擊查看詳細 ↑"
   },
   "palette": {
     "fullColor": "全彩",
@@ -446,5 +449,8 @@
     "flipH": "水平翻轉",
     "flipV": "垂直翻轉",
     "changeColor": "點擊換色"
+  },
+  "canvas": {
+    "loupe": "放大鏡"
   }
 }

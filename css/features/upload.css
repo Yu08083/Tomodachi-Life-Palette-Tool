@@ -252,72 +252,95 @@
   .drop-icon { animation: none; }
 }
 
-.discord-banner {
+.external-links-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: var(--gap-lg);
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.ext-link {
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin-top: var(--gap-lg);
-  padding: 14px 18px;
-  background: linear-gradient(135deg, #5865F2 0%, #4752C4 100%);
-  border-radius: 14px;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
   color: #fff;
   text-decoration: none;
-  box-shadow: 0 3px 0 #3C45A5, 0 6px 18px rgba(88, 101, 242, 0.25);
-  transition: all 0.15s;
+  transition: transform 0.12s, box-shadow 0.12s;
+  min-height: 56px;
 }
-.discord-banner:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 0 #3C45A5, 0 10px 24px rgba(88, 101, 242, 0.3);
-}
-.discord-banner:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 0 #3C45A5, 0 3px 10px rgba(88, 101, 242, 0.25);
-}
-.discord-banner-icon {
+.ext-link:hover { transform: translateY(-1px); }
+.ext-link:active { transform: translateY(0); }
+.ext-link-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
+  width: 34px;
+  height: 34px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 9px;
   flex-shrink: 0;
 }
-.discord-banner-text {
+.ext-link-text {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
   flex: 1;
   min-width: 0;
 }
-.discord-banner-title {
+.ext-link-title {
   font-family: var(--font-jp);
   font-weight: 800;
-  font-size: 1rem;
-  letter-spacing: 0.02em;
+  font-size: 0.84rem;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.discord-banner-sub {
+.ext-link-sub {
   font-family: var(--font-jp);
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   opacity: 0.85;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.discord-banner-arrow {
+.ext-link-arrow {
   font-family: var(--font-mono);
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 800;
   flex-shrink: 0;
-  transition: transform 0.15s;
+  transition: transform 0.12s;
 }
-.discord-banner:hover .discord-banner-arrow {
-  transform: translateX(3px);
+.ext-link:hover .ext-link-arrow { transform: translateX(2px); }
+
+.discord-banner {
+  background: linear-gradient(135deg, #5865F2 0%, #4752C4 100%);
+  box-shadow: 0 2px 0 #3C45A5, 0 4px 12px rgba(88, 101, 242, 0.22);
+}
+.nintendo-banner {
+  background: linear-gradient(135deg, #E60012 0%, #B5000E 100%);
+  box-shadow: 0 2px 0 #8B000A, 0 4px 12px rgba(230, 0, 18, 0.22);
 }
 
 @media (max-width: 600px) {
-  .discord-banner { padding: 12px 14px; gap: 10px; }
-  .discord-banner-icon { width: 36px; height: 36px; }
-  .discord-banner-title { font-size: 0.92rem; }
-  .discord-banner-sub { font-size: 0.74rem; }
+  .external-links-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .nintendo-banner { order: 1; }
+  .discord-banner  { order: 2; }
+  .ext-link {
+    padding: 9px 10px;
+    min-height: 50px;
+  }
+  .ext-link-icon { width: 30px; height: 30px; }
+  .ext-link-title { font-size: 0.8rem; }
+  .ext-link-sub { font-size: 0.66rem; }
 }
 
 .seo-intro {
@@ -392,30 +415,59 @@
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 10px;
+  gap: 6px;
 }
-.seo-faq-list dt {
+.seo-faq-item {
+  border-bottom: 1px solid rgba(217, 79, 8, 0.12);
+  padding: 0;
+}
+.seo-faq-item:last-child {
+  border-bottom: none;
+}
+.seo-faq-item summary {
   font-family: var(--font-jp);
   font-weight: 800;
   font-size: 0.84rem;
   color: var(--orange-d);
   line-height: 1.5;
-  margin: 0;
-  padding-top: 8px;
-  border-top: 1px solid rgba(217, 79, 8, 0.12);
+  padding: 10px 30px 10px 4px;
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  user-select: none;
+  transition: color 0.12s;
 }
-.seo-faq-list dt:first-of-type {
-  border-top: none;
-  padding-top: 0;
+.seo-faq-item summary::-webkit-details-marker { display: none; }
+.seo-faq-item summary::after {
+  content: '＋';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--orange);
+  transition: transform 0.2s, content 0s;
 }
-.seo-faq-list dd {
+.seo-faq-item[open] summary::after {
+  content: '－';
+}
+.seo-faq-item summary:hover {
+  color: var(--orange);
+}
+.seo-faq-item p {
   font-family: var(--font-jp);
   font-weight: 600;
   font-size: 0.82rem;
   color: var(--ink-2);
   line-height: 1.65;
-  margin: 4px 0 0;
-  padding-left: 12px;
+  margin: 0;
+  padding: 4px 8px 12px 12px;
+  animation: faqFadeIn 0.2s ease-out;
+}
+@keyframes faqFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 .seo-faq-note {
   font-family: var(--font-jp);
@@ -430,7 +482,7 @@
 }
 @media (max-width: 600px) {
   .seo-faq { padding: var(--gap-md); }
-  .seo-faq-list dt { font-size: 0.8rem; }
-  .seo-faq-list dd { font-size: 0.78rem; }
+  .seo-faq-item summary { font-size: 0.8rem; }
+  .seo-faq-item p { font-size: 0.78rem; }
   .seo-faq-note { font-size: 0.7rem; }
 }

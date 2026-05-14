@@ -39,19 +39,47 @@ function handleCanvasClick(e) {
   pickPixelFromCoords(e.clientX, e.clientY);
 }
 
+let _touchStartX = 0, _touchStartY = 0, _touchStartTime = 0;
+let _touchMoved = false;
+
 function handleCanvasTouchStart(e) {
   if (typeof pixelEditorActive !== 'undefined' && pixelEditorActive) return;
   if (interactionMode !== 'select') return;
   if (!e.touches || e.touches.length !== 1) return;
-  e.preventDefault();
-  _lastTouchPickAt = Date.now();
   const t = e.touches[0];
+  _touchStartX = t.clientX;
+  _touchStartY = t.clientY;
+  _touchStartTime = Date.now();
+  _touchMoved = false;
+}
+
+function handleCanvasTouchMove(e) {
+  if (typeof pixelEditorActive !== 'undefined' && pixelEditorActive) return;
+  if (interactionMode !== 'select') return;
+  if (!e.touches || e.touches.length !== 1) return;
+  if (_touchMoved) return;
+  const t = e.touches[0];
+  const dx = t.clientX - _touchStartX;
+  const dy = t.clientY - _touchStartY;
+  if (Math.hypot(dx, dy) > 10) _touchMoved = true;
+}
+
+function handleCanvasTouchEnd(e) {
+  if (typeof pixelEditorActive !== 'undefined' && pixelEditorActive) return;
+  if (interactionMode !== 'select') return;
+  if (!e.changedTouches || e.changedTouches.length !== 1) return;
+  const dt = Date.now() - _touchStartTime;
+  if (_touchMoved || dt > 500) return;
+  const t = e.changedTouches[0];
+  _lastTouchPickAt = Date.now();
   pickPixelFromCoords(t.clientX, t.clientY);
 }
 
 function attachCanvasInteractions() {
   pixelCanvas.addEventListener('click', handleCanvasClick);
-  pixelCanvas.addEventListener('touchstart', handleCanvasTouchStart, { passive: false });
+  pixelCanvas.addEventListener('touchstart', handleCanvasTouchStart, { passive: true });
+  pixelCanvas.addEventListener('touchmove', handleCanvasTouchMove, { passive: true });
+  pixelCanvas.addEventListener('touchend', handleCanvasTouchEnd, { passive: true });
 }
 
 function canApplyZoom(nextZoom) {

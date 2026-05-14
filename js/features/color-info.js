@@ -48,11 +48,54 @@ function selectColor(r, g, b, px, py) {
   noSelectMsg.classList.add('hidden');
   colorInfo.classList.remove('hidden');
 
+  _updateMobileColorBar(hex, bestIdx, px, py);
+
   if (typeof refreshIsolateOnSelection === 'function') {
     refreshIsolateOnSelection();
   }
   if (typeof refreshDoneOnSelection === 'function') {
     refreshDoneOnSelection();
+  }
+}
+
+function _updateMobileColorBar(hex, paletteIdx, px, py) {
+  const bar = document.getElementById('mobile-color-bar');
+  if (!bar) return;
+  const sw = document.getElementById('mcb-swatch');
+  const hx = document.getElementById('mcb-hex');
+  const mt = document.getElementById('mcb-meta');
+  if (sw) sw.style.background = hex;
+  if (hx) hx.textContent = hex.toUpperCase();
+  if (mt) {
+    const num = paletteIdx + 1;
+    const row = Math.floor(paletteIdx / 12) + 1;
+    const col = (paletteIdx % 12) + 1;
+    const posPart = (px >= 0 && py >= 0) ? ` · X${px + 1} Y${py + 1}` : '';
+    mt.textContent = `${num}/84 · ${row}行 ${col}列${posPart}`;
+  }
+  bar.classList.remove('hidden');
+}
+
+function _initMobileColorBar() {
+  const bar = document.getElementById('mobile-color-bar');
+  if (!bar) return;
+  const scrollToInfo = () => {
+    const panel = document.getElementById('info-panel');
+    if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+  bar.addEventListener('click', scrollToInfo);
+  bar.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      scrollToInfo();
+    }
+  });
+}
+if (typeof window !== 'undefined') {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', _initMobileColorBar);
+  } else {
+    _initMobileColorBar();
   }
 }
 

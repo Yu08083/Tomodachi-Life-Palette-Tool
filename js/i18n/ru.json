@@ -17,7 +17,9 @@
     "demo": "Попробовать с демо-изображением",
     "guide": "Как пользоваться",
     "discordTitle": "Сервер Discord",
-    "discordSub": "Делитесь работами и отзывами"
+    "discordSub": "Обмен · отзывы",
+    "officialTitle": "Офиц. сайт",
+    "officialSub": "Nintendo Япония"
   },
   "crop": {
     "label": "ОБРЕЗКА",
@@ -132,7 +134,8 @@
     "markDoneOnShort": "Назад",
     "maskSettings": "Настройки маски",
     "maskColor": "Цвет маски",
-    "maskOpacity": "Непрозрачность"
+    "maskOpacity": "Непрозрачность",
+    "tapDetail": "Нажмите для деталей ↑"
   },
   "palette": {
     "fullColor": "Полный цвет",
@@ -446,5 +449,8 @@
     "flipH": "Отразить по горизонтали",
     "flipV": "Отразить по вертикали",
     "changeColor": "Клик для смены цвета"
+  },
+  "canvas": {
+    "loupe": "Лупа"
   }
 }

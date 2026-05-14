@@ -17,7 +17,9 @@
     "demo": "Probeer met demo-afbeelding",
     "guide": "Hoe te gebruiken",
     "discordTitle": "Discord-server",
-    "discordSub": "Werk delen & feedback"
+    "discordSub": "Delen · feedback",
+    "officialTitle": "Officiële site",
+    "officialSub": "Nintendo Japan"
   },
   "crop": {
     "label": "CROP",
@@ -132,7 +134,8 @@
     "markDoneOnShort": "Terug",
     "maskSettings": "Maskerinstellingen",
     "maskColor": "Maskerkleur",
-    "maskOpacity": "Dekking"
+    "maskOpacity": "Dekking",
+    "tapDetail": "Tik voor details ↑"
   },
   "palette": {
     "fullColor": "Volledige kleur",
@@ -446,5 +449,8 @@
     "flipH": "Horizontaal spiegelen",
     "flipV": "Verticaal spiegelen",
     "changeColor": "Klik om te wijzigen"
+  },
+  "canvas": {
+    "loupe": "Loep"
   }
 }

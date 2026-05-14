@@ -46,6 +46,8 @@ function attachUploadHandlers() {
       try { pixelEditorClearHistory(); } catch (_) {}
     }
     rebuildRecipe();
+    const mobBar = document.getElementById('mobile-color-bar');
+    if (mobBar) mobBar.classList.add('hidden');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 

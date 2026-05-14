@@ -17,7 +17,9 @@
     "demo": "Try with demo image",
     "guide": "How to use",
     "discordTitle": "Discord server",
-    "discordSub": "Share creations & feedback"
+    "discordSub": "Share works · feedback",
+    "officialTitle": "Official Site",
+    "officialSub": "Nintendo Japan"
   },
   "crop": {
     "label": "CROP",
@@ -132,7 +134,8 @@
     "markDoneOnShort": "Undo",
     "maskSettings": "Mask settings",
     "maskColor": "Mask color",
-    "maskOpacity": "Opacity"
+    "maskOpacity": "Opacity",
+    "tapDetail": "Tap for details ↑"
   },
   "palette": {
     "fullColor": "Full color",
@@ -446,5 +449,8 @@
     "flipH": "Flip Horizontal",
     "flipV": "Flip Vertical",
     "changeColor": "Click to change color"
+  },
+  "canvas": {
+    "loupe": "Loupe"
   }
 }

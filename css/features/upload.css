@@ -159,6 +159,9 @@
   justify-content: center;
   flex-wrap: wrap;
 }
+.top-buttons-secondary {
+  margin-top: var(--gap-sm);
+}
 
 .btn {
   font-family: var(--font-jp);

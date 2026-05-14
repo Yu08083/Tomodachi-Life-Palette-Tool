@@ -349,10 +349,12 @@
         </p>
         <input type="file" id="file-input" accept="image/*,.json,application/json" hidden>
       </div>
-      <div class="top-buttons">
+      <div class="top-buttons top-buttons-primary">
         <button class="btn accent" id="demo-btn" data-i18n="upload.demo">デモ画像で試す</button>
         <button class="btn accent" id="camera-btn" data-i18n="camera.openMode">📷 カメラで撮影</button>
         <button class="btn accent" id="bg-preset-mode-btn" data-i18n="bg.openMode">プリセット背景を使う</button>
+      </div>
+      <div class="top-buttons top-buttons-secondary">
         <button class="btn ghost" onclick="openModal('modal-history')" data-i18n="history.title" id="history-open-btn">最近使った画像</button>
         <button class="btn ghost" onclick="openModal('modal-guide')" data-i18n="upload.guide">使い方を見る</button>
         <button class="btn ghost" id="share-btn-top" onclick="openModal('modal-share')" data-i18n="share.button">共有</button>

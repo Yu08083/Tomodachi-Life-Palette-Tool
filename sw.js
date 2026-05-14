@@ -1,11 +1,11 @@
-const CACHE = 'spoito-cho-v2';
+const CACHE = 'spoito-cho-v3';
 const APP_SHELL = [
   './',
   './index.html',
   './manifest.json',
   './favicon.svg',
   './js/main.js',
-  './js/palette-data.js',
+  './js/core/palette-data.js',
   './js/i18n.js',
   './js/console-art.js'
 ];

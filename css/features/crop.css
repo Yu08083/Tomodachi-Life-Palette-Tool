@@ -160,3 +160,56 @@
   .crop-aspect-buttons { width: 100%; }
   .crop-aspect-btn { flex: 1 1 auto; padding: 5px 10px; font-size: 0.74rem; }
 }
+
+.crop-aspect-custom {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 8px 10px;
+  background: rgba(255, 246, 232, 0.6);
+  border: 1.5px dashed var(--orange-l);
+  border-radius: var(--radius-sm);
+  flex-wrap: wrap;
+}
+.crop-aspect-custom.hidden { display: none; }
+.cac-label {
+  font-family: var(--font-jp);
+  font-weight: 700;
+  font-size: 0.84rem;
+  color: var(--orange-d);
+}
+.cac-input {
+  width: 70px;
+  padding: 4px 8px;
+  border: 1.5px solid var(--orange-l);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  text-align: center;
+}
+.cac-input:focus {
+  outline: none;
+  border-color: var(--orange);
+  box-shadow: 0 0 0 2px rgba(255, 107, 26, 0.18);
+}
+.cac-sep {
+  font-family: var(--font-jp);
+  font-weight: 800;
+  color: var(--ink-3);
+}
+.cac-apply {
+  font-family: var(--font-jp);
+  font-weight: 800;
+  font-size: 0.82rem;
+  padding: 5px 14px;
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.cac-apply:hover { background: var(--orange-d); }

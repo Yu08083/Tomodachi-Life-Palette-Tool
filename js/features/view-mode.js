@@ -326,6 +326,50 @@ function convertImage(srcCanvas, srcWidth, srcHeight, gridSize, dither) {
     }
   }
 
+  const cMax = (typeof colorLimitMax === 'number' && colorLimitMax > 0 && colorLimitMax < 84) ? colorLimitMax : 0;
+  if (cMax > 0 && usedSet.size > cMax) {
+    const counts = new Map();
+    for (let i = 0; i < paletteMap.length; i++) {
+      const v = paletteMap[i];
+      if (v >= 0) counts.set(v, (counts.get(v) || 0) + 1);
+    }
+    const sorted = Array.from(counts.entries()).sort((a, b) => b[1] - a[1]);
+    const keep = new Set(sorted.slice(0, cMax).map(e => e[0]));
+    const remap = new Map();
+    for (const [idx] of counts) {
+      if (keep.has(idx)) {
+        remap.set(idx, idx);
+        continue;
+      }
+      const src = palRgb[idx];
+      let best = -1, bestD = Infinity;
+      for (const k of keep) {
+        const c = palRgb[k];
+        const dr = src.r - c.r, dg = src.g - c.g, db = src.b - c.b;
+        const d = dr * dr + dg * dg + db * db;
+        if (d < bestD) { bestD = d; best = k; }
+      }
+      remap.set(idx, best);
+    }
+    for (let i = 0, p = 0; i < paletteMap.length; i++, p += 4) {
+      const old = paletteMap[i];
+      if (old < 0) continue;
+      const ni = remap.get(old);
+      paletteMap[i] = ni;
+      const c = palRgb[ni];
+      data[p]     = c.r;
+      data[p + 1] = c.g;
+      data[p + 2] = c.b;
+      data[p + 3] = 255;
+    }
+    dsCtx.putImageData(imageData, 0, 0);
+    usedSet.clear();
+    for (let i = 0; i < paletteMap.length; i++) {
+      const v = paletteMap[i];
+      if (v >= 0) usedSet.add(v);
+    }
+  }
+
   return {
     width: outW,
     height: outH,
@@ -791,6 +835,37 @@ function attachConvertControls() {
       try { localStorage.setItem('spoito_region_merge', regionEl.value); } catch (_) {}
       rebuildConvertedData();
     });
+  }
+
+  const climitRange = document.getElementById('color-limit-range');
+  const climitValue = document.getElementById('color-limit-value');
+  const climitReset = document.getElementById('color-limit-reset');
+  if (climitRange && climitValue) {
+    try {
+      const saved = parseInt(localStorage.getItem('spoito_color_limit'), 10);
+      if (saved >= 1 && saved <= 84) {
+        colorLimitMax = saved;
+        climitRange.value = saved;
+        climitValue.textContent = saved;
+      }
+    } catch (_) {}
+    climitRange.addEventListener('input', () => {
+      climitValue.textContent = climitRange.value;
+    });
+    climitRange.addEventListener('change', () => {
+      colorLimitMax = parseInt(climitRange.value, 10) || 84;
+      try { localStorage.setItem('spoito_color_limit', climitRange.value); } catch (_) {}
+      rebuildConvertedData();
+    });
+    if (climitReset) {
+      climitReset.addEventListener('click', () => {
+        climitRange.value = 84;
+        climitValue.textContent = 84;
+        colorLimitMax = 84;
+        try { localStorage.removeItem('spoito_color_limit'); } catch (_) {}
+        rebuildConvertedData();
+      });
+    }
   }
 
   const pbnGridEl = document.getElementById('pbn-grid-toggle');

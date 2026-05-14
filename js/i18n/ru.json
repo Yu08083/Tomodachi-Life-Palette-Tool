@@ -39,7 +39,11 @@
     "aspectBook": "Книга 180×256",
     "aspectTV": "ТВ 256×131",
     "aspectGame": "Игра 256×144",
-    "aspectWall": "Обои 172×256"
+    "aspectWall": "Обои 172×256",
+    "aspectCustom": "Свои",
+    "customW": "Ш",
+    "customH": "В",
+    "customApply": "Применить"
   },
   "viewer": {
     "labelEn": "image viewer",
@@ -68,7 +72,7 @@
     "brushModeSmooth": "Smooth",
     "ditherLabel": "Опция",
     "dither": "Дизеринг (диффузия ошибок)",
-    "ditherHint": "Рекомендуется ВКЛ для фото и градиентов",
+    "ditherHint": "Для фото/градиентов",
     "savePng": "Сохранить пиксель-арт",
     "saveNumbered": "Сохранить раскраску по номерам",
     "recrop": "Обрезать заново",
@@ -108,7 +112,14 @@
     "regionMergeStrong": "Сильное слияние",
     "preprocessHint": "Более ровный результат",
     "collapseOpen": "Показать расширенные опции",
-    "collapseClose": "Скрыть расширенные опции"
+    "collapseClose": "Скрыть расширенные опции",
+    "colorLimitLabel": "Кол-во цветов",
+    "colorLimitUnit": "/ 84",
+    "colorLimitReset": "Все",
+    "colorLimitHint": "Меньше цветов = легче",
+    "pbnGridHint": "Читабельнее при печати",
+    "preBlurHint": "Сгладить шум",
+    "regionMergeHint": "Убрать одиночные точки"
   },
   "color": {
     "labelEn": "color information",
@@ -451,6 +462,7 @@
     "changeColor": "Клик для смены цвета"
   },
   "canvas": {
-    "loupe": "Лупа"
+    "loupe": "Лупа",
+    "loupeHint": "Увеличенный просмотр"
   }
 }

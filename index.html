@@ -470,6 +470,15 @@
             <button class="crop-aspect-btn"        data-aspect="tv"   data-i18n="crop.aspectTV">TV 256×131</button>
             <button class="crop-aspect-btn"        data-aspect="game" data-i18n="crop.aspectGame">ゲーム 256×144</button>
             <button class="crop-aspect-btn"        data-aspect="wall" data-i18n="crop.aspectWall">壁紙 172×256</button>
+            <button class="crop-aspect-btn"        data-aspect="custom" data-i18n="crop.aspectCustom">カスタム</button>
+          </div>
+          <div class="crop-aspect-custom hidden" id="crop-aspect-custom">
+            <label class="cac-label" data-i18n="crop.customW">幅</label>
+            <input type="number" id="custom-aspect-w" min="1" max="2048" value="256" class="cac-input">
+            <span class="cac-sep">×</span>
+            <label class="cac-label" data-i18n="crop.customH">高</label>
+            <input type="number" id="custom-aspect-h" min="1" max="2048" value="256" class="cac-input">
+            <button type="button" id="custom-aspect-apply" class="cac-apply" data-i18n="crop.customApply">適用</button>
           </div>
         </div>
         <div class="crop-transform-bar">
@@ -735,19 +744,44 @@
               <span class="cv-label" data-i18n="view.ditherLabel">オプション</span>
               <label class="cv-toggle">
                 <input type="checkbox" id="dither-toggle">
-                <span data-i18n="view.dither">ディザ（誤差拡散）</span>
+                <span class="cv-toggle-text">
+                  <span class="cv-toggle-main" data-i18n="view.dither">ディザ（誤差拡散）</span>
+                  <span class="cv-toggle-sub" data-i18n="view.ditherHint">写真・グラデは ON 推奨</span>
+                </span>
               </label>
               <label class="cv-toggle">
                 <input type="checkbox" id="pbn-grid-toggle">
-                <span data-i18n="view.pbnGrid">番号塗り絵にマス目強調</span>
+                <span class="cv-toggle-text">
+                  <span class="cv-toggle-main" data-i18n="view.pbnGrid">番号塗り絵にマス目強調</span>
+                  <span class="cv-toggle-sub" data-i18n="view.pbnGridHint">印刷時に見やすい</span>
+                </span>
               </label>
-              <span class="cv-hint" data-i18n="view.ditherHint">写真やグラデーションは ON 推奨</span>
+              <label class="cv-toggle">
+                <input type="checkbox" id="loupe-toggle">
+                <span class="cv-toggle-text">
+                  <span class="cv-toggle-main" data-i18n="canvas.loupe">🔍 ルーペ</span>
+                  <span class="cv-toggle-sub" data-i18n="canvas.loupeHint">拡大プレビュー</span>
+                </span>
+              </label>
+            </div>
+            <div class="cv-row">
+              <span class="cv-label" data-i18n="view.colorLimitLabel">使用色数</span>
+              <div class="color-limit-group">
+                <input type="range" id="color-limit-range" min="1" max="84" value="84" step="1">
+                <span class="color-limit-value" id="color-limit-value">84</span>
+                <span class="color-limit-unit" data-i18n="view.colorLimitUnit">色 / 84</span>
+                <button type="button" id="color-limit-reset" class="color-limit-reset" data-i18n="view.colorLimitReset">全色</button>
+              </div>
+              <span class="cv-hint" data-i18n="view.colorLimitHint">少ない色数 = 塗りやすい</span>
             </div>
             <div class="cv-row">
               <span class="cv-label" data-i18n="view.preprocessLabel">前処理</span>
               <div class="preprocess-group">
                 <div class="preprocess-item">
-                  <label data-i18n="view.preBlur">ぼかし</label>
+                  <div class="preprocess-item-head">
+                    <label data-i18n="view.preBlur">ぼかし</label>
+                    <span class="preprocess-item-hint" data-i18n="view.preBlurHint">細かいノイズを均す</span>
+                  </div>
                   <select id="pre-blur-select">
                     <option value="0" data-i18n="view.preBlurOff">なし</option>
                     <option value="1" data-i18n="view.preBlurLight">軽め</option>
@@ -756,7 +790,10 @@
                   </select>
                 </div>
                 <div class="preprocess-item">
-                  <label data-i18n="view.regionMerge">領域マージ</label>
+                  <div class="preprocess-item-head">
+                    <label data-i18n="view.regionMerge">領域マージ</label>
+                    <span class="preprocess-item-hint" data-i18n="view.regionMergeHint">孤立した色点をなくす</span>
+                  </div>
                   <select id="region-merge-select">
                     <option value="0" data-i18n="view.regionMergeOff">なし</option>
                     <option value="3" data-i18n="view.regionMergeLight">小さい点を消す</option>
@@ -765,7 +802,6 @@
                   </select>
                 </div>
               </div>
-              <span class="cv-hint" data-i18n="view.preprocessHint">ムラの少ない仕上がりに</span>
             </div>
             <div class="cv-row hsv-row">
               <span class="cv-label" data-i18n="view.adjustLabel">画像調整</span>
@@ -827,7 +863,6 @@
           </div>
 
           <div class="canvas-wrapper" id="canvas-wrapper">
-            <button type="button" id="loupe-toggle" class="loupe-toggle" aria-pressed="true" title="ルーペ" data-i18n-attr-title="canvas.loupe" data-i18n-attr-aria-label="canvas.loupe" aria-label="ルーペ">🔍</button>
             <div class="canvas-stage" id="canvas-stage">
               <div class="ruler-corner" id="ruler-corner"></div>
               <div class="ruler-top"    id="ruler-top"></div>

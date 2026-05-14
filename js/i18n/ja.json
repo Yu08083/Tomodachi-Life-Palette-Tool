@@ -39,7 +39,11 @@
     "aspectBook": "本 180×256",
     "aspectTV": "TV 256×131",
     "aspectGame": "ゲーム 256×144",
-    "aspectWall": "壁紙 172×256"
+    "aspectWall": "壁紙 172×256",
+    "aspectCustom": "カスタム",
+    "customW": "幅",
+    "customH": "高",
+    "customApply": "適用"
   },
   "viewer": {
     "labelEn": "image viewer",
@@ -68,7 +72,7 @@
     "brushModeSmooth": "中間サイズ",
     "ditherLabel": "オプション",
     "dither": "ディザ（誤差拡散）",
-    "ditherHint": "写真やグラデーションは ON 推奨",
+    "ditherHint": "写真・グラデは ON 推奨",
     "savePng": "ドット絵を<wbr>保存",
     "saveNumbered": "番号塗り絵を<wbr>保存",
     "recrop": "クロップ<wbr>やり直し",
@@ -108,7 +112,14 @@
     "regionMergeStrong": "大胆に統合",
     "preprocessHint": "ムラの少ない仕上がりに",
     "collapseOpen": "詳細オプションを開く",
-    "collapseClose": "詳細オプションを閉じる"
+    "collapseClose": "詳細オプションを閉じる",
+    "colorLimitLabel": "使用色数",
+    "colorLimitUnit": "色 / 84",
+    "colorLimitReset": "全色",
+    "colorLimitHint": "少ない色数 = 塗りやすい",
+    "pbnGridHint": "印刷時に見やすい",
+    "preBlurHint": "細かいノイズを均す",
+    "regionMergeHint": "孤立した色点をなくす"
   },
   "color": {
     "labelEn": "color information",
@@ -451,6 +462,7 @@
     "changeColor": "クリックで色変更"
   },
   "canvas": {
-    "loupe": "ルーペ"
+    "loupe": "ルーペ",
+    "loupeHint": "拡大プレビュー"
   }
 }

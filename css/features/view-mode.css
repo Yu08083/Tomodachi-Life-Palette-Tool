@@ -521,3 +521,89 @@
 .cv-collapsible.collapsed > * {
   visibility: hidden;
 }
+
+.color-limit-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+#color-limit-range {
+  flex: 1;
+  min-width: 140px;
+  accent-color: var(--orange);
+  cursor: pointer;
+}
+.color-limit-value {
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 0.96rem;
+  color: var(--orange-d);
+  font-variant-numeric: tabular-nums;
+  min-width: 32px;
+  text-align: right;
+}
+.color-limit-unit {
+  font-family: var(--font-jp);
+  font-weight: 600;
+  font-size: 0.78rem;
+  color: var(--ink-2);
+}
+.color-limit-reset {
+  font-family: var(--font-jp);
+  font-weight: 700;
+  font-size: 0.74rem;
+  padding: 4px 10px;
+  background: transparent;
+  border: 1.5px solid var(--ink-3);
+  border-radius: var(--radius-sm);
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+.color-limit-reset:hover {
+  background: var(--orange-l);
+  color: #fff;
+  border-color: var(--orange);
+}
+
+.cv-toggle-text {
+  display: inline-flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+.cv-toggle-main {
+  font-family: var(--font-jp);
+  font-weight: 700;
+  font-size: 0.86rem;
+  color: var(--ink);
+}
+.cv-toggle-sub {
+  font-family: var(--font-jp);
+  font-weight: 500;
+  font-size: 0.7rem;
+  color: var(--ink-3);
+  margin-top: 1px;
+}
+.preprocess-item-head {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 3px;
+}
+.preprocess-item-head label {
+  font-family: var(--font-jp);
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--orange-d);
+  margin: 0;
+}
+.preprocess-item-hint {
+  font-family: var(--font-jp);
+  font-weight: 500;
+  font-size: 0.7rem;
+  color: var(--ink-3);
+}
+.preprocess-group {
+  align-items: flex-start;
+}

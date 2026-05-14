@@ -421,6 +421,30 @@ function resetCropBox() {
 function setCropAspect(aspectId) {
   if (!CROP_ASPECT_PRESETS[aspectId] || !cropSrcCanvas) return;
   cropAspectId = aspectId;
+  const customUI = document.getElementById('crop-aspect-custom');
+  if (customUI) {
+    customUI.classList.toggle('hidden', aspectId !== 'custom');
+  }
+  const a = getCurrentCropAspect();
+  cropBox = fitAspectRect(cropSrcCanvas.width, cropSrcCanvas.height, a.w, a.h);
+  refreshCropAspectButtons();
+  drawCropCanvas();
+  updateCropInfo();
+}
+
+function _applyCustomAspect() {
+  const wEl = document.getElementById('custom-aspect-w');
+  const hEl = document.getElementById('custom-aspect-h');
+  if (!wEl || !hEl || !cropSrcCanvas) return;
+  let w = parseInt(wEl.value, 10);
+  let h = parseInt(hEl.value, 10);
+  if (!(w >= 1 && w <= 2048)) w = 256;
+  if (!(h >= 1 && h <= 2048)) h = 256;
+  wEl.value = w;
+  hEl.value = h;
+  customAspectW = w;
+  customAspectH = h;
+  cropAspectId = 'custom';
   const a = getCurrentCropAspect();
   cropBox = fitAspectRect(cropSrcCanvas.width, cropSrcCanvas.height, a.w, a.h);
   refreshCropAspectButtons();
@@ -453,6 +477,22 @@ function attachCropHandlers() {
 
   document.querySelectorAll('.crop-aspect-btn').forEach(btn => {
     btn.addEventListener('click', () => setCropAspect(btn.dataset.aspect));
+  });
+
+  const customApply = document.getElementById('custom-aspect-apply');
+  if (customApply) {
+    customApply.addEventListener('click', _applyCustomAspect);
+  }
+  const cw = document.getElementById('custom-aspect-w');
+  const ch = document.getElementById('custom-aspect-h');
+  [cw, ch].forEach(el => {
+    if (!el) return;
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        _applyCustomAspect();
+      }
+    });
   });
 
   const flipHBtn = document.getElementById('crop-flip-h-btn');

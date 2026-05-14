@@ -1,35 +1,30 @@
 (function () {
-  const isMobile = () => window.matchMedia('(max-width: 600px), (max-height: 500px) and (orientation: landscape)').matches;
-  let loupeEnabled = true;
+  let loupeEnabled = false;
 
   function _loadPref() {
     try {
       const v = localStorage.getItem('spoito_loupe');
-      if (v === '0') loupeEnabled = false;
-      else loupeEnabled = true;
-    } catch (_) { loupeEnabled = true; }
+      loupeEnabled = (v === '1');
+    } catch (_) { loupeEnabled = false; }
   }
   function _savePref() {
     try { localStorage.setItem('spoito_loupe', loupeEnabled ? '1' : '0'); } catch (_) {}
   }
 
   function _updateToggleUI() {
-    const btn = document.getElementById('loupe-toggle');
-    if (!btn) return;
-    btn.setAttribute('aria-pressed', loupeEnabled ? 'true' : 'false');
+    const cb = document.getElementById('loupe-toggle');
+    if (!cb) return;
+    cb.checked = loupeEnabled;
   }
 
   function _initToggle() {
     _loadPref();
-    const btn = document.getElementById('loupe-toggle');
-    if (!btn) return;
+    const cb = document.getElementById('loupe-toggle');
+    if (!cb) return;
     _updateToggleUI();
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      loupeEnabled = !loupeEnabled;
+    cb.addEventListener('change', () => {
+      loupeEnabled = cb.checked;
       _savePref();
-      _updateToggleUI();
       if (!loupeEnabled) _hideLoupe();
     });
   }

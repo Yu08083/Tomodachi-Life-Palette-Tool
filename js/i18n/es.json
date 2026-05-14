@@ -39,7 +39,11 @@
     "aspectBook": "Libro 180×256",
     "aspectTV": "TV 256×131",
     "aspectGame": "Juego 256×144",
-    "aspectWall": "Fondo 172×256"
+    "aspectWall": "Fondo 172×256",
+    "aspectCustom": "Personalizado",
+    "customW": "An",
+    "customH": "Al",
+    "customApply": "Aplicar"
   },
   "viewer": {
     "labelEn": "image viewer",
@@ -68,7 +72,7 @@
     "brushModeSmooth": "Suave",
     "ditherLabel": "Opción",
     "dither": "Tramado (difusión de error)",
-    "ditherHint": "Recomendado ON para fotos y degradados",
+    "ditherHint": "Recomendado para fotos",
     "savePng": "Guardar pixel art",
     "saveNumbered": "Guardar para colorear",
     "recrop": "Recortar de nuevo",
@@ -108,7 +112,14 @@
     "regionMergeStrong": "Fusión audaz",
     "preprocessHint": "Acabado más uniforme",
     "collapseOpen": "Mostrar opciones avanzadas",
-    "collapseClose": "Ocultar opciones avanzadas"
+    "collapseClose": "Ocultar opciones avanzadas",
+    "colorLimitLabel": "Cantidad de colores",
+    "colorLimitUnit": "/ 84",
+    "colorLimitReset": "Todo",
+    "colorLimitHint": "Menos colores = más fácil",
+    "pbnGridHint": "Fácil de leer impreso",
+    "preBlurHint": "Suaviza el ruido",
+    "regionMergeHint": "Quita puntos aislados"
   },
   "color": {
     "labelEn": "color information",
@@ -451,6 +462,7 @@
     "changeColor": "Clic para cambiar color"
   },
   "canvas": {
-    "loupe": "Lupa"
+    "loupe": "Lupa",
+    "loupeHint": "Vista ampliada"
   }
 }

@@ -39,7 +39,11 @@
     "aspectBook": "Boek 180×256",
     "aspectTV": "TV 256×131",
     "aspectGame": "Spel 256×144",
-    "aspectWall": "Achtergrond 172×256"
+    "aspectWall": "Achtergrond 172×256",
+    "aspectCustom": "Aangepast",
+    "customW": "B",
+    "customH": "H",
+    "customApply": "Toepassen"
   },
   "viewer": {
     "labelEn": "image viewer",
@@ -68,7 +72,7 @@
     "brushModeSmooth": "Glad",
     "ditherLabel": "Optie",
     "dither": "Dithering (foutdiffusie)",
-    "ditherHint": "Aanbevolen AAN voor foto's en gradiënten",
+    "ditherHint": "Aanbevolen voor foto's",
     "savePng": "Pixelart opslaan",
     "saveNumbered": "Inkleurversie opslaan",
     "recrop": "Opnieuw bijsnijden",
@@ -108,7 +112,14 @@
     "regionMergeStrong": "Stevig samenvoegen",
     "preprocessHint": "Egalere uitkomst",
     "collapseOpen": "Geavanceerde opties tonen",
-    "collapseClose": "Geavanceerde opties verbergen"
+    "collapseClose": "Geavanceerde opties verbergen",
+    "colorLimitLabel": "Aantal kleuren",
+    "colorLimitUnit": "/ 84",
+    "colorLimitReset": "Alle",
+    "colorLimitHint": "Minder kleuren = makkelijker",
+    "pbnGridHint": "Beter leesbaar bij print",
+    "preBlurHint": "Verzacht ruis",
+    "regionMergeHint": "Verwijdert losse stippen"
   },
   "color": {
     "labelEn": "color information",
@@ -451,6 +462,7 @@
     "changeColor": "Klik om te wijzigen"
   },
   "canvas": {
-    "loupe": "Loep"
+    "loupe": "Loep",
+    "loupeHint": "Vergrote weergave"
   }
 }

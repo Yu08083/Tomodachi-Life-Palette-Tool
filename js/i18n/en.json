@@ -39,7 +39,11 @@
     "aspectBook": "Book 180×256",
     "aspectTV": "TV 256×131",
     "aspectGame": "Game 256×144",
-    "aspectWall": "Wallpaper 172×256"
+    "aspectWall": "Wallpaper 172×256",
+    "aspectCustom": "Custom",
+    "customW": "W",
+    "customH": "H",
+    "customApply": "Apply"
   },
   "viewer": {
     "labelEn": "image viewer",
@@ -68,7 +72,7 @@
     "brushModeSmooth": "Smooth",
     "ditherLabel": "Option",
     "dither": "Dither (error diffusion)",
-    "ditherHint": "Recommended ON for photos and gradients",
+    "ditherHint": "Recommended for photos",
     "savePng": "Save pixel art",
     "saveNumbered": "Save paint-by-number",
     "recrop": "Re-crop",
@@ -108,7 +112,14 @@
     "regionMergeStrong": "Bold merge",
     "preprocessHint": "Smoother result",
     "collapseOpen": "Show advanced options",
-    "collapseClose": "Hide advanced options"
+    "collapseClose": "Hide advanced options",
+    "colorLimitLabel": "Color count",
+    "colorLimitUnit": "/ 84",
+    "colorLimitReset": "All",
+    "colorLimitHint": "Fewer colors = easier to paint",
+    "pbnGridHint": "Easier to see in print",
+    "preBlurHint": "Smooth out noise",
+    "regionMergeHint": "Remove isolated dots"
   },
   "color": {
     "labelEn": "color information",
@@ -451,6 +462,7 @@
     "changeColor": "Click to change color"
   },
   "canvas": {
-    "loupe": "Loupe"
+    "loupe": "Loupe",
+    "loupeHint": "Magnified preview"
   }
 }

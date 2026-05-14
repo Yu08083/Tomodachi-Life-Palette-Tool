@@ -41,9 +41,16 @@ const CROP_ASPECT_PRESETS = {
   'tv':   { id: 'tv',   w: 256, h: 131, labelKey: 'crop.aspectTV'   },
   'game': { id: 'game', w: 256, h: 144, labelKey: 'crop.aspectGame' },
   'wall': { id: 'wall', w: 172, h: 256, labelKey: 'crop.aspectWall' },
+  'custom': { id: 'custom', w: 256, h: 256, labelKey: 'crop.aspectCustom' },
 };
 
+var customAspectW = 256;
+var customAspectH = 256;
+
 function getCurrentCropAspect() {
+  if (cropAspectId === 'custom') {
+    return { id: 'custom', w: customAspectW, h: customAspectH, labelKey: 'crop.aspectCustom' };
+  }
   return CROP_ASPECT_PRESETS[cropAspectId] || CROP_ASPECT_PRESETS['1:1'];
 }
 
@@ -57,6 +64,7 @@ var gridOffsetX = 0;
 var gridOffsetY = 0;
 var preBlurAmount = 0;
 var regionMergeMin = 0;
+var colorLimitMax = 84;
 var noSelectMsg, colorInfo, imgInfoEl;
 var demoBtn;
 

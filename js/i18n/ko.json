@@ -39,7 +39,11 @@
     "aspectBook": "책 180×256",
     "aspectTV": "TV 256×131",
     "aspectGame": "게임 256×144",
-    "aspectWall": "벽지 172×256"
+    "aspectWall": "벽지 172×256",
+    "aspectCustom": "사용자 정의",
+    "customW": "폭",
+    "customH": "높이",
+    "customApply": "적용"
   },
   "viewer": {
     "labelEn": "image viewer",
@@ -68,7 +72,7 @@
     "brushModeSmooth": "Smooth",
     "ditherLabel": "옵션",
     "dither": "디더 (오차 확산)",
-    "ditherHint": "사진이나 그라데이션은 ON 권장",
+    "ditherHint": "사진·그라데이션 권장",
     "savePng": "도트 그림 저장",
     "saveNumbered": "번호 색칠 저장",
     "recrop": "다시 자르기",
@@ -108,7 +112,14 @@
     "regionMergeStrong": "과감히 병합",
     "preprocessHint": "얼룩이 적은 마무리",
     "collapseOpen": "고급 옵션 열기",
-    "collapseClose": "고급 옵션 닫기"
+    "collapseClose": "고급 옵션 닫기",
+    "colorLimitLabel": "사용 색상 수",
+    "colorLimitUnit": "색 / 84",
+    "colorLimitReset": "전체",
+    "colorLimitHint": "적은 색 = 칠하기 쉬움",
+    "pbnGridHint": "인쇄 시 보기 편함",
+    "preBlurHint": "노이즈 부드럽게",
+    "regionMergeHint": "고립된 점 제거"
   },
   "color": {
     "labelEn": "color information",
@@ -451,6 +462,7 @@
     "changeColor": "클릭으로 색 변경"
   },
   "canvas": {
-    "loupe": "돋보기"
+    "loupe": "돋보기",
+    "loupeHint": "확대 미리보기"
   }
 }

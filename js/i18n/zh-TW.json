@@ -39,7 +39,11 @@
     "aspectBook": "書本 180×256",
     "aspectTV": "TV 256×131",
     "aspectGame": "遊戲 256×144",
-    "aspectWall": "桌布 172×256"
+    "aspectWall": "桌布 172×256",
+    "aspectCustom": "自訂",
+    "customW": "寬",
+    "customH": "高",
+    "customApply": "套用"
   },
   "viewer": {
     "labelEn": "image viewer",
@@ -68,7 +72,7 @@
     "brushModeSmooth": "Smooth",
     "ditherLabel": "選項",
     "dither": "抖色(誤差擴散)",
-    "ditherHint": "照片或漸層建議開啟",
+    "ditherHint": "照片漸層推薦 ON",
     "savePng": "儲存<wbr>像素圖",
     "saveNumbered": "儲存<wbr>編號著色圖",
     "recrop": "重新<wbr>裁切",
@@ -108,7 +112,14 @@
     "regionMergeStrong": "大膽合併",
     "preprocessHint": "減少色斑",
     "collapseOpen": "顯示進階選項",
-    "collapseClose": "隱藏進階選項"
+    "collapseClose": "隱藏進階選項",
+    "colorLimitLabel": "使用色數",
+    "colorLimitUnit": "色 / 84",
+    "colorLimitReset": "全部",
+    "colorLimitHint": "顏色越少越容易上色",
+    "pbnGridHint": "列印更易看清",
+    "preBlurHint": "平滑細小雜訊",
+    "regionMergeHint": "消除孤立色點"
   },
   "color": {
     "labelEn": "color information",
@@ -451,6 +462,7 @@
     "changeColor": "點擊換色"
   },
   "canvas": {
-    "loupe": "放大鏡"
+    "loupe": "放大鏡",
+    "loupeHint": "放大預覽"
   }
 }

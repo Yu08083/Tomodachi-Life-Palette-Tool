@@ -590,39 +590,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-.loupe-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  z-index: 30;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.92);
-  border: 2px solid var(--orange);
-  color: var(--orange-d);
-  font-size: 18px;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
-  transition: transform 0.1s, background 0.12s;
-}
-.loupe-toggle:hover {
-  background: var(--card);
-  transform: scale(1.05);
-}
-.loupe-toggle:active {
-  transform: scale(0.94);
-}
-.loupe-toggle[aria-pressed="false"] {
-  background: rgba(255, 255, 255, 0.7);
-  border-color: var(--ink-3);
-  color: var(--ink-3);
-  opacity: 0.65;
-}
-
 .loupe {
   display: block;
   position: fixed;

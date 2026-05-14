@@ -39,7 +39,11 @@
     "aspectBook": "Buch 180×256",
     "aspectTV": "TV 256×131",
     "aspectGame": "Spiel 256×144",
-    "aspectWall": "Hintergrund 172×256"
+    "aspectWall": "Hintergrund 172×256",
+    "aspectCustom": "Eigene",
+    "customW": "B",
+    "customH": "H",
+    "customApply": "Übernehmen"
   },
   "viewer": {
     "labelEn": "image viewer",
@@ -68,7 +72,7 @@
     "brushModeSmooth": "Glatt",
     "ditherLabel": "Option",
     "dither": "Dithering (Fehlerdiffusion)",
-    "ditherHint": "Empfohlen bei Fotos und Verläufen",
+    "ditherHint": "Für Fotos empfohlen",
     "savePng": "Pixel-Art speichern",
     "saveNumbered": "Malen nach Zahlen speichern",
     "recrop": "Neu zuschneiden",
@@ -108,7 +112,14 @@
     "regionMergeStrong": "Stark verschmelzen",
     "preprocessHint": "Gleichmäßigeres Ergebnis",
     "collapseOpen": "Erweiterte Optionen einblenden",
-    "collapseClose": "Erweiterte Optionen ausblenden"
+    "collapseClose": "Erweiterte Optionen ausblenden",
+    "colorLimitLabel": "Farbenanzahl",
+    "colorLimitUnit": "/ 84",
+    "colorLimitReset": "Alle",
+    "colorLimitHint": "Weniger Farben = einfacher",
+    "pbnGridHint": "Beim Drucken klarer",
+    "preBlurHint": "Glättet Rauschen",
+    "regionMergeHint": "Entfernt einzelne Punkte"
   },
   "color": {
     "labelEn": "color information",
@@ -451,6 +462,7 @@
     "changeColor": "Farbe ändern"
   },
   "canvas": {
-    "loupe": "Lupe"
+    "loupe": "Lupe",
+    "loupeHint": "Vergrößerte Vorschau"
   }
 }

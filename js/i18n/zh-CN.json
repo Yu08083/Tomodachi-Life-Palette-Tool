@@ -39,7 +39,11 @@
     "aspectBook": "书本 180×256",
     "aspectTV": "TV 256×131",
     "aspectGame": "游戏 256×144",
-    "aspectWall": "壁纸 172×256"
+    "aspectWall": "壁纸 172×256",
+    "aspectCustom": "自定义",
+    "customW": "宽",
+    "customH": "高",
+    "customApply": "应用"
   },
   "viewer": {
     "labelEn": "image viewer",
@@ -68,7 +72,7 @@
     "brushModeSmooth": "Smooth",
     "ditherLabel": "选项",
     "dither": "抖色(误差扩散)",
-    "ditherHint": "照片或渐层建议打开",
+    "ditherHint": "照片渐变推荐 ON",
     "savePng": "保存<wbr>像素图",
     "saveNumbered": "保存<wbr>编号着色图",
     "recrop": "重新<wbr>裁切",
@@ -108,7 +112,14 @@
     "regionMergeStrong": "大胆合并",
     "preprocessHint": "减少色斑",
     "collapseOpen": "显示高级选项",
-    "collapseClose": "隐藏高级选项"
+    "collapseClose": "隐藏高级选项",
+    "colorLimitLabel": "使用色数",
+    "colorLimitUnit": "色 / 84",
+    "colorLimitReset": "全部",
+    "colorLimitHint": "颜色越少越容易上色",
+    "pbnGridHint": "打印更易看清",
+    "preBlurHint": "平滑细小噪点",
+    "regionMergeHint": "消除孤立色点"
   },
   "color": {
     "labelEn": "color information",
@@ -451,6 +462,7 @@
     "changeColor": "点击换色"
   },
   "canvas": {
-    "loupe": "放大镜"
+    "loupe": "放大镜",
+    "loupeHint": "放大预览"
   }
 }

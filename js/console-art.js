@@ -125,22 +125,6 @@
     [82,80,53,29,11,53,29,41,23,53,29,67,79,55,42,72,72,17,28,53,35,29,59,53, 4,83,53,29,54,30,41,82]
   ];
 
-  const BRUSH = [
-    [-1,-1,-1,-1,-1,-1, 7, 7, 7,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-    [-1,-1,-1,-1,-1, 7,19,19,19, 7,-1,-1,-1,-1,-1,-1,-1,-1],
-    [-1,-1,-1,-1, 7,19,19,19,19,19, 7,-1,-1,-1,-1,-1,-1,-1],
-    [-1,-1,-1, 7,19,19,43,43,43,19,19, 7,-1,-1,-1,-1,-1,-1],
-    [-1,-1, 7,19,43,43,43,43,43,43,43,19, 7,-1,-1,-1,-1,-1],
-    [-1, 7,19,43,43,38,38,38,38,38,43,43,19, 7,-1,-1,-1,-1],
-    [ 7,19,43,38,38,38,33,33,38,38,38,43,19, 7,-1,-1,-1,-1],
-    [-1, 7,19,33,38,33,33,33,33,38,19, 7,-1,-1,-1,-1,-1,-1],
-    [-1,-1, 7,19,33,33,33,33,33,19, 7,-1,-1,-1,-1,-1,-1,-1],
-    [-1,-1,-1, 7,19,19,33,33,19,82,82,82,82,-1,-1,-1,-1,-1],
-    [-1,-1,-1,-1, 7,19,19,19,82,70,55,55,55,82,82,-1,-1,-1],
-    [-1,-1,-1,-1,-1, 7, 7, 7,-1,82,82,82,70,55,55,55,82,-1],
-    [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,82,82,82,82,70,55,82],
-    [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,82,82,82,82,82]
-  ];
 
   const art = '\n' +
 '   ███████╗██████╗  ██████╗ ██╗████████╗ ██████╗\n' +
@@ -195,10 +179,10 @@
 
   console.log('%c━━ TRY THESE ━━━━━━━━━━━━━━━━━━━━━━━━━━━', S.sect);
   console.log('%c spoito.about()   %cAbout this project', S.cmd, S.cmdDesc);
-  console.log('%c spoito.colors()  %cView all 84 palette colors (sortable table)', S.cmd, S.cmdDesc);
+  console.log('%c spoito.colors()  %cView all 84 palette colors', S.cmd, S.cmdDesc);
   console.log('%c spoito.scene()   %cDawn landscape — every one of the 84 colors used at least once', S.cmd, S.cmdDesc);
-  console.log('%c spoito.brush()   %cThe tool icon, in pixels', S.cmd, S.cmdDesc);
   console.log('%c spoito.thanks()  %cThanks in 12 languages', S.cmd, S.cmdDesc);
+  console.log('%c spoito.theme()   %cSwitch UI theme: neon, retro, mono, default', S.cmd, S.cmdDesc);
   console.log('%c spoito.help()    %cAll available commands', S.cmd, S.cmdDesc);
   console.log('');
 
@@ -265,16 +249,6 @@
       return '';
     },
 
-    brush() {
-      _rule();
-      console.log('%c🖌  The icon of すぽいと帳, in actual game pixels', S.greet);
-      console.log('');
-      drawArt(BRUSH, 5, 5);
-      console.log('%c   yellow-cream bristles · orange paint · wooden handle', S.cap);
-      _rule();
-      return '';
-    },
-
     thanks() {
       _rule();
       console.log('%c💛 Thanks for being here!', S.greet);
@@ -314,55 +288,151 @@
       console.log('%c spoito.about()   %cAbout this project', S.cmd, S.cmdDesc);
       console.log('%c spoito.colors()  %cView all 84 palette colors', S.cmd, S.cmdDesc);
       console.log('%c spoito.scene()   %cDawn landscape — every one of the 84 colors used at least once', S.cmd, S.cmdDesc);
-      console.log('%c spoito.brush()   %cTool icon in pixels', S.cmd, S.cmdDesc);
       console.log('%c spoito.thanks()  %cThanks in 12 languages', S.cmd, S.cmdDesc);
+      console.log('%c spoito.theme()   %cSwitch UI theme: neon, retro, mono, default', S.cmd, S.cmdDesc);
       console.log('%c spoito.help()    %cThis message', S.cmd, S.cmdDesc);
       console.log('%c spoito.version   %cVersion info', S.cmd, S.cmdDesc);
       _rule();
       return '';
+    },
+
+    theme(name) {
+      applyTheme(name);
+      return '';
     }
   };
 
+  const spoitoWrapped = {};
+  ['about', 'colors', 'scene', 'thanks', 'help'].forEach(name => {
+    Object.defineProperty(spoitoWrapped, name, {
+      get() { return api[name](); },
+      enumerable: true,
+      configurable: false
+    });
+  });
+  Object.defineProperty(spoitoWrapped, 'theme', {
+    value: api.theme,
+    writable: false,
+    enumerable: true,
+    configurable: false
+  });
+  Object.defineProperty(spoitoWrapped, 'version', {
+    get() { return api.version; },
+    enumerable: true,
+    configurable: false
+  });
+
   Object.defineProperty(window, 'spoito', {
-    value: Object.freeze(api),
+    value: Object.freeze(spoitoWrapped),
     writable: false,
     configurable: false
   });
 
-  Object.defineProperty(window, 'tomodati', {
-    get() {
-      const warm = 'color:#FFAA4D;font-size:15px;font-weight:700;font-family:"Hiragino Maru Gothic ProN","Yu Gothic","Meiryo",sans-serif;padding:6px 0;';
-      const muted = 'color:#C9A77A;font-size:14px;font-family:"Hiragino Maru Gothic ProN","Yu Gothic","Meiryo",sans-serif;';
-      const emph = 'color:#FF5555;font-size:22px;font-weight:900;font-family:"Hiragino Maru Gothic ProN","Yu Gothic","Meiryo",sans-serif;text-shadow:0 0 8px rgba(255,85,85,0.55),1px 1px 0 rgba(0,0,0,0.3);padding:0 6px;';
-
-      console.log('%c今いるトモダチを大切に', warm);
-      console.log('%c私には%c「もう」%cいません', muted, emph, muted);
-
-      setTimeout(() => {
-        console.clear();
-        const myst    = 'color:#9B7FE0;font-size:13px;font-family:"Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;';
-        const mystEm  = 'color:#A88FE8;font-size:15px;font-weight:800;font-family:"Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;padding:4px 0;';
-        const cipher  = 'color:#5EB8F0;font-size:20px;font-weight:800;font-family:"JetBrains Mono","Courier New",monospace;letter-spacing:0.12em;padding:14px 0;text-shadow:0 0 6px rgba(94,184,240,0.5);';
-        const tiny    = 'color:#7A6A55;font-size:11px;font-style:italic;font-family:sans-serif;padding:4px 0;';
-
-        console.log('%c更に深く知りたい方は', mystEm);
-        console.log('%c暗号を解いてください', mystEm);
-        console.log('');
-        console.log('%cツイッターのアカウントを特定してください', myst);
-        console.log('%cIDは', myst);
-        console.log('%c73686c6c616463736e', cipher);
-        console.log('%c※ 73686c6c616463736e は暗号化済みです', tiny);
-      }, 3500);
-
-      return '';
+  const THEMES = {
+    'default': {
+      '--bg':         '#FFF4E6',
+      '--bg-soft':    '#FFE8CF',
+      '--bg-deep':    '#FFD9A8',
+      '--card':       '#FFFFFF',
+      '--orange':     '#FF6B1A',
+      '--orange-d':   '#E5530A',
+      '--orange-l':   '#FF8F4D',
+      '--yellow':     '#FFC93C',
+      '--yellow-d':   '#E5A823',
+      '--pink':       '#FF8FA3',
+      '--teal':       '#4ECDC4',
+      '--danger':     '#E84545',
+      '--ink':        '#3A1F0A',
+      '--ink-2':      '#6B4226',
+      '--ink-3':      '#9C7553',
+      '--ink-soft':   '#FFF6E8',
+      '--line':       '#F4D5B0',
+      '--line-soft':  '#FAE6CD'
     },
-    configurable: false
-  });
+    'neon': {
+      '--bg':         '#0a0a0a',
+      '--bg-soft':    '#1a1a1a',
+      '--bg-deep':    '#000000',
+      '--card':       '#111111',
+      '--orange':     '#00FF00',
+      '--orange-d':   '#00DD00',
+      '--orange-l':   '#00FF99',
+      '--yellow':     '#1a1a1a',
+      '--yellow-d':   '#00FF00',
+      '--pink':       '#FF00FF',
+      '--teal':       '#00FFFF',
+      '--danger':     '#FF0000',
+      '--ink':        '#00FF00',
+      '--ink-2':      '#00CC00',
+      '--ink-3':      '#009900',
+      '--ink-soft':   '#001100',
+      '--line':       '#003300',
+      '--line-soft':  '#002200'
+    },
+    'retro': {
+      '--bg':         '#FFFFCC',
+      '--bg-soft':    '#FFFFE0',
+      '--bg-deep':    '#FFFFA0',
+      '--card':       '#FFFFEE',
+      '--orange':     '#FF9933',
+      '--orange-d':   '#CC6600',
+      '--orange-l':   '#FFCC99',
+      '--yellow':     '#FFDD44',
+      '--yellow-d':   '#CC9900',
+      '--pink':       '#FF6699',
+      '--teal':       '#33CCCC',
+      '--danger':     '#CC3333',
+      '--ink':        '#330033',
+      '--ink-2':      '#666666',
+      '--ink-3':      '#999999',
+      '--ink-soft':   '#F0E68C',
+      '--line':       '#FFD700',
+      '--line-soft':  '#FFEE99'
+    },
+    'mono': {
+      '--bg':         '#F5F5F5',
+      '--bg-soft':    '#EEEEEE',
+      '--bg-deep':    '#DDDDDD',
+      '--card':       '#FFFFFF',
+      '--orange':     '#333333',
+      '--orange-d':   '#000000',
+      '--orange-l':   '#666666',
+      '--yellow':     '#888888',
+      '--yellow-d':   '#555555',
+      '--pink':       '#555555',
+      '--teal':       '#777777',
+      '--danger':     '#444444',
+      '--ink':        '#000000',
+      '--ink-2':      '#444444',
+      '--ink-3':      '#888888',
+      '--ink-soft':   '#F0F0F0',
+      '--line':       '#CCCCCC',
+      '--line-soft':  '#DDDDDD'
+    }
+  };
+
+  function applyTheme(name) {
+    if (!THEMES[name]) {
+      console.warn(`Theme "${name}" not found. Available: ${Object.keys(THEMES).join(', ')}`);
+      return;
+    }
+    const root = document.documentElement;
+    Object.entries(THEMES[name]).forEach(([key, val]) => {
+      root.style.setProperty(key, val);
+    });
+    const scheme = (name === 'neon') ? 'dark' : 'light';
+    root.style.setProperty('color-scheme', scheme);
+    try {
+      localStorage.setItem('spoito_theme', name);
+    } catch (_) {}
+    console.log(`%cTheme: ${name} ✨`, 'color:#FF6B1A;font-weight:bold;font-size:13px;');
+  }
+
+  const restoreTheme = () => {
+    try {
+      const saved = localStorage.getItem('spoito_theme');
+      if (saved && THEMES[saved]) applyTheme(saved);
+    } catch (_) {}
+  };
+  restoreTheme();
 })();
-
-
-  Object.defineProperty(window, 'spoito', {
-    value: Object.freeze(api),
-    writable: false,
-    configurable: false
-  });

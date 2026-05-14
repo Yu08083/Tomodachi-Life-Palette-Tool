@@ -203,10 +203,10 @@
 .btn.accent {
   background: var(--yellow);
   color: var(--ink);
-  border-color: #E5A823;
-  box-shadow: 0 3px 0 #E5A823;
+  border-color: var(--yellow-d);
+  box-shadow: 0 3px 0 var(--yellow-d);
 }
-.btn.accent:hover { background: #FFD352; }
+.btn.accent:hover { background: var(--yellow-d); }
 
 .btn.ghost {
   background: transparent;
@@ -321,7 +321,7 @@
   margin: var(--gap-lg) auto 0;
   max-width: 720px;
   padding: var(--gap-lg);
-  background: rgba(255, 252, 246, 0.7);
+  background: var(--card);
   border: 1.5px dashed var(--line);
   border-radius: var(--radius-md);
   text-align: left;
@@ -380,7 +380,7 @@
   margin: var(--gap-md) auto 0;
   max-width: 720px;
   padding: var(--gap-lg);
-  background: rgba(255, 252, 246, 0.7);
+  background: var(--card);
   border: 1.5px dashed var(--line);
   border-radius: var(--radius-md);
   text-align: left;
